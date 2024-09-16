@@ -1,0 +1,66 @@
+/* Styling the game list container */
+.game-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* Each game item will have some space between it */
+  .game-item {
+    margin: 10px 0;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  /* Hover effect for better interaction */
+  .game-item:hover {
+    background-color: #e9ecef;
+  }
+  
+  /* Layout the game details side by side */
+  .game-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 500;
+    color: #343a40;
+  }
+  
+  /* Styling for team names */
+  .team-name {
+    flex: 1;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #007bff;
+  }
+  
+  /* Styling for game score */
+  .game-score {
+    flex: 0 0 auto;
+    margin: 0 15px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #495057;
+  }
+  
+  /* Media queries for responsiveness */
+  @media (max-width: 600px) {
+    .game-details {
+      flex-direction: column;
+    }
+  
+    .team-name, .game-score {
+      margin-bottom: 8px;
+    }
+  
+    .game-score {
+      font-size: 18px;
+    }
+  }
+  

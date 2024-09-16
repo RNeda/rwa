@@ -1,0 +1,44 @@
+<div class="container">
+    <div class="main-div">
+        <h2>Sign Up</h2>
+        <mat-form-field appearance="fill" class="field" color="primary">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" [(ngModel)]="user.email" required="true" #emailInput="ngModel" />
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="field" color="primary">
+            <mat-label>Password</mat-label>
+            <input matInput required="true" [type]="hidePassword ? 'password' : 'text'" name="password"
+                [(ngModel)]="user.password" #passwordInput="ngModel" />
+            <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword">
+                <mat-icon>{{
+                    hidePassword ? "visibility_off" : "visibility"
+                    }}</mat-icon>
+            </button>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="field" color="primary">
+            <mat-label>Name</mat-label>
+            <input [(ngModel)]="user.name" required="true" #nameInput="ngModel" matInput />
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="field"color="primary">
+            <mat-label>Surname</mat-label>
+            <input [(ngModel)]="user.surname" required="true" #surnameInput="ngModel" matInput />
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="field" color="primary">
+            <mat-label>Username</mat-label>
+            <input [(ngModel)]="user.username" required="true" #usernameInput="ngModel" matInput />
+        </mat-form-field>
+        <!--<mat-form-field appearance="fill" class="field" color="primary">
+            <mat-label>Job</mat-label>
+            <input [(ngModel)]="user.job" required="true" #jobInput="ngModel" matInput />
+        </mat-form-field>-->
+        <div class="button-container">
+            <button mat-raised-button color="primary" class="btn" (click)="onSignIn()">
+                Sign In
+            </button>
+            <button mat-raised-button color="primary" class="btn" (click)="onSignUp()"
+                [disabled]="!emailInput.valid || !passwordInput.valid || !usernameInput.valid||!nameInput.valid||!surnameInput.valid">Sign Up</button>
+           
+        </div>
+    </div>
+</div>
+<!--<app-background-canvas></app-background-canvas>-->

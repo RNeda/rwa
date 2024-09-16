@@ -1,0 +1,20 @@
+
+<div *ngIf="dreamTeam; else loading"> <!--dreamTeam$ as dreamTeam-->
+    <h2>{{ dreamTeam.name }}</h2>
+    <p>Likes: {{ dreamTeam.likes }}</p>
+    <p>Dislikes: {{ dreamTeam.dislikes }}</p>
+    <h3>Creator</h3>
+    <p>{{ dreamTeam.creator.name }}</p>
+    <h3>Players</h3>
+    <ul>
+      <li *ngFor="let player of dreamTeam.players">
+        <img [src]="player.picture" alt="{{ player.name }}" />
+        <p>{{ player.name }} - {{ player.position }} (Age: {{ player.age }})</p>
+      </li>
+    </ul>
+  </div>
+  
+  <ng-template #loading>
+    <p>Loading DreamTeam details...</p>
+  </ng-template>
+  

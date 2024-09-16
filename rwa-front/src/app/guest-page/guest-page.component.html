@@ -1,0 +1,18 @@
+<!-- game-page.component.html -->
+<app-nav></app-nav>
+<div *ngIf="games$ | async as games; else loading">
+  <h2>Game List</h2>
+  <ul class="game-list">
+    <li *ngFor="let game of games" (click)="onSelectGame(game.id)" class="game-item">
+      <div class="game-details">
+        <span class="team-name">{{ game.teams[0]?.name }}</span>
+        <span class="game-score">{{ game.resTeam1 }} : {{ game.resTeam2 }}</span>
+        <span class="team-name">{{ game.teams[1]?.name }}</span>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<ng-template #loading>
+  <p>Loading games...</p>
+</ng-template>

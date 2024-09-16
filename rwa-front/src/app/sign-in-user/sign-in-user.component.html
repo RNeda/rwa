@@ -1,0 +1,45 @@
+<div class="container">
+    <div class="main-div">
+      <h2>Sign In</h2>
+      <mat-form-field appearance="fill" class="field" color="primary">
+        <mat-label>Email</mat-label>
+        <input
+          matInput
+          type="email"
+          [(ngModel)]="email"
+          required="true"
+          #emailInput="ngModel"
+        />
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="field" color="primary">
+        <mat-label>Password</mat-label>
+        <input
+          matInput
+          required="true"
+          [type]="hidePassword ? 'password' : 'text'"
+          name="password"
+          [(ngModel)]="password"
+          #passwordInput="ngModel"
+        />
+        <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword">
+          <mat-icon>{{
+            hidePassword ? "visibility_off" : "visibility"
+          }}</mat-icon>
+        </button>
+      </mat-form-field>
+      <div class="button-container">
+        <button mat-raised-button color="primary" class="btn" (click)="onSignUp()">Sign Up</button>
+        <button
+          mat-raised-button color="primary"
+          class="btn"
+          (click)="onSignIn()"
+          [disabled]="!emailInput.valid || !passwordInput.valid"
+        >
+          Sign In
+        </button>
+        <button mat-raised-button color="primary" class="btn-guest" (click)="onGuestAccess()">Be A Guest</button>
+      </div>
+    </div>
+  </div>
+  <!--<app-background-canvas></app-background-canvas>-->
+  

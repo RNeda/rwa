@@ -1,0 +1,45 @@
+<app-nav></app-nav>
+<div class="profile">
+    <div class="centeredDiv">
+      <!--<div class="profile-picture">
+        <img [src]="svg" alt="Profile Image" />
+      </div>-->
+      <div class="profile-names">
+        <h2>{{ profileToDisplay.name + " " }}</h2>
+        <h2>
+          {{ profileToDisplay.surname }}
+        </h2>
+      </div>
+    </div>
+    <div class="profile-details">
+      <div class="profile-row">
+        <span class="profile-label">Username:</span>
+        <span>{{ profileToDisplay.username }}</span>
+      </div>
+      <!--<div class="profile-row">
+        <span class="profile-label">Job:</span>
+        <span>{{ profileToDisplay.job }}</span>
+      </div>-->
+      <div class="profile-row">
+        <span class="profile-label">Email:</span>
+        <span>{{ profileToDisplay.email }}</span>
+      </div>
+    </div>
+
+    <div class="edit">
+      <div class="edit-profile">
+        <button
+          type="button"
+          aria-label="Delete profile"
+          (click)="deleteProfile()"
+          mat-raised-button
+          class="edit-button"
+        >
+          Delete profile
+          <!-- <mat-icon aria-label="Delete icon">delete</mat-icon> -->
+        </button>
+      </div>
+     
+    </div>
+  </div>
+  <!--<app-background-canvas></app-background-canvas>-->
