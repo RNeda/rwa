@@ -36,9 +36,10 @@ import { GameEffects } from './store/game.effects';
 import { NavComponent } from './nav/nav.component';
 import { ProfileComponent } from './profile/profile.component';
 import { HomePageComponent } from './home-page/home-page.component';
-import { dreamTeamReducer } from './store/dreamteam.reducer';
+import { dreamTeamReducer, profileReducer } from './store/dreamteam.reducer';
 import { DreamTeamEffects } from './store/dreamteam.effects';
 import { ShowDreamteamComponent } from './show-dreamteam/show-dreamteam.component';
+import { CreateDreamteamComponent } from './create-dreamteam/create-dreamteam.component';
 
 @NgModule({
   declarations: [
@@ -49,13 +50,14 @@ import { ShowDreamteamComponent } from './show-dreamteam/show-dreamteam.componen
     NavComponent,
     ProfileComponent,
     HomePageComponent,
-    ShowDreamteamComponent
+    ShowDreamteamComponent,
+    CreateDreamteamComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     //FontAwesomeModule,
-    StoreModule.forRoot<AppState>({auth:authReducer, games: gamesReducer, dreamteams:dreamTeamReducer}),
+    StoreModule.forRoot<AppState>({auth:authReducer, games: gamesReducer, dreamteams:dreamTeamReducer, profile:profileReducer}),
     StoreDevtoolsModule.instrument({
       maxAge:25,
     }),

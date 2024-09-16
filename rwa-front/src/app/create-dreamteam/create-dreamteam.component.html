@@ -1,0 +1,15 @@
+<h1>Create New DreamTeam</h1>
+
+<div>
+  <label for="teamName">Team Name:</label>
+  <input id="teamName" [(ngModel)]="teamName" />
+</div>
+
+<h3>Select Players:</h3>
+<ul>
+  <li *ngFor="let player of players$ | async">
+    <input type="checkbox" (change)="togglePlayerSelection(player.id)" /> {{ player.name }}
+  </li>
+</ul>
+
+<button (click)="createDreamTeam()">Create DreamTeam</button>

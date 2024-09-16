@@ -38,8 +38,52 @@
           Delete profile
           <!-- <mat-icon aria-label="Delete icon">delete</mat-icon> -->
         </button>
+        <button
+          type="button"
+          aria-label="New dreamteam"
+          (click)="newDreamTeam()"
+          mat-raised-button
+          class="edit-button"
+        >
+          New dreamteam
+          <!-- <mat-icon aria-label="Delete icon">delete</mat-icon> -->
+        </button>
       </div>
+
+      
      
     </div>
+    <div class="dream-teams">
+      <h2>{{ profileToDisplay.name }}'s DreamTeams</h2>
+    
+      <!--<div *ngIf="fulldts | async as dreamTeams; else noDreamTeams">dreamTeams$ | async as dreamTeams; else noDreamTeams">-->
+        
+        <div *ngFor="let dreamTeam of fulldts">
+          
+          
+          
+          <div *ngIf="dreamTeam; else loading"> 
+            <h2 (click)="showDt(dreamTeam.id)">{{ dreamTeam.name }}</h2>
+            <button (click)="deleteDreamteam(dreamTeam.id)">Delete dreamteam</button>
+            <p>Likes: {{ dreamTeam.likes }}</p>
+            <p>Dislikes: {{ dreamTeam.dislikes }}</p>
+            
+            
+            
+          </div>
+
+          <ng-template #loading>
+            <p>Loading DreamTeam details...</p>
+          </ng-template>
+
+
+        </div>
+      <!--</div>-->
+      
+      <ng-template #noDreamTeams>
+        <p>No DreamTeams available.</p>
+      </ng-template>
+    </div>
   </div>
+
   <!--<app-background-canvas></app-background-canvas>-->

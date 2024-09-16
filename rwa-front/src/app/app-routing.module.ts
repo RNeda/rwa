@@ -7,6 +7,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { IsAuthGuard } from './auth/guard';
 import { HomePageComponent } from './home-page/home-page.component';
 import { ShowDreamteamComponent } from './show-dreamteam/show-dreamteam.component';
+import { CreateDreamteamComponent } from './create-dreamteam/create-dreamteam.component';
 
 const routes: Routes = [
   {
@@ -25,10 +26,13 @@ const routes: Routes = [
     path:'home-page', component:HomePageComponent, pathMatch:'full', canActivate: [IsAuthGuard]
   },
   {
-    path: 'dreamteam/:id', component: ShowDreamteamComponent, pathMatch:'full', canActivate:[IsAuthGuard] 
+    path: 'show-dreamteam'/*'dreamteam/:id'*/, component: ShowDreamteamComponent, pathMatch:'full', canActivate:[IsAuthGuard] 
   },
   {
     path:'my-profile', component: ProfileComponent, pathMatch: 'full', canActivate: [IsAuthGuard]
+  },
+  {
+    path:'create-dreamteam', component: CreateDreamteamComponent, pathMatch: 'full', canActivate: [IsAuthGuard]
   },
   {
     path:'**', redirectTo: 'sign-in', pathMatch: 'full'
