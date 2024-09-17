@@ -40,6 +40,7 @@ import { dreamTeamReducer, profileReducer } from './store/dreamteam.reducer';
 import { DreamTeamEffects } from './store/dreamteam.effects';
 import { ShowDreamteamComponent } from './show-dreamteam/show-dreamteam.component';
 import { CreateDreamteamComponent } from './create-dreamteam/create-dreamteam.component';
+import { UpdateDreamteamComponent } from './update-dreamteam/update-dreamteam.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { CreateDreamteamComponent } from './create-dreamteam/create-dreamteam.co
     ProfileComponent,
     HomePageComponent,
     ShowDreamteamComponent,
-    CreateDreamteamComponent
+    CreateDreamteamComponent,
+    UpdateDreamteamComponent
   ],
   imports: [
     BrowserModule,

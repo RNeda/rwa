@@ -58,16 +58,18 @@
     
       <!--<div *ngIf="fulldts | async as dreamTeams; else noDreamTeams">dreamTeams$ | async as dreamTeams; else noDreamTeams">-->
         
-        <div *ngFor="let dreamTeam of fulldts">
+        <div class="eachdt" *ngFor="let dreamTeam of fulldts">
           
           
           
           <div *ngIf="dreamTeam; else loading"> 
-            <h2 (click)="showDt(dreamTeam.id)">{{ dreamTeam.name }}</h2>
-            <button (click)="deleteDreamteam(dreamTeam.id)">Delete dreamteam</button>
+            <h2 >{{ dreamTeam.name }}</h2>
+            
             <p>Likes: {{ dreamTeam.likes }}</p>
             <p>Dislikes: {{ dreamTeam.dislikes }}</p>
-            
+            <button (click)="showDt(dreamTeam.id)">Show details</button>
+            <button (click)="updateDt(dreamTeam.id)">Update dreamteam</button>
+            <button (click)="deleteDreamteam(dreamTeam.id)">Delete dreamteam</button>
             
             
           </div>

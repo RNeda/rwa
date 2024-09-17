@@ -89,6 +89,11 @@ export class ProfileComponent implements OnInit, OnDestroy{
     console.log(this.novi);
   }
 
+
+  updateDt(dreamTeamId:number){
+    this.router.navigate(['update-dreamteam'], { queryParams: { dtId: dreamTeamId } });
+  }
+
   deleteDreamteam(id:number){
     this.store.dispatch(deleteDreamteam({id:id}));
     this.router.navigate(['/my-profile']);

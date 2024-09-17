@@ -109,3 +109,31 @@ export const updateDreamTeamFailure = createAction(
   '[DreamTeam] Update DreamTeam Failure',
   props<{ error: any }>()
 );
+
+
+export const loadAvailablePlayers = createAction(
+  '[DreamTeam] Load Available Players'
+);
+export const loadAvailablePlayersSuccess = createAction(
+  '[DreamTeam] Load Available Players Success',
+  props<{ players: Player[] }>()
+);
+export const loadAvailablePlayersFailure = createAction(
+  '[DreamTeam] Load Available Players Failure',
+  props<{ error: any }>()
+);
+
+export const removePlayer = createAction(
+  '[DreamTeam] Remove Player',
+  props<{ teamId: number, playerIds: number[] }>()
+);
+
+export const removePlayerSuccess = createAction(
+  '[DreamTeam] Remove Player Success',
+  props<{ dreamTeam: DreamTeam }>()
+);
+
+export const removePlayerFailure = createAction(
+  '[DreamTeam] Remove Player Failure',
+  props<{ error: any }>()
+);

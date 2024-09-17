@@ -1,0 +1,28 @@
+<h2>Update DreamTeam</h2>
+
+<form (ngSubmit)="onSubmit()" #dreamTeamForm="ngForm">
+  <div>
+    <label for="name">DreamTeam Name:</label>
+    <input type="text" id="name" [(ngModel)]="dreamTeam.name" name="name" required />
+  </div>
+
+  <div>
+    <h3>Players</h3>
+    <label for="availablePlayers">Available Players:</label>
+    <select [(ngModel)]="selectedPlayerId" name="availablePlayers">
+      <option *ngFor="let player of availablePlayers" [value]="player.id">{{ player.name }}</option>
+    </select>
+    <button type="button" (click)="addPlayer()">Add Player</button>
+  </div>
+
+  <div>
+    <h3>Current Players</h3>
+    <ul>
+      <li *ngFor="let player of dreamTeam.players">
+        {{ player.name }} <button type="button" (click)="removePlayer(player.id)">Remove</button>
+      </li>
+    </ul>
+  </div>
+
+  <button type="submit">Update DreamTeam</button>
+</form>

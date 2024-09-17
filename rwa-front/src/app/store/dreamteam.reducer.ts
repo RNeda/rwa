@@ -10,6 +10,7 @@ export interface DreamTeamState {
   loading: boolean;//create
   dreamTeam: DreamTeam | null;
   dreamTeams: DreamTeam[];
+  availablePlayers: Player[];
   //error: any;
 }
 
@@ -24,6 +25,7 @@ export const initialDreamTeamState: DreamTeamState = {
   loading:false,
   dreamTeam: null,
   dreamTeams: [],
+  availablePlayers: [], 
   //error: null
 };
 
@@ -139,5 +141,34 @@ export const dreamTeamReducer = createReducer(
       ...state,
       //error,
       loading: false
+    })),
+    on(DreamTeamActions.loadAvailablePlayers, (state) => ({
+      ...state,
+      loading: false,
+    })),
+    on(DreamTeamActions.loadAvailablePlayersSuccess, (state, { players }) => ({
+      ...state,
+      availablePlayers: players,
+      loading: false
+    })),
+    on(DreamTeamActions.loadAvailablePlayersFailure, (state, { error }) => ({
+      ...state,
+      //error,
+      loading: false
+    })),
+    on(DreamTeamActions.removePlayer, (state) => ({
+      ...state,
+      loading: true
+    })),
+    on(DreamTeamActions.removePlayerSuccess, (state, { dreamTeam }) => ({
+      ...state,
+      dreamTeam: dreamTeam,
+      loading: false,
+        //error: null
+    })),
+    on(DreamTeamActions.removePlayerFailure, (state, { error }) => ({
+      ...state,
+      loading: false,
+        //error: error
     }))
   );

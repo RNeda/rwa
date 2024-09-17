@@ -44,4 +44,13 @@ export class DreamteamService {
     return this.http.put<DreamTeam>(`${url}/dreamteam/${id}`, updates);
   }
 
+  getAvailablePlayers(): Observable<Player[]> {
+    return this.http.get<Player[]>(`${url}/player`);
+    //ovo vraca sve playere
+  }
+
+  removePlayers(teamId: number, playerIds: number[]): Observable<DreamTeam> {
+    return this.http.put<DreamTeam>(`${url}/dreamteam/${teamId}/player`, { playerids: playerIds });
+  }
+
 }

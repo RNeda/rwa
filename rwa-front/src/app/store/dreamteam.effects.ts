@@ -4,6 +4,7 @@ import { DreamteamService } from "../dreamteam/dreamteam.service";
 import * as DreamTeamActions from './dreamteam.actions';
 import { catchError, map, mergeMap, of } from "rxjs";
 import { DreamTeam } from "../entities/dreamteam";
+import { Observable } from 'rxjs';//???
 
 @Injectable()
 export class DreamTeamEffects {
@@ -82,14 +83,22 @@ export class DreamTeamEffects {
         catchError(error => of(DreamTeamActions.deleteDreamteamFailure({ error })))
       ))
   ));
-  //     mergeMap((action) =>
-  //       this.DreamTeamService.createDreamTeam(action.dreamTeam).pipe(
-  //         map((dreamTeam) => DreamTeamActions.createDreamTeamSuccess({ dreamTeam })),
-  //         catchError((error) => of(DreamTeamActions.createDreamTeamFailure({ error })))
-  //       )
-  //     )
-  //   )
-  // );
+ 
+
+
+  
+
+  loadAvailablePlayers$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(DreamTeamActions.loadAvailablePlayers),
+      mergeMap(() =>
+        this.DreamTeamService.getAvailablePlayers().pipe(
+          map((players) => DreamTeamActions.loadAvailablePlayersSuccess({ players })),
+          catchError((error) => of(DreamTeamActions.loadAvailablePlayersFailure({ error })))
+        )
+      )
+    )
+  );
 
 
   updateDreamTeam$ = createEffect(() => this.actions$.pipe(
@@ -101,25 +110,38 @@ export class DreamTeamEffects {
       )
     )
   ));
-  // updateDreamTeamLikes$ = createEffect(() => this.actions$.pipe(
-  //   ofType(DreamTeamActions.updateDreamTeamLikes),
-  //   mergeMap(action =>
-  //     this.DreamTeamService.updateDreamTeam(action.id, { likes: action.likes }).pipe(
-  //       map(dreamTeam => DreamTeamActions.updateDreamTeamSuccess({ dreamTeam })),
-  //       catchError(error => of(DreamTeamActions.updateDreamTeamFailure({ error })))
-  //     )
-  //   )
-  // ));
+ 
+  removePlayer$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(DreamTeamActions.removePlayer),
+      mergeMap(action => this.DreamTeamService.removePlayers(action.teamId,action.playerIds)
+    .pipe(
+      map((dreamTeam:DreamTeam)=>DreamTeamActions.updateDreamTeamSuccess({dreamTeam})),
+      catchError(error=>of(DreamTeamActions.updateDreamTeamFailure({error})))
+    ))
+    )
+  );
 
-  // updateDreamTeamDislikes$ = createEffect(() => this.actions$.pipe(
-  //   ofType(DreamTeamActions.updateDreamTeamDislikes),
-  //   mergeMap(action =>
-  //     this.DreamTeamService.updateDreamTeam(action.id, { dislikes: action.dislikes }).pipe(
-  //       map(dreamTeam => DreamTeamActions.updateDreamTeamSuccess({ dreamTeam })),
-  //       catchError(error => of(DreamTeamActions.updateDreamTeamFailure({ error })))
-  //     )
-  //   )
-  // ));
+    /*this.actions$.pipe(
+      ofType(DreamTeamActions.removePlayer),
+      switchMap(({ teamId, playerIds }) =>
+        this.dreamTeamService.removePlayers(teamId, playerIds).pipe(
+          map((dreamTeam: DreamTeam) => DreamTeamActions.removePlayerSuccess({ dreamTeam })),
+          catchError(error => of(DreamTeamActions.removePlayerFailure({ error })))
+        )
+      )
+    )
+  );
 
+    /*this.actions$.pipe(
+      ofType(DreamTeamActions.removePlayer),
+      switchMap(({ teamId, playerId }) =>
+        this.dreamTeamService.removePlayers(teamId, [playerId]).pipe(
+          map(dreamTeam => DreamTeamActions.removePlayerSuccess({ dreamTeam })),
+          catchError(error => of(DreamTeamActions.removePlayerFailure({ error })))
+        )
+      )
+    )
+  );*/
 
 }

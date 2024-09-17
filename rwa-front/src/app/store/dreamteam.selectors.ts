@@ -39,6 +39,11 @@ export const selectDreamTeamById = (dreamTeamId: number) => createSelector(
   (dreamTeams) => dreamTeams.find(dreamTeam => dreamTeam.id === dreamTeamId)
 );
 
+export const selectAvailablePlayers = createSelector(
+  selectDreamTeamState,
+  (state: DreamTeamState) => state.availablePlayers
+);
+
 // export const selectDreamTeamError = createSelector(
 //   selectDreamTeamState,
 //   (state: DreamTeamState) => state.error
