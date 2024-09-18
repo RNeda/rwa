@@ -6,6 +6,8 @@ import { createDreamTeam, loadPlayers } from '../store/dreamteam.actions';
 import { DreamTeam } from '../entities/dreamteam';
 import { DreamTeamDto } from '../entities/dreamteam.dto';
 import { ActivatedRoute, Router } from '@angular/router';
+import { User } from '../entities/user';
+import { login } from '../store/user.actions';
 
 @Component({
   selector: 'app-create-dreamteam',
@@ -18,6 +20,8 @@ export class CreateDreamteamComponent implements OnInit{
   selectedPlayers: number[] = [];
   teamName: string = '';
   creatorId: any;
+  creatoremail:any;
+  creatorpass:any;
 
   constructor(private store: Store<AppState>,private router:Router,private route: ActivatedRoute) {}
 
@@ -25,7 +29,10 @@ export class CreateDreamteamComponent implements OnInit{
     this.store.dispatch(loadPlayers());
     this.route.queryParams.subscribe(params => {
       this.creatorId = params['creatorId']; // Extract the creator ID
+      this.creatoremail=params['creatoremail'];
+      this.creatorpass=params['creatorpass'];
     });
+
   }
 
   togglePlayerSelection(playerId: number): void {
@@ -46,7 +53,9 @@ export class CreateDreamteamComponent implements OnInit{
         creatorid: this.creatorId, // Now using the creatorId from @Input()
       };
       this.store.dispatch(createDreamTeam({ dreamTeam: newTeam }));
-      this.router.navigate(['/my-profile']);
+      this.store.dispatch(login({email:this.creatoremail, password:this.creatorpass}));
+
+      //this.router.navigate(['/my-profile']);
     }
     
   }

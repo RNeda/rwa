@@ -43,13 +43,25 @@ export class DreamTeamEffects {
 
   loadUserDreamTeams$ = createEffect(() => this.actions$.pipe(
     ofType(DreamTeamActions.loadUserDreamTeams),
-    mergeMap(action => this.DreamTeamService.getDreamTeamsByUserId(action.userId)
+    mergeMap(action => this.DreamTeamService.getDreamTeamsByUserId()//action.userId)
       .pipe(
         map(dreamTeams => DreamTeamActions.loadUserDreamTeamsSuccess({ dreamTeams })),
         catchError(error => of(DreamTeamActions.loadUserDreamTeamsFailure({ error })))
       )
     )
   ));
+
+  /*
+  loadUserDreamTeams$ = createEffect(() => this.actions$.pipe(
+    ofType(DreamTeamActions.loadUserDreamTeams),
+    mergeMap(action => this.DreamTeamService.getDreamTeams()//ByUserId(action.userId)
+    .pipe(
+      map(dreamTeams => DreamTeamActions.loadUserDreamTeamsSuccess({ dreamTeams })),
+      catchError(error => of(DreamTeamActions.loadUserDreamTeamsFailure({ error })))
+    )
+  )
+));
+  */
 
   loadPlayers$ = createEffect(() =>
     this.actions$.pipe(

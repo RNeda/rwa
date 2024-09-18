@@ -32,3 +32,8 @@ export const selectAllGames = createSelector(
   selectGamesState,
   (state: GameState) => state.games
 );
+
+export const SelectSingleGame = createSelector(
+  selectGamesState,
+  (state:GameState)=>state.game
+)

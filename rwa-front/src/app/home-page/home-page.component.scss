@@ -1,68 +1,163 @@
-// General styles
+// // General styles
+// h2 {
+//     font-size: 1.5rem;
+//     margin-bottom: 1rem;
+//   }
+  
+//   // Lists
+//   ul {
+//     list-style-type: none;
+//     padding: 0;
+//     margin: 0;
+//   }
+  
+//   li {
+//     padding: 1rem;
+//     margin-bottom: 1rem;
+//     border: 1px solid #ddd;
+//     border-radius: 4px;
+//     cursor: pointer;
+//     transition: background-color 0.3s ease;
+  
+//     &:hover {
+//       background-color: #f0f0f0;
+//     }
+//   }
+  
+//   // Game specific styles
+//   //.game-list {
+//   //   .game-item {
+//   //     display: flex;
+//   //     justify-content: space-between;
+//   //     align-items: center;
+//   //     .game-teams {
+//   //       .team-name {
+//   //         font-weight: bold;
+//   //       }
+//   //     }
+//   //     .game-score {
+//   //       font-size: 1.2rem;
+//   //     }
+//   //   }
+//   // }
+//   // Game specific styles
+// // Game specific styles
+// .game-list {
+//   .game-item {
+//     display: flex;
+//     flex-direction: column; // Keeps the team names and score stacked
+//     align-items: flex-start;
+
+//     .game-teams {
+//       display: flex;
+//       justify-content: space-between;
+//       width: 100%;
+
+//       .team-name {
+//         font-weight: bold;
+//         cursor: pointer;
+//         padding: 0 0.5rem;
+//       }
+//     }
+
+//     .game-score {
+//       font-size: 1.2rem;
+//       margin: 0.5rem 0;
+//     }
+
+//     .team-details {
+//       display: flex;               // Use flexbox to align components side by side
+//       justify-content: space-between;
+//       width: 100%;
+
+//       app-show-team {
+//         flex: 1;                   // Make both components take up equal width
+//         margin-right: 1rem;        // Space between components
+//         min-width: 0;              // Prevent flex overflow issues
+//       }
+
+//       app-show-team:last-child {
+//         margin-right: 0;           // Remove the margin for the last item
+//       }
+//     }
+//   }
+// }
+
+  
+//   // DreamTeam specific styles
+//   .dreamteam-list {
+//     .dreamteam-item {
+//       display: flex;
+//       justify-content: space-between;
+//       align-items: center;
+//       .dreamteam-name {
+//         font-weight: bold;
+//       }
+//       .dreamteam-owner {
+//         color: #555;
+//       }
+//     }
+//   }
+  
+//   // Loading states
+//   p {
+//     font-style: italic;
+//     color: #888;
+//   }
+  
+//   app-show-dreamteam {
+//     display: block;
+//     margin-bottom: 1rem;
+//   }
+
+//   app-show-team {
+//     display: block;
+//     margin-bottom: 1rem;
+//     //width:50%;
+//   }
+
 h2 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-  }
-  
-  // Lists
-  ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  li {
-    padding: 0.5rem;
-    margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+div {
+  margin-bottom: 1.5rem;
+}
+
+// Games section
+.game-section {
+  margin-bottom: 2rem; // Space between game section and dream team section
+
+  app-show-game {
+    display: block;
+    margin-bottom: 1rem; // Space between each game component
+    padding: 1rem;
     border: 1px solid #ddd;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  
-    &:hover {
-      background-color: #f0f0f0;
-    }
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
-  
-  // Game specific styles
-  .game-list {
-    .game-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      .game-teams {
-        .team-name {
-          font-weight: bold;
-        }
-      }
-      .game-score {
-        font-size: 1.2rem;
-      }
-    }
-  }
-  
-  // DreamTeam specific styles
-  .dreamteam-list {
-    .dreamteam-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      .dreamteam-name {
-        font-weight: bold;
-      }
-      .dreamteam-owner {
-        color: #555;
-      }
-    }
-  }
-  
-  // Loading states
-  p {
-    font-style: italic;
-    color: #888;
-  }
-  
+}
+
+// Dream Teams section
+.dreamteam-section {
   app-show-dreamteam {
     display: block;
-    margin-bottom: 1rem;
+    margin-bottom: 1rem; // Space between each dream team component
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
+}
+
+// Loading states
+p {
+  font-style: italic;
+  color: #888;
+  text-align: center;
+}
+
+ng-template {
+  margin-top: 1rem; // Space between loading message and other elements
+}

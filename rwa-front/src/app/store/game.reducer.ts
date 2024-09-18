@@ -1,7 +1,7 @@
 import { createEntityAdapter, EntityState } from "@ngrx/entity";
 import { Game } from "../entities/game";
 import { createReducer, on } from "@ngrx/store";
-import { loadGamesSuccess, selectGame } from "./game.actions";
+import { loadGameFailure, loadGamesSuccess, loadGameSuccess, selectGame } from "./game.actions";
 
 // export interface GameState extends EntityState<Game>{
 //     selectedGameId: number | null;
@@ -26,10 +26,14 @@ import { loadGamesSuccess, selectGame } from "./game.actions";
 
 export interface GameState {
     games: Game[];
+    game:Game|null;
+    loading: boolean;
   }
   
   export const initialGamesState: GameState = {
-    games: []
+    games: [],
+    game:null,
+    loading: false
   };
   
   export const gamesReducer = createReducer(
@@ -37,5 +41,14 @@ export interface GameState {
     on(loadGamesSuccess, (state, { games }) => ({
       ...state,
       games: [...games],  // Update state with the new games
-    }))
+    })),
+    on(loadGameSuccess, (state, { game }) => ({
+      ...state,
+      game,
+      //error: null
+    })),
+    on(loadGameFailure, (state, { error }) => ({
+      ...state,
+      //error
+    })),
   )

@@ -1,0 +1,45 @@
+.game-teams {
+    display: flex;
+    align-items: center; // Align team names and score vertically in the middle
+  
+    .team-name {
+      font-weight: bold;
+      cursor: pointer;
+      margin: 0 0.5rem; // Add space between team names and score
+    }
+  
+    span {
+      margin: 0 0.5rem; // Add space around the score
+    }
+  }
+  
+  .team-details {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+  
+    app-show-team {
+      flex: 1; // Make both components take up equal width
+      margin-right: 1rem; // Space between the two components
+      min-width: 0; // Prevent overflow
+    }
+  
+    app-show-team:last-child {
+      margin-right: 0; // Remove margin from the last component
+    }
+  }
+  
+  button {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+  

@@ -75,7 +75,8 @@
         <p>{{ player.name || 'Unknown Player' }} - {{ player.position || 'Position Unknown' }} (Age: {{ player.age || 'N/A' }})</p>
       </li>
     </ul>
-
+    <button (click)="updateDT(loadedDreamTeam.id)">Update</button>
+    <button (click)="goBackToProfile()">Return</button>
     <!-- Fallback when there are no players -->
     <ng-template #noPlayersStore>
       <p>No players available for this DreamTeam.</p>

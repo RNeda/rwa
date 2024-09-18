@@ -41,6 +41,11 @@ import { DreamTeamEffects } from './store/dreamteam.effects';
 import { ShowDreamteamComponent } from './show-dreamteam/show-dreamteam.component';
 import { CreateDreamteamComponent } from './create-dreamteam/create-dreamteam.component';
 import { UpdateDreamteamComponent } from './update-dreamteam/update-dreamteam.component';
+import { ShowTeamComponent } from './show-team/show-team.component';
+import { RoleGuard } from './auth/role.guard';
+import { TeamReducer } from './store/team.reducer';
+import { TeamEffects } from './store/team.effects';
+import { ShowGameComponent } from './show-game/show-game.component';
 
 @NgModule({
   declarations: [
@@ -53,17 +58,19 @@ import { UpdateDreamteamComponent } from './update-dreamteam/update-dreamteam.co
     HomePageComponent,
     ShowDreamteamComponent,
     CreateDreamteamComponent,
-    UpdateDreamteamComponent
+    UpdateDreamteamComponent,
+    ShowTeamComponent,
+    ShowGameComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     //FontAwesomeModule,
-    StoreModule.forRoot<AppState>({auth:authReducer, games: gamesReducer, dreamteams:dreamTeamReducer, profile:profileReducer}),
+    StoreModule.forRoot<AppState>({auth:authReducer, games: gamesReducer, dreamteams:dreamTeamReducer, profile:profileReducer, teams:TeamReducer}),
     StoreDevtoolsModule.instrument({
       maxAge:25,
     }),
-    EffectsModule.forRoot([UserEffects,GameEffects,DreamTeamEffects]),
+    EffectsModule.forRoot([UserEffects,GameEffects,DreamTeamEffects,TeamEffects]),
     FormsModule,
     MatFormFieldModule,
     MatIconModule,
@@ -92,7 +99,8 @@ import { UpdateDreamteamComponent } from './update-dreamteam/update-dreamteam.co
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    RoleGuard
 
   ],
   bootstrap: [AppComponent]

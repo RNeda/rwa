@@ -17,8 +17,8 @@ export class NavComponent {
     //this.router.navigate(['/kreiraj drim ti  komponenta'];)
   }
 
-  myDreamTeams(){
-    //this.router.navigate(['/my-dream-teams']);
+  homepage(){
+    this.router.navigate(['/home-page']);
   }
   searchTeams(){
     //this.router.navigate(['/']);

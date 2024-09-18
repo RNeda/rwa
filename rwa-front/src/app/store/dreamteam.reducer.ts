@@ -71,7 +71,7 @@ export const dreamTeamReducer = createReducer(
     on(DreamTeamActions.loadDreamTeams, (state) => ({
       ...state, 
       loading: true 
-   })),
+    })),
     on(DreamTeamActions.loadDreamTeamSuccess, (state, { dreamTeam }) => ({
       ...state,
       dreamTeam,

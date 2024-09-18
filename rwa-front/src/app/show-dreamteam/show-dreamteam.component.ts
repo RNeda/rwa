@@ -5,7 +5,7 @@ import { selectSingleDreamTeam } from '../store/dreamteam.selectors';
 import { Store } from '@ngrx/store';
 import { AppState } from '../app.state';
 import { loadDreamTeam, updateDreamTeam } from '../store/dreamteam.actions';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DreamTeamDto } from '../entities/dreamteam.dto';
 
 @Component({
@@ -17,7 +17,7 @@ export class ShowDreamteamComponent implements OnInit{
   @Input() dreamTeam: DreamTeam | null = null;
   dreamTeam$: Observable<DreamTeam | null> = this.store.select(selectSingleDreamTeam);
   dtId: number | null = null;
-  constructor(private store: Store<AppState>, private route: ActivatedRoute) {}
+  constructor(private store: Store<AppState>, private route: ActivatedRoute, private router:Router) {}
 
   ngOnInit(): void {
     // const dreamTeamId = 1; // Replace with the actual ID or use route params
@@ -76,6 +76,12 @@ export class ShowDreamteamComponent implements OnInit{
       this.store.dispatch(updateDreamTeam({ id: this.dreamTeam.id, updates }));
     }
   }
+  updateDT(dreamTeamId:number){
+    this.router.navigate(['update-dreamteam'], { queryParams: { dtId: dreamTeamId } });
 
+  }
+  goBackToProfile(){
+    this.router.navigate(['/my-profile']);
+  }
 
 }

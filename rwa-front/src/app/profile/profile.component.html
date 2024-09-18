@@ -67,9 +67,26 @@
             
             <p>Likes: {{ dreamTeam.likes }}</p>
             <p>Dislikes: {{ dreamTeam.dislikes }}</p>
-            <button (click)="showDt(dreamTeam.id)">Show details</button>
-            <button (click)="updateDt(dreamTeam.id)">Update dreamteam</button>
-            <button (click)="deleteDreamteam(dreamTeam.id)">Delete dreamteam</button>
+            <button 
+            type="button"
+            aria-label="show dt"
+            (click)="showDt(dreamTeam.id)"
+            mat-raised-button
+            class="edit-button">
+            Show details</button>
+            <button 
+            type="button"
+            aria-label="show dt"
+            (click)="updateDt(dreamTeam.id)"
+            mat-raised-button
+            class="edit-button">Update dreamteam</button>
+            <button 
+            type="button"
+            aria-label="show dt"
+            (click)="deleteDreamteam(dreamTeam.id)"
+            mat-raised-button
+            class="edit-button">
+            Delete dreamteam</button>
             
             
           </div>

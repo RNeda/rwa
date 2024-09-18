@@ -3,7 +3,7 @@ import { DreamTeam } from '../entities/dreamteam';
 import { Player } from '../entities/player';
 import { Store } from '@ngrx/store';
 import { AppState } from '../app.state';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DreamTeamDto } from '../entities/dreamteam.dto';
 import { loadAvailablePlayers, loadDreamTeam, removePlayer, removePlayerFailure, removePlayerSuccess, updateDreamTeam } from '../store/dreamteam.actions';
 import { selectAvailablePlayers, selectSingleDreamTeam } from '../store/dreamteam.selectors';
@@ -24,7 +24,7 @@ export class UpdateDreamteamComponent implements OnInit{
   playersToRemove: number[] = [];
   //dreamTeamService: any;
 
-  constructor(private store: Store<AppState>, private route: ActivatedRoute) {}
+  constructor(private store: Store<AppState>, private route: ActivatedRoute, private router:Router) {}
 
   ngOnInit(): void {
     // Load DreamTeam and available players
@@ -94,6 +94,7 @@ export class UpdateDreamteamComponent implements OnInit{
     const dto: DreamTeamDto = new DreamTeamDto(0, this.dreamTeam.name, this.playersToAddIds, this.dreamTeam.creator.id);
     console.log("dtoplayerids "+dto.playerids[0]);
     this.store.dispatch(updateDreamTeam({ id: this.dreamTeam.id, updates: dto }));
+    this.router.navigate(['/my-profile']);
   }
 
 }

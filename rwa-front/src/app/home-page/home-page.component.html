@@ -1,15 +1,8 @@
 <app-nav></app-nav>
-<div *ngIf="games$ | async as games; else loadingGames">
+  <div *ngIf="games$ | async as games; else loadingGames" class="game-section">
     <h2>Games</h2>
-    <ul class="game-list">
-      <li *ngFor="let game of games" class="game-item" (click)="onSelectGame(game.id)">
-        <div class="game-teams">
-          <span class="team-name">{{ game.teams[0]?.name }}</span> vs <span class="team-name">{{ game.teams[1]?.name }}</span>
-        </div>
-        <div class="game-score">
-          {{ game.resTeam1 }}:{{ game.resTeam2 }}
-        </div>
-      </li>
+    <ul *ngFor="let game of games">
+      <app-show-game [game]="game"></app-show-game>
     </ul>
   </div>
   
@@ -17,7 +10,7 @@
     <p>Loading games...</p>
   </ng-template>
   
-  <div *ngIf="dreamTeams$ | async as dreamTeams; else loading">
+  <div *ngIf="dreamTeams$ | async as dreamTeams; else loading" class="dreamteam-section">
     <h2>Dream Teams</h2>
     <div *ngFor="let dreamTeam of dreamTeams">
       <app-show-dreamteam [dreamTeam]="dreamTeam"></app-show-dreamteam>

@@ -35,9 +35,13 @@ export const loadDreamTeamFailure = createAction(
 );
 
 
+// export const loadUserDreamTeams = createAction(
+//   '[Profile] Load User DreamTeams',
+//   props<{ userId: number }>()
+// );
 export const loadUserDreamTeams = createAction(
   '[Profile] Load User DreamTeams',
-  props<{ userId: number }>()
+  //props<{ userId: number }>()
 );
 
 export const loadUserDreamTeamsSuccess = createAction(

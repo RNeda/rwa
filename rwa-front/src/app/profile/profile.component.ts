@@ -2,12 +2,12 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { UserService } from '../user/user.service';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { AppState } from '../app.state';
 import { selectUserData } from '../store/user.selectors';
 import { createAvatar } from '@dicebear/core';
 import { lorelei } from '@dicebear/collection';
-import { deleteUser } from '../store/user.actions';
+import { deleteUser, login } from '../store/user.actions';
 import { Observable } from 'rxjs';
 import { DreamTeam } from '../entities/dreamteam';
 import { deleteDreamteam, loadUserDreamTeams } from '../store/dreamteam.actions';
@@ -30,6 +30,8 @@ export class ProfileComponent implements OnInit, OnDestroy{
   @Input()
   isMe: boolean = false;
 
+  
+
   fulldts:DreamTeam[]=[];
   
   constructor(
@@ -42,16 +44,24 @@ export class ProfileComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void {
     
-    this.store.select(selectUserData).subscribe((data) => {
-      this.profileToDisplay = data;
     
-      // if (this.profileToDisplay) {
-      //   this.store.dispatch(loadUserDreamTeams({ userId: this.profileToDisplay.id }));
-      // }
+    // this.store.pipe(select(selectUserData)).subscribe(data => {
+    //   this.profileToDisplay = data;
+    //   if (this.profileToDisplay) {
+    //     this.store.dispatch(loadUserDreamTeams(/*{ userId: this.profileToDisplay.id }*/));
+    //   }
+    // });
+    this.store.select(selectUserData).subscribe((data) => {
+    this.profileToDisplay = data;
+    console.log([this.profileToDisplay.dreamteams])
     });
+    //   // if (this.profileToDisplay) {
+    //   //   this.store.dispatch(loadUserDreamTeams({ userId: this.profileToDisplay.id }));
+    //   // }
+    // });
     this.dreamTeams$.subscribe(dreamTeams => {
       this.fulldts = dreamTeams || []; // Assign the result to the local variable
-      //console.log('DreamTeams:', this.fulldts); // Now you have access to the array of DreamTeam objects
+      console.log('DreamTeams:', [this.fulldts]); // Now you have access to the array of DreamTeam objects
     });
 
     this.getFullDts();
@@ -65,7 +75,7 @@ export class ProfileComponent implements OnInit, OnDestroy{
   }
 
   newDreamTeam(){
-    this.router.navigate(['/create-dreamteam'], { queryParams: { creatorId: this.profileToDisplay.id } });
+    this.router.navigate(['/create-dreamteam'], { queryParams: { creatorId: this.profileToDisplay.id, creatoremail: this.profileToDisplay.email, creatorpass:this.profileToDisplay.password } });
   }
 
   showDt(dreamTeamId: number):void{
@@ -97,6 +107,9 @@ export class ProfileComponent implements OnInit, OnDestroy{
   deleteDreamteam(id:number){
     this.store.dispatch(deleteDreamteam({id:id}));
     this.router.navigate(['/my-profile']);
+    //try
+    this.store.dispatch(login({email:this.profileToDisplay.email, password:this.profileToDisplay.password}));
+    
   }
   //deleteDreamteam(dtid:number){}
 }

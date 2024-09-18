@@ -53,7 +53,7 @@ export class UserEffects {
                   return this.userService.getUser(decodedToken,token).pipe(
                     map((user) => loginsuccess({ user: user.body, token })),
                     tap(() => {
-                      this.router.navigateByUrl("/home-page");
+                      this.router.navigateByUrl("/my-profile");
                     })
                   );
                 } else {
