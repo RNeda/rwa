@@ -1,49 +1,20 @@
 <div *ngIf="team">
  
-
-    <!-- Display DreamTeam details when passed via Input -->
     <h2>{{ team.name || 'Unnamed Team' }}</h2>
-    <!--<p (click)='changeLikes()'>Likes: {{ dreamTeam.likes || 0 }}</p>
-    <p (click)='changeDislikes()'>Dislikes: {{ dreamTeam.dislikes || 0 }}</p>
     
-    <h3>Creator</h3>
-    <p *ngIf="dreamTeam.creator">{{ dreamTeam.creator.name || 'Unknown Creator' }}</p>
-    <p *ngIf="!dreamTeam.creator">Creator information unavailable</p>-->
-  
-    <!-- Players List -->
     <h3>Players</h3>
-    <ul *ngIf="team?.players ; else noPlayers">
-      <li *ngFor="let player of team.players">
+    <ul *ngIf="fullteam?.players ; else noPlayers">
+      <li *ngFor="let player of fullteam?.players">
         <img *ngIf="player.picture" [src]="player.picture" alt="{{ player.name }}" />
         <p>{{ player.name || 'Unknown Player' }} - {{ player.position || 'Position Unknown' }} (Age: {{ player.age || 'N/A' }})</p>
       </li>
     </ul>
+    <button *ngIf="isAdmin && !fromG" (click)="deleteTeam()">Delete team</button>
     
     <ng-template #noPlayers>
       <p>No players available for this Team.</p>
     </ng-template>
   </div>
   
-  <!--<ng-template #loadFromStore>
-    <div *ngIf="team$ | async as loadedTeam; else loading">
-      
-      <h2>{{ loadedTeam.name || 'Unnamed Team' }}</h2>
-      
-      <h3>Players</h3>
-      <ul *ngIf="loadedTeam?.players ; else noPlayersStore">
-        <li *ngFor="let player of loadedTeam.players">
-          <img *ngIf="player.picture" [src]="player.picture" alt="{{ player.name }}" />
-          <p>{{ player.name || 'Unknown Player' }} - {{ player.position || 'Position Unknown' }} (Age: {{ player.age || 'N/A' }})</p>
-        </li>
-      </ul>
-      
-      <ng-template #noPlayersStore>
-        <p>No players available for this Team.</p>
-      </ng-template>
-    </div>
-  </ng-template>
-  <ng-template #loading>
-    <p>Loading Team details...</p>
-  </ng-template>-->
   
     

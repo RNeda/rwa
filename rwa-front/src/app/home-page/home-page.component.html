@@ -2,7 +2,7 @@
   <div *ngIf="games$ | async as games; else loadingGames" class="game-section">
     <h2>Games</h2>
     <ul *ngFor="let game of games">
-      <app-show-game [game]="game"></app-show-game>
+      <app-show-game [game]="game" [fromHP]="hpfleg"></app-show-game>
     </ul>
   </div>
   
@@ -10,13 +10,13 @@
     <p>Loading games...</p>
   </ng-template>
   
-  <div *ngIf="dreamTeams$ | async as dreamTeams; else loading" class="dreamteam-section">
+  <div *ngIf="othersdts as dreamTeams" class="dreamteam-section">
     <h2>Dream Teams</h2>
     <div *ngFor="let dreamTeam of dreamTeams">
       <app-show-dreamteam [dreamTeam]="dreamTeam"></app-show-dreamteam>
     </div>
   </div>
-  
+  <!--
   <ng-template #loading>
     <p>Loading DreamTeams...</p>
-  </ng-template>
+  </ng-template>-->

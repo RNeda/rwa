@@ -1,28 +1,9 @@
 import { createEntityAdapter, EntityState } from "@ngrx/entity";
 import { Game } from "../entities/game";
 import { createReducer, on } from "@ngrx/store";
-import { loadGameFailure, loadGamesSuccess, loadGameSuccess, selectGame } from "./game.actions";
-
-// export interface GameState extends EntityState<Game>{
-//     selectedGameId: number | null;
-// }
-
-// export const adapter = createEntityAdapter<Game>();
-
-// export const initialGameState:GameState = adapter.getInitialState({
-//     selectedGameId:null
-// });
+import { createGame, createGameFailure, createGameSuccess, deleteGameFailure, deleteGameSuccess, loadGameFailure, loadGamesFailure, loadGamesSuccess, loadGameSuccess, selectGame } from "./game.actions";
 
 
-
-// export const gamesReducer = createReducer(
-//     initialGameState,
-//     on(LoadGamesSuccess, (state,{games})=>
-//         adapter.setAll(games,{...state, selectedGameId:null})
-//     ),
-//     on(selectGame,(state,{gameId})=>({...state, selectedGameId: gameId,
-//     }))
-// )
 
 export interface GameState {
     games: Game[];
@@ -42,6 +23,10 @@ export interface GameState {
       ...state,
       games: [...games],  // Update state with the new games
     })),
+    on(loadGamesFailure, (state, { error }) => ({
+      ...state,
+      //error
+    })),
     on(loadGameSuccess, (state, { game }) => ({
       ...state,
       game,
@@ -50,5 +35,29 @@ export interface GameState {
     on(loadGameFailure, (state, { error }) => ({
       ...state,
       //error
+    })),
+    on(createGame, (state) => ({
+      ...state, 
+      loading: true 
+  })),
+  on(createGameSuccess, (state, { game }) => ({
+      ...state, 
+      loading: false, 
+      game ,
+      games: [...state.games, game],//??
+  })),
+  on(createGameFailure, (state, { error }) => ({ 
+  ...state,
+      loading: false
+  })),
+  on(deleteGameSuccess, (state, { id }) => ({
+    ...state,
+    games: state.games.filter(game => game.id !== id),
+    loading: false
+    })),
+    on(deleteGameFailure, (state, { error }) => ({
+    ...state,
+    //error: error,
+    loading: false
     })),
   )

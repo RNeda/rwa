@@ -10,6 +10,8 @@ import { loadGames, selectGame } from '../store/game.actions';
 import { loadDreamTeams } from '../store/dreamteam.actions';
 import { Router } from '@angular/router';
 import { Team } from '../entities/team';
+import { selectUserData } from '../store/user.selectors';
+import { User } from '../entities/user';
 
 @Component({
   selector: 'app-home-page',
@@ -20,29 +22,32 @@ export class HomePageComponent implements OnInit{
 
   games$: Observable<Game[]> = this.store.select(selectAllGames);
   dreamTeams$: Observable<DreamTeam[]> = this.store.select(selectAllDreamTeams);
-  
+  user:any;
+  alldreamteams:DreamTeam[]=[];
+  othersdts:DreamTeam[]=[];
+  hpfleg:boolean=true;
   // childShowTeams:boolean |null=null;
 
   constructor(private store:Store<AppState>, private router: Router) { }
 
   ngOnInit(): void {
+
+    this.store.select(selectUserData).subscribe((data)=>{
+      this.user=data;
+    });
+
     this.store.dispatch(loadGames());
     this.store.dispatch(loadDreamTeams());
+    this.store.select(selectAllDreamTeams).subscribe((dts)=>{
+      this.alldreamteams=dts;
+    })
+    this.filterDreamTeams();
   }
-  onSelectGame(): void {
-    //this.store.dispatch(selectGame({ gameId }));
-    //this.showteams=true;
-  }
-
-  onSelectTeam(): void {
-    // Navigate to the team details route and pass the team id (or entire team object if necessary)
-    //this.router.navigate(['/show-team'], { state: { team: team } });
-    //this.showteams=true;
-  }
-
   
-  // changeFromChild(value:boolean){
-  //   this.childShowTeams=value;
-  //   this.showteams=this.childShowTeams;
-  // }
+  filterDreamTeams(){
+    this.othersdts=this.alldreamteams.filter(
+      (dt)=>dt.creator.id!==this.user.id
+    )
+  }
+
 }

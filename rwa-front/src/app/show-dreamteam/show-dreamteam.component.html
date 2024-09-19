@@ -24,7 +24,7 @@
   </ng-template>-->
 
   <!-- Check if dreamTeam is provided through @Input() -->
-<div *ngIf="dreamTeam; else loadFromStore">
+<div *ngIf="dreamTeam;else loadFromStore">
  
 
   <!-- Display DreamTeam details when passed via Input -->
@@ -52,22 +52,21 @@
   </ng-template>
 </div>
 
-<!-- If dreamTeam is not provided, load it from the store -->
+<!-- If dreamTeam is not provided, load it from the store 
+  ovo je sa profila kad se ode na dreamteamdetails
+-->
 <ng-template #loadFromStore>
   <div *ngIf="dreamTeam$ | async as loadedDreamTeam; else loading">
     
 
-    <!-- Display DreamTeam details fetched from store -->
     <h2>{{ loadedDreamTeam.name || 'Unnamed DreamTeam' }}</h2>
     <p (click)='changeLikes()'>Likes: {{ loadedDreamTeam.likes || 0 }}</p>
     <p (click)='changeDislikes()'>Dislikes: {{ loadedDreamTeam.dislikes || 0 }}</p>
     
-    <!-- Creator Information -->
     <h3>Creator</h3>
     <p *ngIf="loadedDreamTeam.creator">{{ loadedDreamTeam.creator.name || 'Unknown Creator' }}</p>
     <p *ngIf="!loadedDreamTeam.creator">Creator information unavailable</p>
 
-    <!-- Players List -->
     <h3>Players</h3>
     <ul *ngIf="loadedDreamTeam?.players ; else noPlayersStore">
       <li *ngFor="let player of loadedDreamTeam.players">
@@ -77,7 +76,7 @@
     </ul>
     <button (click)="updateDT(loadedDreamTeam.id)">Update</button>
     <button (click)="goBackToProfile()">Return</button>
-    <!-- Fallback when there are no players -->
+
     <ng-template #noPlayersStore>
       <p>No players available for this DreamTeam.</p>
     </ng-template>

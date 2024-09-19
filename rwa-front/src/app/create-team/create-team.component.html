@@ -1,4 +1,4 @@
-<h1>Create New DreamTeam</h1>
+<h1>Create New Team</h1>
 
 <div>
   <label for="teamName">Team Name:</label>
@@ -7,7 +7,7 @@
 
 <h3>Select Players:</h3>
 <ul>
-  <li *ngFor="let player of players$ | async">
+  <li *ngFor="let player of availablePlayers">
     <input type="checkbox" (change)="togglePlayerSelection(player.id)" /> {{ player.name }}
   </li>
 </ul>
@@ -15,12 +15,13 @@
 <button 
 type="button"
 aria-label="New team"
-(click)="createDreamTeam()"
+(click)="createTeam()"
 mat-raised-button
-class="edit-button">Create Dream Team</button>
+class="edit-button">Create Team</button>
 <button 
 type="button"
 aria-label="New team cancle"
-(click)="cancelDreamTeam()"
+(click)="cancelTeam()"
 mat-raised-button
 class="edit-button">Cancel</button>
+

@@ -48,10 +48,49 @@
           New dreamteam
           <!-- <mat-icon aria-label="Delete icon">delete</mat-icon> -->
         </button>
+        <button *ngIf="isAdmin"
+          type="button"
+          aria-label="New team"
+          (click)="newTeam()"
+          mat-raised-button
+          class="edit-button"
+        >
+          New team
+          <!-- <mat-icon aria-label="Delete icon">delete</mat-icon> -->
+        </button>
+        <button *ngIf="isAdmin"
+          type="button"
+          aria-label="Show teams"
+          (click)="showTeamsBtn()"
+          mat-raised-button
+          class="edit-button"
+        >
+          {{showteamsbtntext}}
+          <!-- <mat-icon aria-label="Delete icon">delete</mat-icon> -->
+        </button>
       </div>
+      <button *ngIf="isAdmin"
+          type="button"
+          aria-label="New teagamem"
+          (click)="newGame()"
+          mat-raised-button
+          class="edit-button"
+        >
+          New game
+          <!-- <mat-icon aria-label="Delete icon">delete</mat-icon> -->
+        </button>
 
       
      
+    </div>
+    <div *ngIf="createTeamflag && isAdmin">
+      <app-create-team (teamCreated)="handleTeamCreated($event)" (cancelCreation)="handleCancelCreation($event)"></app-create-team>
+
+    </div>
+    <div *ngIf="showTeams && isAdmin">
+      <div  *ngFor="let t of allTeams">
+        <app-show-team [team]="t" [showDeleteBtn]="showTeams" (teamDeleted)="handleTeamDeleted($event)"></app-show-team>
+      </div>
     </div>
     <div class="dream-teams">
       <h2>{{ profileToDisplay.name }}'s DreamTeams</h2>

@@ -11,6 +11,8 @@ import { CreateDreamteamComponent } from './create-dreamteam/create-dreamteam.co
 import { UpdateDreamteamComponent } from './update-dreamteam/update-dreamteam.component';
 import { ShowTeamComponent } from './show-team/show-team.component';
 import { RoleGuard } from './auth/role.guard';
+import { CreateTeamComponent } from './create-team/create-team.component';
+import { CreateGameComponent } from './create-game/create-game.component';
 
 const routes: Routes = [
   {
@@ -41,7 +43,13 @@ const routes: Routes = [
     path:'update-dreamteam', component:UpdateDreamteamComponent,pathMatch:'full', canActivate:[IsAuthGuard]
   },
   {
-    path:'show-team', component:ShowTeamComponent, pathMatch:'full', canActivate: [IsAuthGuard]//, RoleGuard]
+    path:'show-team', component:ShowTeamComponent, pathMatch:'full', canActivate: [IsAuthGuard]
+  },
+  {
+    path:'create-team', component:CreateTeamComponent, pathMatch:'full', canActivate: [IsAuthGuard,RoleGuard]
+  },
+  {
+    path:'create-game', component:CreateGameComponent, pathMatch:'full', canActivate:[IsAuthGuard,RoleGuard]
   },
   {
     path:'**', redirectTo: 'sign-in', pathMatch: 'full'

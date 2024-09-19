@@ -52,7 +52,7 @@ export class TeamEffects {
     )
   );
 
-  createDreamTeam$ = createEffect(() =>
+  createTeam$ = createEffect(() =>
     this.actions$.pipe(
       ofType(TeamActions.createTeam),
       mergeMap(({ team }) =>
@@ -64,7 +64,7 @@ export class TeamEffects {
     )
   );
 
-  deleteDreamteam$ = createEffect(() => 
+  deleteTeam$ = createEffect(() => 
     this.actions$.pipe(
     ofType(TeamActions.deleteTeam),
     mergeMap(action => this.TeamService.deleteTeam(action.id)

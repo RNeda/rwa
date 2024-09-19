@@ -46,6 +46,8 @@ import { RoleGuard } from './auth/role.guard';
 import { TeamReducer } from './store/team.reducer';
 import { TeamEffects } from './store/team.effects';
 import { ShowGameComponent } from './show-game/show-game.component';
+import { CreateTeamComponent } from './create-team/create-team.component';
+import { CreateGameComponent } from './create-game/create-game.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +62,9 @@ import { ShowGameComponent } from './show-game/show-game.component';
     CreateDreamteamComponent,
     UpdateDreamteamComponent,
     ShowTeamComponent,
-    ShowGameComponent
+    ShowGameComponent,
+    CreateTeamComponent,
+    CreateGameComponent
   ],
   imports: [
     BrowserModule,

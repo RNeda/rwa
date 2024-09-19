@@ -59,4 +59,8 @@ export class CreateDreamteamComponent implements OnInit{
     }
     
   }
+  cancelDreamTeam(){
+    //ako ostane ovako u posebnom royoru ovo je okej, ako prebacim na profile onda mora output()
+    this.router.navigate(['/my-profile']);
+  }
 }

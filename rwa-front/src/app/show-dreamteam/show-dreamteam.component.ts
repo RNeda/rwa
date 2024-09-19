@@ -17,6 +17,7 @@ export class ShowDreamteamComponent implements OnInit{
   @Input() dreamTeam: DreamTeam | null = null;
   dreamTeam$: Observable<DreamTeam | null> = this.store.select(selectSingleDreamTeam);
   dtId: number | null = null;
+
   constructor(private store: Store<AppState>, private route: ActivatedRoute, private router:Router) {}
 
   ngOnInit(): void {
@@ -47,35 +48,24 @@ export class ShowDreamteamComponent implements OnInit{
         return this.dreamTeam$; // Return the observable to be used in the template
       })
     ).subscribe();
-
-   
+    
   }
 
   changeLikes():void{
-    // if (this.dreamTeam) {
-    //   this.store.dispatch(updateDreamTeamLikes({
-    //     id: this.dreamTeam.id,
-    //     likes: (this.dreamTeam.likes || 0) + 1
-    //   }));
-    // }
     if (this.dreamTeam) {
       const updates = new DreamTeamDto(1, this.dreamTeam.name, [], this.dreamTeam.creator.id);
       this.store.dispatch(updateDreamTeam({ id: this.dreamTeam.id, updates }));
+      console.log("userid after like: "+ this.dreamTeam.creator.id);
     }
   }
 
   changeDislikes():void{
-    // if (this.dreamTeam) {
-    //   this.store.dispatch(updateDreamTeamDislikes({
-    //     id: this.dreamTeam.id,
-    //     dislikes: (this.dreamTeam.dislikes || 0) + 1
-    //   }));
-    // }
     if (this.dreamTeam) {
       const updates = new DreamTeamDto(2, this.dreamTeam.name, [], this.dreamTeam.creator.id);
       this.store.dispatch(updateDreamTeam({ id: this.dreamTeam.id, updates }));
     }
   }
+  
   updateDT(dreamTeamId:number){
     this.router.navigate(['update-dreamteam'], { queryParams: { dtId: dreamTeamId } });
 

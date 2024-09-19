@@ -4,8 +4,11 @@ import { map, Observable, switchMap } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../app.state';
 import { ActivatedRoute, Router } from '@angular/router';
-import { loadTeam } from '../store/team.actions';
+import { deleteTeam, loadTeam } from '../store/team.actions';
 import { selectSingleTeam } from '../store/team.selectors';
+import { TeamService } from '../team/team.service';
+import { User } from '../entities/user';
+import { selectUserData } from '../store/user.selectors';
 
 @Component({
   selector: 'app-show-team',
@@ -15,39 +18,51 @@ import { selectSingleTeam } from '../store/team.selectors';
 export class ShowTeamComponent implements OnInit{
 
   @Input() team: Team | null = null;
-  team$: Observable<Team | null> = this.store.select(selectSingleTeam);
+  @Input() showDeleteBtn:boolean = false;
+  @Input() fromG:boolean=false;
+  @Output() teamDeleted = new EventEmitter<boolean>();
+  fullteam:Team | null=null;
+  user:any;
+  //team$: Observable<Team | null> = this.store.select(selectSingleTeam);
   //@Output() valueSent = new EventEmitter<boolean>();
   //tId: number | null = null;
-
-  constructor(private store: Store<AppState>, private route: ActivatedRoute, private router:Router) {}
+  isAdmin:boolean=false;
+  constructor(private store: Store<AppState>, private route: ActivatedRoute, private router:Router,private teamService:TeamService) {}
 
   ngOnInit(): void {
       
-    // if (!this.team) {
-    //   // If no input, try to load it from the query params
-    //   this.route.queryParams.subscribe(params => {
-    //     if (params['tId']) {
-    //       this.tId = +params['tId']; // Get the dtId from query params
-    //       this.store.dispatch(loadTeam({ id: this.tId })); // Dispatch to load DreamTeam
-    //     }
-    //   });
-    // }
-
-    this.route.paramMap.pipe(
-      map(params => params.get('id')), // Get the 'id' parameter from the route
-      switchMap(id => {
-        if (id) {
-          this.store.dispatch(loadTeam({ id: +id })); // Dispatch the action with the ID
-        }
-        return this.team$; // Return the observable to be used in the template
-      })
-    ).subscribe();
+    this.store.select(selectUserData).subscribe((data)=>{
+      this.user=data;
+      //console.log("users role from show team" + this.user.role);
+    });
+    this.isAdmin=(this.user.role==="admin");
+    if (this.team) {
+      //console.log("team " +[this.team]);
+      console.log("team from input id:"+ this.team.id + " name: "+ this.team.name+ " games: "+ this.team.games+ " players: "+this.team.players);
+    }
+    this.getFullTeam();
+    
   }
 
-  // goBack(){
-  //   //this.router.navigate(['/home-page']);
-  //   const valuetoSend=false;
-  //   this.valueSent.emit(valuetoSend);
-  // }
+  getFullTeam(){
+    if(this.team){
+      //this.fullteam = 
+      this.teamService.getTeam(this.team.id).subscribe(novi=>{
+        this.fullteam=novi;
+        console.log("fullteam: " + this.fullteam.players);
+      });
+      
+    }
+  }
+
+  deleteTeam(){
+    if(this.team){
+      //this.teamService.deleteTeam(this.team.id);
+      this.store.dispatch(deleteTeam({id:this.team.id}));
+      //posalji u parent da se ponovo ucitaju timovi
+      const deleted:boolean=true;
+      this.teamDeleted.emit(deleted);
+    }
+  }
 
 }

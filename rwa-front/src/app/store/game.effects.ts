@@ -1,8 +1,9 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { GameService } from "../game/game.service";
-import { loadGame, loadGameFailure, loadGames, loadGamesFailure, loadGamesSuccess, loadGameSuccess } from "./game.actions";
+import { createGame, createGameFailure, createGameSuccess, deleteGame, deleteGameFailure, deleteGameSuccess, loadGame, loadGameFailure, loadGames, loadGamesFailure, loadGamesSuccess, loadGameSuccess } from "./game.actions";
 import { catchError, map, mergeMap, of } from "rxjs";
+import { Game } from "../entities/game";
 
 @Injectable()
 export class GameEffects{
@@ -28,17 +29,6 @@ export class GameEffects{
         )}
     );
 
-    // loadGame$=createEffect(()=>
-    //   this.actions$.pipe(
-    //     ofType(loadGame),
-    //     mergeMap(({id}))=>
-    //       this.gameService.getGameById(id).pipe(
-    //         map((game)=>loadGameSuccess({game})),
-    //         catchError((error)=>of(loadGameFailure({error})))
-    //       )
-    //   )
-    // );
-
     loadGame$ = createEffect(() =>
       this.actions$.pipe(
         ofType(loadGame),
@@ -51,6 +41,26 @@ export class GameEffects{
       )
     );
 
-   
+   createGame$=createEffect(()=>
+    this.actions$.pipe(
+      ofType(createGame),
+      mergeMap(({game})=>
+        this.gameService.createGame(game).pipe(
+          map((createdGame:Game)=>createGameSuccess({game:createdGame})),
+          catchError((error)=>of(createGameFailure({error})))
+        )
+      )
+    )
+  );
     
+  deleteGame$=createEffect(()=>
+    this.actions$.pipe(
+      ofType(deleteGame),
+      mergeMap(action=>this.gameService.deleteGame(action.id)
+      .pipe(
+        map(()=>deleteGameSuccess({id:action.id})),
+        catchError(error=>of(deleteGameFailure({error})))
+      ))
+    )
+  );
 }

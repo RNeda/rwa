@@ -4,13 +4,15 @@
         <li *ngIf="game" class="game-teams">
             
             <span class="team-name">{{ game.teams[0]?.name }}</span> <span>{{ game.resTeam1 }}:{{ game.resTeam2 }}</span> <span class="team-name">{{ game.teams[1]?.name }}</span>
-            <button *ngIf="!showteams" (click)="showTeams()">Show details</button>
+            <button  (click)="showTeams()">{{currText}}</button>
+            <button  *ngIf="isAdmin" (click)="deleteGame(game.id)">Delete game</button>
+
         <!--</div>
         <div *ngIf="game.teams[0] && game.teams[1]; else noTeams">-->
             <div *ngIf="showteams" class="team-details">
-                <app-show-team [team]="game.teams[0]"></app-show-team>
-                <app-show-team [team]="game.teams[1]"></app-show-team>
-                <button (click)="hideTeams()">Hide details</button>
+                <app-show-team [team]="game.teams[0]" [fromG]="fromHP"></app-show-team>
+                <app-show-team [team]="game.teams[1]" [fromG]="fromHP"></app-show-team>
+                <!--<button (click)="hideTeams()">Hide details</button>-->
             </div>
         <!-- </div>
        <ng-template #noTeams>

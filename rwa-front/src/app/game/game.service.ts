@@ -6,6 +6,7 @@ import { catchError, map, Observable, of } from 'rxjs';
 import { Game } from '../entities/game';
 import { url } from '../../../environment/environment.dev';
 import { loadGamesFailure, loadGamesSuccess } from '../store/game.actions';
+import { GameDto } from '../entities/game.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -23,9 +24,12 @@ export class GameService {
     return this.http.get<Game>(url+`/game/${id}`);
   }
 
-  createGame(game: Game): Observable<Game> {
+  createGame(game: GameDto): Observable<Game> {
     return this.http.post<Game>(url+"/game", game);
   }
   
+  deleteGame(id:number):Observable<void>{
+    return this.http.delete<void>(`${url}/game/${id}`);
+  }
 
 }
