@@ -1,0 +1,7 @@
+<div class="player-info">
+<img *ngIf="player?.picture" [src]="player?.picture" alt="{{ player?.name }}" />
+
+    <p>{{ player?.name || 'Unknown Player' }} - {{ player?.position || 'Position Unknown' }}</p>
+    <p>Age: {{ player?.age || 'N/A' }}</p>
+
+</div>

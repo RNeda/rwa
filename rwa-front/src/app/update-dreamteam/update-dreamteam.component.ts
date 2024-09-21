@@ -6,7 +6,7 @@ import { AppState } from '../app.state';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DreamTeamDto } from '../entities/dreamteam.dto';
 import { loadAvailablePlayers, loadDreamTeam, removePlayer, removePlayerFailure, removePlayerSuccess, updateDreamTeam } from '../store/dreamteam.actions';
-import { selectAvailablePlayers, selectSingleDreamTeam } from '../store/dreamteam.selectors';
+import { selectAvailablePlayers, selectDreamTeamById, selectSingleDreamTeam } from '../store/dreamteam.selectors';
 
 @Component({
   selector: 'app-update-dreamteam',
@@ -94,7 +94,8 @@ export class UpdateDreamteamComponent implements OnInit{
     const dto: DreamTeamDto = new DreamTeamDto(0, this.dreamTeam.name, this.playersToAddIds, this.dreamTeam.creator.id);
     console.log("dtoplayerids "+dto.playerids[0]);
     this.store.dispatch(updateDreamTeam({ id: this.dreamTeam.id, updates: dto }));
-    this.router.navigate(['/my-profile']);
+    //this.store.select(selectDreamTeamById(this.dreamTeam.id)).subscribe((data)=>{console.log("from update "+data)});
+    this.router.navigate(['/my-profile'],{ queryParams: { dtId:this.dreamTeam.id } });
   }
 
 }

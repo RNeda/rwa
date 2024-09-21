@@ -1,4 +1,6 @@
-<app-nav></app-nav>
+<app-nav (termToSearch)="handleTermToSearch($event)"></app-nav>
+<div *ngIf="!searchTermFlag">
+
   <div *ngIf="games$ | async as games; else loadingGames" class="game-section">
     <h2>Games</h2>
     <ul *ngFor="let game of games">
@@ -6,9 +8,12 @@
     </ul>
   </div>
   
+  
   <ng-template #loadingGames>
     <p>Loading games...</p>
   </ng-template>
+
+  
   
   <div *ngIf="othersdts as dreamTeams" class="dreamteam-section">
     <h2>Dream Teams</h2>
@@ -16,7 +21,22 @@
       <app-show-dreamteam [dreamTeam]="dreamTeam"></app-show-dreamteam>
     </div>
   </div>
+</div>
   <!--
   <ng-template #loading>
     <p>Loading DreamTeams...</p>
   </ng-template>-->
+
+<div *ngIf="searchTermFlag">
+  <div *ngIf="filteredGames$ | async as games; else noGames" class="game-section">
+    <h2>Games</h2>
+    <ul *ngFor="let game of games">
+      <app-show-game [game]="game" [fromHP]="hpfleg"></app-show-game>
+    </ul>
+
+  </div>
+
+  <ng-template #noGames>
+    <p>No games...</p>
+  </ng-template>
+</div>

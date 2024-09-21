@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { selectAllPlayers } from '../store/dreamteam.selectors';
 import { Store } from '@ngrx/store';
 import { AppState } from '../app.state';
@@ -8,6 +8,7 @@ import { DreamTeamDto } from '../entities/dreamteam.dto';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../entities/user';
 import { login } from '../store/user.actions';
+import { selectUserData } from '../store/user.selectors';
 
 @Component({
   selector: 'app-create-dreamteam',
@@ -22,16 +23,20 @@ export class CreateDreamteamComponent implements OnInit{
   creatorId: any;
   creatoremail:any;
   creatorpass:any;
+  creator:any;
+  @Output() dreamteamCreated = new EventEmitter<boolean>();
+  @Output() canceldreamteamCreation = new EventEmitter<boolean>();
 
   constructor(private store: Store<AppState>,private router:Router,private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.store.dispatch(loadPlayers());
-    this.route.queryParams.subscribe(params => {
-      this.creatorId = params['creatorId']; // Extract the creator ID
-      this.creatoremail=params['creatoremail'];
-      this.creatorpass=params['creatorpass'];
-    });
+    this.store.select(selectUserData).subscribe((data)=>this.creator=data);
+    // this.route.queryParams.subscribe(params => {
+    //   this.creatorId = params['creatorId']; // Extract the creator ID
+    //   this.creatoremail=params['creatoremail'];
+    //   this.creatorpass=params['creatorpass'];
+    // });
 
   }
 
@@ -45,22 +50,28 @@ export class CreateDreamteamComponent implements OnInit{
   }
 
   createDreamTeam(): void {
-    if (this.creatorId) {
+   // if (this.creatorId) {
       const newTeam: DreamTeamDto = {
         likes: 0,
         name: this.teamName,
         playerids: this.selectedPlayers,
-        creatorid: this.creatorId, // Now using the creatorId from @Input()
+        creatorid: this.creator.id, // Now using the creatorId from @Input()
       };
       this.store.dispatch(createDreamTeam({ dreamTeam: newTeam }));
-      this.store.dispatch(login({email:this.creatoremail, password:this.creatorpass}));
+      
+      const created:boolean=true;
+      this.dreamteamCreated.emit(created);
+      //console.log("from create: "+created);
+      //this.store.dispatch(login({email:this.creatoremail, password:this.creatorpass}));
 
       //this.router.navigate(['/my-profile']);
-    }
+    //}
     
   }
-  cancelDreamTeam(){
+  cancelDreamTeam():void{
     //ako ostane ovako u posebnom royoru ovo je okej, ako prebacim na profile onda mora output()
-    this.router.navigate(['/my-profile']);
+    //this.router.navigate(['/my-profile']);
+    const cncl:boolean=true;
+    this.canceldreamteamCreation.emit(cncl);
   }
 }

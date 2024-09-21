@@ -1,5 +1,6 @@
 import { DreamTeamState, ProfileState } from "./store/dreamteam.reducer";
 import { GameState } from "./store/game.reducer";
+import { PlayerState } from "./store/player.reducer";
 import { TeamState } from "./store/team.reducer";
 import { AuthState } from "./store/user.reducer";
 
@@ -9,6 +10,7 @@ export interface AppState{
     dreamteams: DreamTeamState;
     profile: ProfileState;
     teams:TeamState;
+    players:PlayerState;
     // myDecisions: MyDecisionsState;
     // searchedDecisions: DecisionsState;
 }

@@ -1,5 +1,5 @@
 <mat-toolbar>
-    <span class="headline">Platform</span>
+    <span class="headline">VolleyPlatform</span>
     <span class="example-spacer"></span>
     <!--<button mat-icon-button class="example-icon" color="primary" (click)="createDreamTeam()">
       <mat-icon>add_circle_outline</mat-icon>
@@ -10,6 +10,7 @@
     <button mat-icon-button class="example-icon" color="primary" (click)="searchTeams()">
       <mat-icon>search</mat-icon>
     </button>
+    <input *ngIf="showSearchInput" matInput placeholder="Search Teams" [(ngModel)]="searchTerm" (keyup.enter)="performSearch()" />
     <button mat-icon-button class="example-icon" color="primary" (click)="goToProfile()">
       <mat-icon>account_box</mat-icon>
     </button>

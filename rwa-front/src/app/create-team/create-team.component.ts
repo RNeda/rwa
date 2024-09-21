@@ -56,7 +56,7 @@ export class CreateTeamComponent implements OnInit{
     this.cancelCreation.emit(cncl);
   }
 
-  filterPlayersWithNoTeam(){
+  filterPlayersWithNoTeam():void{
     this.availablePlayers=this.allPlayers.filter(
       (player) => player.team === null
     );

@@ -5,8 +5,9 @@
     <h3>Players</h3>
     <ul *ngIf="fullteam?.players ; else noPlayers">
       <li *ngFor="let player of fullteam?.players">
-        <img *ngIf="player.picture" [src]="player.picture" alt="{{ player.name }}" />
-        <p>{{ player.name || 'Unknown Player' }} - {{ player.position || 'Position Unknown' }} (Age: {{ player.age || 'N/A' }})</p>
+        <!--<img *ngIf="player.picture" [src]="player.picture" alt="{{ player.name }}" />
+        <p>{{ player.name || 'Unknown Player' }} - {{ player.position || 'Position Unknown' }} (Age: {{ player.age || 'N/A' }})</p>-->
+        <app-show-player [player]="player"></app-show-player>
       </li>
     </ul>
     <button *ngIf="isAdmin && !fromG" (click)="deleteTeam()">Delete team</button>

@@ -1,0 +1,31 @@
+<h1>Create New Player</h1>
+
+<div>
+  <label for="playerName">Player Name:</label>
+  <input id="playerName" [(ngModel)]="playerName" />
+</div>
+<div>
+    <label for="playerAge">Player Age:</label>
+    <input id="playerAge" [(ngModel)]="playerAge" />
+</div>
+<div>
+    <label for="playerPosition">Player Position:</label>
+    <input id="playerPosition" [(ngModel)]="playerPosition" />
+</div>
+<div>
+    <label for="playerPicture">Player Picture:</label>
+    <input id="playerPicture" [(ngModel)]="playerPicture" />
+</div>
+
+<button 
+type="button"
+aria-label="New player"
+(click)="createPlayer()"
+mat-raised-button
+class="edit-button">Create Player</button>
+<button 
+type="button"
+aria-label="New player cancel"
+(click)="cancelPlayer()"
+mat-raised-button
+class="edit-button">Cancel</button>

@@ -48,6 +48,10 @@ import { TeamEffects } from './store/team.effects';
 import { ShowGameComponent } from './show-game/show-game.component';
 import { CreateTeamComponent } from './create-team/create-team.component';
 import { CreateGameComponent } from './create-game/create-game.component';
+import { CreatePlayerComponent } from './create-player/create-player.component';
+import { PlayerReducer } from './store/player.reducer';
+import { PlayerEffects } from './store/player.effects';
+import { ShowPlayerComponent } from './show-player/show-player.component';
 
 @NgModule({
   declarations: [
@@ -64,17 +68,19 @@ import { CreateGameComponent } from './create-game/create-game.component';
     ShowTeamComponent,
     ShowGameComponent,
     CreateTeamComponent,
-    CreateGameComponent
+    CreateGameComponent,
+    CreatePlayerComponent,
+    ShowPlayerComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     //FontAwesomeModule,
-    StoreModule.forRoot<AppState>({auth:authReducer, games: gamesReducer, dreamteams:dreamTeamReducer, profile:profileReducer, teams:TeamReducer}),
+    StoreModule.forRoot<AppState>({auth:authReducer, games: gamesReducer, dreamteams:dreamTeamReducer, profile:profileReducer, teams:TeamReducer, players:PlayerReducer}),
     StoreDevtoolsModule.instrument({
       maxAge:25,
     }),
-    EffectsModule.forRoot([UserEffects,GameEffects,DreamTeamEffects,TeamEffects]),
+    EffectsModule.forRoot([UserEffects,GameEffects,DreamTeamEffects,TeamEffects,PlayerEffects]),
     FormsModule,
     MatFormFieldModule,
     MatIconModule,

@@ -13,6 +13,7 @@ import { ShowTeamComponent } from './show-team/show-team.component';
 import { RoleGuard } from './auth/role.guard';
 import { CreateTeamComponent } from './create-team/create-team.component';
 import { CreateGameComponent } from './create-game/create-game.component';
+import { CreatePlayerComponent } from './create-player/create-player.component';
 
 const routes: Routes = [
   {
@@ -50,6 +51,9 @@ const routes: Routes = [
   },
   {
     path:'create-game', component:CreateGameComponent, pathMatch:'full', canActivate:[IsAuthGuard,RoleGuard]
+  },
+  {
+    path:'create-player', component:CreatePlayerComponent, pathMatch:'full', canActivate:[IsAuthGuard, RoleGuard]
   },
   {
     path:'**', redirectTo: 'sign-in', pathMatch: 'full'
