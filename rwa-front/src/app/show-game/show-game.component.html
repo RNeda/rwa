@@ -5,7 +5,7 @@
             
             <span class="team-name">{{ game.teams[0]?.name }}</span> <span>{{ game.resTeam1 }}:{{ game.resTeam2 }}</span> <span class="team-name">{{ game.teams[1]?.name }}</span>
             <button  (click)="showTeams()">{{currText}}</button>
-            <button  *ngIf="isAdmin" (click)="deleteGame(game.id)">Delete game</button>
+            <button  *ngIf="isAdmin" (click)="openDeleteDialog(game.id)">Delete game</button>
 
         <!--</div>
         <div *ngIf="game.teams[0] && game.teams[1]; else noTeams">-->

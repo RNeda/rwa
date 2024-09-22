@@ -98,7 +98,7 @@ export class UserEffects {
                   return this.userService.getUser(decodedToken,token).pipe(
                     map((user) => loginsuccess({ user: user.body, token })),
                     tap(() => {
-                      this.router.navigateByUrl("/feed");
+                      this.router.navigateByUrl("/home-page");
                     })
                   );
                 } else {

@@ -24,7 +24,7 @@
         <button
           type="button"
           aria-label="Delete profile"
-          (click)="deleteProfile()"
+          (click)="openDeleteDialog(0,1)"
           mat-raised-button
           class="edit-button"
         >
@@ -103,11 +103,8 @@
     <div class="dream-teams">
       <h2>{{ profileToDisplay.name }}'s DreamTeams</h2>
     
-      <!--<div *ngIf="fulldts | async as dreamTeams; else noDreamTeams">dreamTeams$ | async as dreamTeams; else noDreamTeams">-->
         
         <div class="eachdt" *ngFor="let dreamTeam of fulldts">
-          
-          
           
           <div *ngIf="dreamTeam; else loading"> 
             <h2 >{{ dreamTeam.name }}</h2>
@@ -130,11 +127,11 @@
             <button 
             type="button"
             aria-label="show dt"
-            (click)="deleteDreamteam(dreamTeam.id)"
+            (click)="openDeleteDialog(dreamTeam.id,2)"
             mat-raised-button
             class="edit-button">
             Delete dreamteam</button>
-            
+            <!--"deleteDreamteam(dreamTeam.id)"-->
             
           </div>
 

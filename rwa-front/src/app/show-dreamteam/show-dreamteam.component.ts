@@ -7,6 +7,8 @@ import { AppState } from '../app.state';
 import { loadDreamTeam, updateDreamTeam } from '../store/dreamteam.actions';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DreamTeamDto } from '../entities/dreamteam.dto';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmUpdateDialogComponent } from '../confirm-update-dialog/confirm-update-dialog.component';
 
 @Component({
   selector: 'app-show-dreamteam',
@@ -21,17 +23,10 @@ export class ShowDreamteamComponent implements OnInit{
   creatorName:string="";
   creatorId:number=0;
 
-  constructor(private store: Store<AppState>, private route: ActivatedRoute, private router:Router) {}
+  constructor(private store: Store<AppState>, private route: ActivatedRoute, private router:Router, public dialog:MatDialog) {}
 
   ngOnInit(): void {
-    // const dreamTeamId = 1; // Replace with the actual ID or use route params
-    // this.store.dispatch(loadDreamTeam({ id: dreamTeamId }));
-    // if(this.dreamTeam===null){
-    //   this.route.queryParams.subscribe(params=>{
-    //     this.dtId=params['dtId'];
-    //   })
-    //   this.store.dispatch(loadDreamTeam({id: +this.dtId}));
-    // }
+   
     if(this.dreamTeam){
       this.creatorName=this.dreamTeam.creator.name;
       this.creatorId=this.dreamTeam.creator.id;
@@ -95,10 +90,11 @@ export class ShowDreamteamComponent implements OnInit{
   
   updateDT(dreamTeamId:number){
     this.router.navigate(['update-dreamteam'], { queryParams: { dtId: dreamTeamId } });
-
   }
   goBackToProfile(){
     this.router.navigate(['/my-profile']);
   }
+
+  
 
 }

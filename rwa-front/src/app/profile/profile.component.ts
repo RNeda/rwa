@@ -8,11 +8,15 @@ import { selectUserData } from '../store/user.selectors';
 import { deleteUser, login } from '../store/user.actions';
 import { Observable } from 'rxjs';
 import { DreamTeam } from '../entities/dreamteam';
-import { deleteDreamteam, loadUserDreamTeams } from '../store/dreamteam.actions';
+import { deleteDreamteam, loadDreamTeam, loadUserDreamTeams } from '../store/dreamteam.actions';
 import { selectDreamTeamById, selectSingleDreamTeam, selectUserDreamTeams } from '../store/dreamteam.selectors';
 import { DreamteamService } from '../dreamteam/dreamteam.service';
 import { Team } from '../entities/team';
 import { TeamService } from '../team/team.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDeleteDialogComponent } from '../confirm-delete-dialog/confirm-delete-dialog.component';
+import { ConfirmUpdateDialogComponent } from '../confirm-update-dialog/confirm-update-dialog.component';
+
 
 
 
@@ -40,6 +44,7 @@ export class ProfileComponent implements OnInit, OnDestroy{
   showteamsbtntext:string=this.showteamsbtn[0];
   novi: DreamTeam[]=[];
   updatedDtId:number=0;
+  //deleteDT:boolean=false;
 
   
   constructor(
@@ -49,6 +54,7 @@ export class ProfileComponent implements OnInit, OnDestroy{
     private sanitizer: DomSanitizer,
     private router: Router,
     private route:ActivatedRoute,
+    public dialog:MatDialog,
     private store: Store<AppState>
   ) { }
 
@@ -63,6 +69,21 @@ export class ProfileComponent implements OnInit, OnDestroy{
       this.fulldts = dreamTeams || []; 
       
       console.log('DreamTeams:', [this.fulldts]); 
+      this.route.queryParams.subscribe(params => {
+          if (params['dtId']) {
+            this.updatedDtId = +params['dtId']; // Get the dtId from query params
+            this.store.dispatch(loadDreamTeam({ id: this.updatedDtId })); // Dispatch to load DreamTeam
+            this.store.select(selectSingleDreamTeam).subscribe((updatedDreamTeam)=>{
+              if (updatedDreamTeam) {
+                this.fulldts = this.fulldts.map(dt => 
+                  dt.id === this.updatedDtId ? updatedDreamTeam : dt
+                );
+                
+                console.log("Updated DreamTeams list:", this.fulldts);
+              }
+            });
+          }
+        });
     });
 
     //this.getFullDts();
@@ -71,19 +92,7 @@ export class ProfileComponent implements OnInit, OnDestroy{
       this.isAdmin=true;
     }
 
-    // this.route.queryParams.subscribe(params => {
-    //   this.updatedDtId = params['dtId'];
-      //console.log("updated dtid: "+ this.updatedDtId);
-      // this.store.select(selectDreamTeamById(this.updatedDtId)).subscribe((data)=>{
-      //   if(data){
-      //     console.log("data name:"+data.name);
-      //     this.fulldts.filter(p=>p.id!==data.id);
-      //     console.log("filter fulldts"+this.fulldts);
-      //     this.fulldts.push(data);
-      //     console.log("fulldts push "+this.fulldts);
-      //   }
-      // })
-    //});
+    
   }
   ngOnDestroy(): void {
   }
@@ -101,11 +110,12 @@ export class ProfileComponent implements OnInit, OnDestroy{
   }
 
   deleteDreamteam(id:number){
+    //if(this.deleteDT){
     this.store.dispatch(deleteDreamteam({id:id}));
     this.router.navigate(['/my-profile']);
 
     this.store.dispatch(login({email:this.profileToDisplay.email, password:this.profileToDisplay.password}));
-    
+    //}
   }
 
   showTeamsBtn(){
@@ -141,6 +151,35 @@ export class ProfileComponent implements OnInit, OnDestroy{
     this.createPlayerflag=true;
   }
 
+  //confirm dialogs
+  openDeleteDialog(id:number,whatAction:number): void {
+    //whatAction:
+    //1-deleteProfile()
+    //2-deleteDreamteam()
+    const dialogRef = this.dialog.open(ConfirmDeleteDialogComponent, {
+      width: '250px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        switch(whatAction){
+          case 1:
+            this.deleteProfile();
+            break;
+          case 2:
+            this.deleteDreamteam(id);
+            break;
+          default:
+            console.log('Unknown status');
+        }
+        //this.deleteDT=true;
+      } else {
+        console.log('Delete cancelled');
+      }
+    });
+  }
+
+  
   //handle outputs
   handleTeamCreated(created:boolean): void {
     this.createTeamflag=!created;

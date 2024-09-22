@@ -9,6 +9,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../entities/user';
 import { login } from '../store/user.actions';
 import { selectUserData } from '../store/user.selectors';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmCreateDialogComponent } from '../confirm-create-dialog/confirm-create-dialog.component';
 
 @Component({
   selector: 'app-create-dreamteam',
@@ -27,7 +29,7 @@ export class CreateDreamteamComponent implements OnInit{
   @Output() dreamteamCreated = new EventEmitter<boolean>();
   @Output() canceldreamteamCreation = new EventEmitter<boolean>();
 
-  constructor(private store: Store<AppState>,private router:Router,private route: ActivatedRoute) {}
+  constructor(private store: Store<AppState>,public dialog:MatDialog,/*private router:Router,private route: ActivatedRoute*/) {}
 
   ngOnInit(): void {
     this.store.dispatch(loadPlayers());
@@ -61,6 +63,7 @@ export class CreateDreamteamComponent implements OnInit{
       
       const created:boolean=true;
       this.dreamteamCreated.emit(created);
+      this.createConfirm();
       //console.log("from create: "+created);
       //this.store.dispatch(login({email:this.creatoremail, password:this.creatorpass}));
 
@@ -73,5 +76,12 @@ export class CreateDreamteamComponent implements OnInit{
     //this.router.navigate(['/my-profile']);
     const cncl:boolean=true;
     this.canceldreamteamCreation.emit(cncl);
+  }
+
+  createConfirm(): void {
+    const dialogRef = this.dialog.open(ConfirmCreateDialogComponent, {
+      width: '300px',
+    });
+
   }
 }

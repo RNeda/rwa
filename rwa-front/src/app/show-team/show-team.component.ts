@@ -9,6 +9,8 @@ import { selectSingleTeam } from '../store/team.selectors';
 import { TeamService } from '../team/team.service';
 import { User } from '../entities/user';
 import { selectUserData } from '../store/user.selectors';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDeleteDialogComponent } from '../confirm-delete-dialog/confirm-delete-dialog.component';
 
 @Component({
   selector: 'app-show-team',
@@ -27,7 +29,13 @@ export class ShowTeamComponent implements OnInit{
   //@Output() valueSent = new EventEmitter<boolean>();
   //tId: number | null = null;
   isAdmin:boolean=false;
-  constructor(private store: Store<AppState>, private route: ActivatedRoute, private router:Router,private teamService:TeamService) {}
+  constructor(
+    private store: Store<AppState>, 
+    private route: ActivatedRoute, 
+    private router:Router,
+    private teamService:TeamService,
+    public dialog:MatDialog,
+  ) {}
 
   ngOnInit(): void {
       
@@ -63,6 +71,22 @@ export class ShowTeamComponent implements OnInit{
       const deleted:boolean=true;
       this.teamDeleted.emit(deleted);
     }
+  }
+
+  openDeleteDialog(): void {
+    
+    const dialogRef = this.dialog.open(ConfirmDeleteDialogComponent, {
+      width: '250px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.deleteTeam();
+        //this.deleteDT=true;
+      } else {
+        console.log('Delete cancelled');
+      }
+    });
   }
 
 }

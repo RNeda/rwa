@@ -1,20 +1,20 @@
 <mat-toolbar>
-    <span class="headline">VolleyPlatform</span>
+    <span class="headline">Volley-Platform</span>
     <span class="example-spacer"></span>
     <!--<button mat-icon-button class="example-icon" color="primary" (click)="createDreamTeam()">
       <mat-icon>add_circle_outline</mat-icon>
     </button>-->
-    <button mat-icon-button class="example-icon favorite-icon" color="primary" (click)="homepage()">
+    <button *ngIf="userLogged" mat-icon-button class="example-icon favorite-icon" color="primary" (click)="homepage()">
       <mat-icon>dashboard</mat-icon>
-    </button>
-    <button mat-icon-button class="example-icon" color="primary" (click)="searchTeams()">
+    </button>   
+    <button *ngIf="userLogged" mat-icon-button class="example-icon" color="primary" (click)="searchTeams()">
       <mat-icon>search</mat-icon>
     </button>
-    <input *ngIf="showSearchInput" matInput placeholder="Search Teams" [(ngModel)]="searchTerm" (keyup.enter)="performSearch()" />
+    <input *ngIf="showSearchInput && userLogged" matInput placeholder="Search Teams" [(ngModel)]="searchTerm" (keyup.enter)="performSearch()" />
     <button mat-icon-button class="example-icon" color="primary" (click)="goToProfile()">
       <mat-icon>account_box</mat-icon>
     </button>
-    <button mat-icon-button class="example-icon" color="primary" (click)="signOut()">
+    <button *ngIf="userLogged" mat-icon-button class="example-icon" color="primary" (click)="signOut()">
       <mat-icon>power_settings_new</mat-icon>
     </button>
   </mat-toolbar>

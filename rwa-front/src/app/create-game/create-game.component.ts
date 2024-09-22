@@ -6,6 +6,8 @@ import { selectAllTeams } from '../store/team.selectors';
 import { loadTeams } from '../store/team.actions';
 import { GameDto } from '../entities/game.dto';
 import { createGame } from '../store/game.actions';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmCreateDialogComponent } from '../confirm-create-dialog/confirm-create-dialog.component';
 
 @Component({
   selector: 'app-create-game',
@@ -20,7 +22,7 @@ export class CreateGameComponent implements OnInit{
   selectedTeam2:number|null=null;
   resTeam1:number=0;
   resTeam2:number=0;
-  constructor(private store: Store<AppState>,private router:Router,private route: ActivatedRoute) {}
+  constructor(private store: Store<AppState>,private router:Router,private route: ActivatedRoute,private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.store.dispatch(loadTeams());
@@ -68,10 +70,17 @@ export class CreateGameComponent implements OnInit{
     };
     this.store.dispatch(createGame({game:newGame}));
     this.router.navigate(['/my-profile']);
-
+    this.createConfirm();
   }
 
   cancelGame(){
     this.router.navigate(['/my-profile']);
+  }
+
+  createConfirm(): void {
+    const dialogRef = this.dialog.open(ConfirmCreateDialogComponent, {
+      width: '300px',
+    });
+
   }
 }

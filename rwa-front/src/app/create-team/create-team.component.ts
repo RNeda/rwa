@@ -6,6 +6,8 @@ import { selectAllPlayers } from '../store/team.selectors';
 import { createTeam, loadPlayers } from '../store/team.actions';
 import { TeamDto } from '../entities/team.dto';
 import { Player } from '../entities/player';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmCreateDialogComponent } from '../confirm-create-dialog/confirm-create-dialog.component';
 
 @Component({
   selector: 'app-create-team',
@@ -22,7 +24,7 @@ export class CreateTeamComponent implements OnInit{
   @Output() teamCreated = new EventEmitter<boolean>();
   @Output() cancelCreation = new EventEmitter<boolean>();
 
-  constructor(private store: Store<AppState>,private router:Router,private route: ActivatedRoute) {}
+  constructor(private store: Store<AppState>,private router:Router,private route: ActivatedRoute, private dialog:MatDialog) {}
 
 
   ngOnInit(): void {
@@ -48,6 +50,7 @@ export class CreateTeamComponent implements OnInit{
     this.store.dispatch(createTeam({team:newTeam}));
     const created:boolean=true;
     this.teamCreated.emit(created);
+    this.createConfirm();
     //this.router.navigate(['/my-profile']);
   }
 
@@ -63,4 +66,10 @@ export class CreateTeamComponent implements OnInit{
     console.log("Available players: "+ this.availablePlayers);
   }
 
+  createConfirm(): void {
+    const dialogRef = this.dialog.open(ConfirmCreateDialogComponent, {
+      width: '300px',
+    });
+
+  }
 }

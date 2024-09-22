@@ -136,6 +136,10 @@ export const removePlayerSuccess = createAction(
   '[DreamTeam] Remove Player Success',
   props<{ dreamTeam: DreamTeam }>()
 );
+// export const removePlayerSuccess = createAction(
+//   '[DreamTeam] Remove Player Success',
+//   props<{ dreamTeam: DreamTeam ,id:number}>()
+// );
 
 export const removePlayerFailure = createAction(
   '[DreamTeam] Remove Player Failure',

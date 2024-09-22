@@ -123,16 +123,27 @@ export class DreamTeamEffects {
     )
   ));
  
+  // removePlayer$ = createEffect(() =>
+  //   this.actions$.pipe(
+  //     ofType(DreamTeamActions.removePlayer),
+  //     mergeMap(action => this.DreamTeamService.removePlayers(action.teamId,action.playerIds)
+  //   .pipe(
+  //     map((dreamTeam:DreamTeam)=>DreamTeamActions.updateDreamTeamSuccess({dreamTeam})),
+  //     catchError(error=>of(DreamTeamActions.updateDreamTeamFailure({error})))
+  //   ))
+  //   )
+  // );
   removePlayer$ = createEffect(() =>
     this.actions$.pipe(
       ofType(DreamTeamActions.removePlayer),
       mergeMap(action => this.DreamTeamService.removePlayers(action.teamId,action.playerIds)
     .pipe(
-      map((dreamTeam:DreamTeam)=>DreamTeamActions.updateDreamTeamSuccess({dreamTeam})),
-      catchError(error=>of(DreamTeamActions.updateDreamTeamFailure({error})))
+      map((dreamTeam:DreamTeam)=>DreamTeamActions.removePlayerSuccess({dreamTeam})),
+      catchError(error=>of(DreamTeamActions.removePlayerFailure({error})))
     ))
     )
   );
+ 
 
     /*this.actions$.pipe(
       ofType(DreamTeamActions.removePlayer),

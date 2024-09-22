@@ -13,6 +13,8 @@
       <option *ngFor="let player of availablePlayers" [value]="player.id">{{ player.name }}</option>
     </select>
     <button type="button" (click)="addPlayer()">Add Player</button>
+    <div>Added players:</div>
+    <div *ngFor="let p of playersToAdd">{{ p }} </div>
   </div>
 
   <div>
@@ -24,5 +26,7 @@
     </ul>
   </div>
 
-  <button type="submit">Update DreamTeam</button>
+  <button type="submit" >Update DreamTeam</button>
+  <button (click)="cancelUpdate()" >Cancel</button>
+
 </form>

@@ -132,10 +132,14 @@ export const dreamTeamReducer = createReducer(
       ...state,
       loading: true
     })),
+    // on(DreamTeamActions.updateDreamTeamSuccess, (state, { dreamTeam }) => ({
+    //   ...state,
+    //   dreamTeams: state.dreamTeams.map(dt => dt.id === dreamTeam.id ? dreamTeam : dt),
+    //   loading: false
+    // })),
     on(DreamTeamActions.updateDreamTeamSuccess, (state, { dreamTeam }) => ({
       ...state,
-      dreamTeams: state.dreamTeams.map(dt => dt.id === dreamTeam.id ? dreamTeam : dt),
-      loading: false
+      dreamTeams: state.dreamTeams.map(dt => dt.id === dreamTeam.id ? dreamTeam : dt) // Replace the updated DreamTeam
     })),
     on(DreamTeamActions.updateDreamTeamFailure, (state, { error }) => ({
       ...state,
@@ -163,6 +167,8 @@ export const dreamTeamReducer = createReducer(
     on(DreamTeamActions.removePlayerSuccess, (state, { dreamTeam }) => ({
       ...state,
       dreamTeam: dreamTeam,
+      dreamTeams: state.dreamTeams.map(dt => dt.id === dreamTeam.id ? dreamTeam : dt), // dodato
+
       loading: false,
         //error: null
     })),

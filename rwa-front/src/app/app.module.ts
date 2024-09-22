@@ -52,6 +52,10 @@ import { CreatePlayerComponent } from './create-player/create-player.component';
 import { PlayerReducer } from './store/player.reducer';
 import { PlayerEffects } from './store/player.effects';
 import { ShowPlayerComponent } from './show-player/show-player.component';
+import { ConfirmDeleteDialogComponent } from './confirm-delete-dialog/confirm-delete-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ConfirmUpdateDialogComponent } from './confirm-update-dialog/confirm-update-dialog.component';
+import { ConfirmCreateDialogComponent } from './confirm-create-dialog/confirm-create-dialog.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +74,10 @@ import { ShowPlayerComponent } from './show-player/show-player.component';
     CreateTeamComponent,
     CreateGameComponent,
     CreatePlayerComponent,
-    ShowPlayerComponent
+    ShowPlayerComponent,
+    ConfirmDeleteDialogComponent,
+    ConfirmUpdateDialogComponent,
+    ConfirmCreateDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -96,6 +103,7 @@ import { ShowPlayerComponent } from './show-player/show-player.component';
     MatCardModule,
     MatDividerModule,
     MatToolbarModule,
+    MatDialogModule,
     HttpClientModule,
     JwtModule.forRoot({
       config: {
@@ -113,6 +121,7 @@ import { ShowPlayerComponent } from './show-player/show-player.component';
     RoleGuard
 
   ],
+  //entryComponents: [ConfirmDeleteDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

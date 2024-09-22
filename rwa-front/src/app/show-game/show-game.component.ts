@@ -7,6 +7,8 @@ import { AppState } from '../app.state';
 import { ActivatedRoute, Router } from '@angular/router';
 import { deleteGame, loadGame } from '../store/game.actions';
 import { selectUserData } from '../store/user.selectors';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDeleteDialogComponent } from '../confirm-delete-dialog/confirm-delete-dialog.component';
 
 @Component({
   selector: 'app-show-game',
@@ -25,7 +27,12 @@ export class ShowGameComponent implements OnInit{
 
 
 
-  constructor(private store: Store<AppState>, private route: ActivatedRoute, private router:Router) {}
+  constructor(
+    private store: Store<AppState>, 
+    private route: ActivatedRoute, 
+    private router:Router,
+    public dialog:MatDialog,
+  ) {}
 
   ngOnInit(): void {
 
@@ -70,5 +77,23 @@ export class ShowGameComponent implements OnInit{
   
   deleteGame(id:number){
     this.store.dispatch(deleteGame({id:id}));
+  }
+
+  openDeleteDialog(id:number): void {
+    //whatAction:
+    //1-deleteProfile()
+    //2-deleteDreamteam()
+    const dialogRef = this.dialog.open(ConfirmDeleteDialogComponent, {
+      width: '250px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.deleteGame(id);
+        //this.deleteDT=true;
+      } else {
+        console.log('Delete cancelled');
+      }
+    });
   }
 }

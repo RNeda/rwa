@@ -1,34 +1,38 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from '../app.state';
 import { logout } from '../store/user.actions';
+import { selectUserData } from '../store/user.selectors';
 
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.scss'
 })
-export class NavComponent {
+export class NavComponent implements OnInit{
 
   
   showSearchInput = false; // Track whether the search input is visible
   searchTerm: string = ''; // Store the search term
+  userLogged:boolean=false;
   @Output() termToSearch = new EventEmitter<string>();
 
   constructor(private router:Router,private store:Store<AppState>) { }
 
-  createDreamTeam(){
-    //this.router.navigate(['/kreiraj drim ti  komponenta'];)
+  ngOnInit(): void {
+    this.store.select(selectUserData).subscribe((data)=>{
+      if(data){
+        this.userLogged=true;
+      }
+    })
   }
-
   homepage(){
     this.router.navigate(['/home-page']);
   }
+ 
   searchTeams(){
-    //this.router.navigate(['/']);
-    this.showSearchInput = !this.showSearchInput; // Toggle input visibility
-
+      this.showSearchInput = !this.showSearchInput; // Toggle input visibility
   }
   goToProfile() {
     this.router.navigate(['/my-profile']);

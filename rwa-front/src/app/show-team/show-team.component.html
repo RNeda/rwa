@@ -10,7 +10,7 @@
         <app-show-player [player]="player"></app-show-player>
       </li>
     </ul>
-    <button *ngIf="isAdmin && !fromG" (click)="deleteTeam()">Delete team</button>
+    <button *ngIf="isAdmin && !fromG" (click)="openDeleteDialog()">Delete team</button>
     
     <ng-template #noPlayers>
       <p>No players available for this Team.</p>
