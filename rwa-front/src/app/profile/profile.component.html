@@ -11,16 +11,18 @@
     <div class="profile-details">
       <div class="profile-row">
         <span class="profile-label">Username:</span>
-        <span>{{ profileToDisplay.username }}</span>
+        <span class="profile-label-value">{{ profileToDisplay.username }}</span>
       </div>
       <div class="profile-row">
         <span class="profile-label">Email:</span>
-        <span>{{ profileToDisplay.email }}</span>
+        <span class="profile-label-value">{{ profileToDisplay.email }}</span>
       </div>
     </div>
 
     <div class="edit">
-      <div class="edit-profile">
+      
+        <div class="edit-profile1">
+      
         <button
           type="button"
           aria-label="Delete profile"
@@ -31,6 +33,19 @@
           Delete profile
           <!-- <mat-icon aria-label="Delete icon">delete</mat-icon> -->
         </button>
+      
+        <button *ngIf="isAdmin"
+          type="button"
+          aria-label="Show teams"
+          (click)="showTeamsBtn()"
+          mat-raised-button
+          class="edit-button"
+        >
+          {{showteamsbtntext}}
+          <!-- <mat-icon aria-label="Delete icon">delete</mat-icon> -->
+        </button>
+      </div>
+      <div class="edit-profile2">
         <button
           type="button"
           aria-label="New dreamteam"
@@ -51,18 +66,8 @@
           New team
           <!-- <mat-icon aria-label="Delete icon">delete</mat-icon> -->
         </button>
+        
         <button *ngIf="isAdmin"
-          type="button"
-          aria-label="Show teams"
-          (click)="showTeamsBtn()"
-          mat-raised-button
-          class="edit-button"
-        >
-          {{showteamsbtntext}}
-          <!-- <mat-icon aria-label="Delete icon">delete</mat-icon> -->
-        </button>
-      </div>
-      <button *ngIf="isAdmin"
           type="button"
           aria-label="New game"
           (click)="newGame()"
@@ -81,7 +86,9 @@
         >
           New player
           <!-- <mat-icon aria-label="Delete icon">delete</mat-icon> -->
-        </button>    
+        </button> 
+      </div>
+         
     </div>
     <div *ngIf="createTeamflag && isAdmin">
       <app-create-team (teamCreated)="handleTeamCreated($event)" (cancelCreation)="handleCancelCreation($event)"></app-create-team>
@@ -101,36 +108,48 @@
       </div>
     </div>
     <div class="dream-teams">
-      <h2>{{ profileToDisplay.name }}'s DreamTeams</h2>
+      <h3  class="dt-name">{{ profileToDisplay.name }}'s DreamTeams</h3>
     
         
         <div class="eachdt" *ngFor="let dreamTeam of fulldts">
           
-          <div *ngIf="dreamTeam; else loading"> 
-            <h2 >{{ dreamTeam.name }}</h2>
-            
-            <p>Likes: {{ dreamTeam.likes }}</p>
-            <p>Dislikes: {{ dreamTeam.dislikes }}</p>
-            <button 
-            type="button"
-            aria-label="show dt"
-            (click)="showDt(dreamTeam.id)"
-            mat-raised-button
-            class="edit-button">
-            Show details</button>
-            <button 
-            type="button"
-            aria-label="show dt"
-            (click)="updateDt(dreamTeam.id)"
-            mat-raised-button
-            class="edit-button">Update dreamteam</button>
-            <button 
-            type="button"
-            aria-label="show dt"
-            (click)="openDeleteDialog(dreamTeam.id,2)"
-            mat-raised-button
-            class="edit-button">
-            Delete dreamteam</button>
+          <div class="eachdt2" *ngIf="dreamTeam; else loading"> 
+            <div class="dt-info">
+              <h3>{{ dreamTeam.name }}</h3>
+              
+              <!--<p>Likes: {{ dreamTeam.likes }}</p>
+              <p>Dislikes: {{ dreamTeam.dislikes }}</p>-->
+              <p>
+                <mat-icon aria-label="like">thumb_up</mat-icon> 
+                {{ dreamTeam.likes }}
+              </p>
+              <p>
+                <mat-icon aria-label="dislike">thumb_down</mat-icon> 
+                {{ dreamTeam.dislikes }}
+              </p>
+          </div>
+            <div class="dt-info">
+              <button 
+              type="button"
+              aria-label="show dt"
+              (click)="showDt(dreamTeam.id)"
+              mat-raised-button
+              class="edit-button">
+              Details</button>
+              <button 
+              type="button"
+              aria-label="show dt"
+              (click)="updateDt(dreamTeam.id)"
+              mat-raised-button
+              class="edit-button">Update</button>
+              <button 
+              type="button"
+              aria-label="show dt"
+              (click)="openDeleteDialog(dreamTeam.id,2)"
+              mat-raised-button
+              class="edit-button">
+              Delete</button>
+            </div>
             <!--"deleteDreamteam(dreamTeam.id)"-->
             
           </div>

@@ -119,6 +119,9 @@
 h2 {
   font-size: 1.5rem;
   margin-bottom: 1rem;
+  text-align: center;
+  font-weight: bold;
+  color:#3f51b5;
 }
 
 div {
@@ -129,6 +132,11 @@ div {
 .game-section {
   margin-bottom: 2rem; // Space between game section and dream team section
 
+  .gamee{
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    margin:0px;
+    padding:0px;
+  }
   app-show-game {
     display: block;
     margin-bottom: 1rem; // Space between each game component
@@ -136,6 +144,7 @@ div {
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
   }
 }
 

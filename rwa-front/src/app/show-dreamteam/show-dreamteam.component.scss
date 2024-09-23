@@ -1,62 +1,133 @@
-// General styling for the component
-:host {
-    display: block;
-    padding: 1rem;
-    max-width: 800px;
-    margin: 0 auto;
-    border: 1px solid black;
-  }
-  
-  // Title and creator section
-  h2 {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-    color: #333;
-  }
-  
-  p {
-    margin: 0.5rem 0;
-    color: #555;
-  }
-  
-  h3 {
-    font-size: 1.5rem;
-    margin-top: 1rem;
-    color: #333;
-  }
-  
-  // Player list styling
-  ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  li {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1rem;
-    padding: 0.5rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    background-color: #f9f9f9;
-  
-    img {
-      border-radius: 50%;
-      margin-right: 1rem;
-      width: 50px;
-      height: 50px;
-      object-fit: cover;
+
+.dreamteam-container {
+  display: flex;
+  padding: 20px;
+  background-color: #ede8e8;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  //max-width: 800px;
+  margin: 40px auto;
+
+  /* Left side for DreamTeam details */
+  .details-container {
+    flex: 1 1 25%; /* Takes 25% of the width */
+    padding-right: 20px;
+
+    h2 {
+      font-size: 1.8rem;
+      color: #3f51b5;
+      margin-bottom: 20px;
     }
-  
+
+    h3 {
+      font-size: 1.4rem;
+      color: rgb(32, 35, 84);
+      margin: 15px 0 10px;
+    }
+
     p {
-      margin: 0;
+      font-size: 1.2rem;
+      color: rgb(32, 35, 84);;
+      margin: 5px 0;
+
+
+      mat-icon {
+        margin-right: 5px;
+        font-size: 1.5rem;
+      }
+
+      &:nth-child(2) mat-icon {
+        color: #98ef9b; /* Green for likes */
+      }
+      
+      &:nth-child(3) mat-icon {
+        color: #e73124; /* Red for dislikes */
+      }
+
+      &.clickable {
+        cursor: pointer;
+        color: rgb(32, 35, 84);;
+      }
+    
+     
+    }
+    //&:nth-child(1) mat-icon {
+      // mat-icon {
+      //   margin-right: 5px;
+      //   font-size: 1.5rem;
+      //   .like{
+      //     color: #98ef9b; /* Green for likes */
+      //   }
+    
+      //   //&:nth-child(2) mat-icon 
+      //   .dislike{
+      //     color: #e73124; /* Red for dislikes */
+      //   }
+      // }
+  }
+
+  /* Right side for players */
+  .players-container {
+    flex: 1 1 75%; /* Takes 75% of the width */
+    h3 {
+      margin-bottom: 15px;
+      color:rgb(32, 35, 84);
+    }
+
+    .players-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: flex-start; /* Aligns players to the start */
+
+      app-show-player {
+        flex: 1 1 calc(15% - 15px); /* Adjusts the player card to be 3 in a row */
+        max-width: 200px; /* Ensures a maximum width */
+        min-width: 100px;
+      }
     }
   }
-  
-  // Loading state styling
+}
+
+.creator-info {
+  margin-bottom: 20px;
+  margin-top:30px;
+  font-weight: normal;
   p {
-    font-style: italic;
-    color: #888;
+    font-size: 1.2rem;
+    //font-weight: bold;
+    color: #3f51b5;
   }
-  
+
+//   .unknown-creator {
+//     color: #e73124;
+//   }
+}
+
+.no-players-message {
+  color: #888;
+  font-size: 1.2rem;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+
+  button {
+    margin-top: 15px;
+    padding: 8px 15px;
+    font-size: 1rem;
+  }
+
+
+}
+
+/* Loading states */
+.loading-message {
+  color: #888;
+  font-size: 1.4rem;
+  text-align: center;
+}

@@ -1,15 +1,4 @@
-.profile-picture {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    overflow: hidden;
-  }
-  
-  .profile-picture img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+
   
   .centeredDiv {
     display: flex;
@@ -19,7 +8,7 @@
   }
   
   .profile {
-    max-width: 456px;
+    max-width: 475px;//456px;
     margin: 30px auto;
     padding: 20px;
     border: 1px solid #ccc;
@@ -30,7 +19,12 @@
   .profile h2 {
     font-size: 28px;
     margin-bottom: 10px;
+    color:rgb(32, 35, 84);
   }
+
+ .dt-name{
+  align-items: center;
+ }
   
   .profile-details {
     margin-top: 20px;
@@ -54,6 +48,11 @@
     text-align: left !important;
     font-weight: bold;
     margin-right: 10px;
+    color:rgb(32, 35, 84)
+  }
+
+  .profile-label-value{
+    color:rgb(32, 35, 84)
   }
   
   .profile-names {
@@ -66,32 +65,18 @@
     margin: 0;
   }
   
-  .interests-section h3 {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    margin-top: 20px;
-  }
+ 
   
-  .interests-list {
-    list-style-type: none;
-    padding: 0;
-    margin: 2px;
-  }
-  
-  .interests-list li {
-    font-size: 15px;
-    font-weight: 500;
-    display: inline-block;
-    margin-right: 10px;
-    padding: 5px 10px;
-    background-color: rgb(215 215 215 / 87%);
-    border-radius: 5px;
-  }
-  
-  .edit-profile {
+  .edit-profile1 {
     margin-top: 20px;
     text-align: right;
+    
+  }
+  .edit-profile2 {
+    margin-top: 20px;
+    text-align: space-evenly;
+    justify-content: center;
+
   }
   
   .edit-button {
@@ -102,26 +87,109 @@
     font-size: 14px;
     transition: background-color 0.3s ease;
     margin-left: 10px;
+    //margin-top: 10px;
+    color:rgb(32, 35, 84);
+
   }
   
   .edit {
     flex-wrap: wrap;
     display: flex;
-    justify-content: flex-end;
-  }
-  
-  .centered-sub-btn {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
+    justify-content: flex-end ;
+
   }
 
-  .eachdt{
-    border: 1px solid black;
-  }
-
-  app-show-dreamteam {
-    display: block;
-    margin-bottom: 1rem;
-  }
   
+  .dream-teams {
+    padding: 20px;
+    background-color: #fafafa;
+    border-radius: 8px;
+    margin-top:10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    
+    h3.dt-name {
+      color: rgb(32, 35, 84);
+      font-size: 1.8rem;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .edit-button{
+      margin-top: 10px;
+    }
+    .eachdt2 {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 15px;
+      background-color: white;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+  
+      h3 {
+        font-size: 1.6rem;
+        color: #3f51b5;
+        margin-bottom: 10px;
+      }
+  
+      .dt-info {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        align-items: center;
+        justify-content: center;
+        
+        p {
+          margin: 5px 0;
+          font-size: 1.2rem;
+          color: #666;
+          display: flex;
+          align-items: center;
+  
+          mat-icon {
+            margin-right: 5px;
+            font-size: 1.5rem;
+          }
+  
+          &:nth-child(2) mat-icon {
+            color: #98ef9b; /* Green for likes */
+          }
+    
+          &:nth-child(3) mat-icon {
+            color: #e73124; /* Red for dislikes */
+          }
+        }
+      }
+  
+      .dtbuttons {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        
+        // button {
+        //   margin-bottom: 10px;
+        //   background-color: #3f51b5 !important;
+        //   color: white !important;
+        //   text-transform: uppercase;
+        //   font-weight: bold;
+        //   transition: background-color 0.3s ease-in-out;
+          
+        //   &:hover {
+        //     background-color: #283593 !important;
+        //   }
+        // }
+      }
+    }
+  
+    ng-template#loading {
+      text-align: center;
+      font-size: 1.4rem;
+      color: #888;
+    }
+  }

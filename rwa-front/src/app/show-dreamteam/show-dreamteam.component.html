@@ -1,58 +1,75 @@
 <!--dreamteam from Input()-->
-<div *ngIf="dreamTeam;else loadFromStore">
- 
-  <h2>{{ dreamTeam.name || 'Unnamed DreamTeam' }}</h2>
-  <p (click)='changeLikes()'>Likes: {{ dreamTeam.likes || 0 }}</p>
-  <p (click)='changeDislikes()'>Dislikes: {{ dreamTeam.dislikes || 0 }}</p>
-  
-  <h3>Creator</h3>
-  <p >{{creatorName}}</p>
+<div class="dreamteam-container" *ngIf="dreamTeam;else loadFromStore">
+  <div class="details-container">
+    <h2>{{ dreamTeam.name || 'Unnamed DreamTeam' }}</h2>
+    <p class="clickable" (click)='changeLikes()'><mat-icon aria-label="like">thumb_up</mat-icon>  {{ dreamTeam.likes || 0 }}</p>
+    <p class="clickable" (click)='changeDislikes()'><mat-icon aria-label="dislike">thumb_down</mat-icon>  {{ dreamTeam.dislikes || 0 }}</p>
+    
+    <div class="creator-info">
+      <h3>Creator</h3>
+      <p *ngIf="creatorName; else unknownCreator">{{ creatorName }}</p>
+      <ng-template #unknownCreator>
+        <p class="unknown-creator">Creator information unavailable</p>
+      </ng-template>
+    </div>
+  </div>
   <!-- *ngIf="dreamTeam.creator" <p *ngIf="!dreamTeam.creator">Creator information unavailable</p>-->
 
-  <h3>Players</h3>
-  <ul *ngIf="dreamTeam?.players ; else noPlayers">
-    <li *ngFor="let player of dreamTeam.players">
-      <img *ngIf="player.picture" [src]="player.picture" alt="{{ player.name }}" />
-      <p>{{ player.name || 'Unknown Player' }} - {{ player.position || 'Position Unknown' }} (Age: {{ player.age || 'N/A' }})</p>
-    </li>
-  </ul>
-  
-  <ng-template #noPlayers>
-    <p>No players available for this DreamTeam.</p>
-  </ng-template>
+  <div class="players-container">
+    <h3>Players</h3>
+    <div class="players-list" *ngIf="dreamTeam.players?.length; else noPlayers">
+      <app-show-player *ngFor="let player of dreamTeam.players" [player]="player"></app-show-player>
+    </div>
+    <ng-template #noPlayers>
+      <p class="no-players-message">No players available for this DreamTeam.</p>
+    </ng-template>
+  </div>
 </div>
+  
+ 
 
 <!-- dreamteam from store; ovo je sa profila kad se ode na dreamteamdetails-->
 <ng-template #loadFromStore>
-  <div *ngIf="dreamTeam$ | async as loadedDreamTeam; else loading">
+  <div class="dreamteam-container" *ngIf="dreamTeam$ | async as loadedDreamTeam; else loading">
     
+    <div class="details-container">
+      <h2>{{ loadedDreamTeam.name || 'Unnamed DreamTeam' }}</h2>
+      <p class="clickable" (click)='changeLikes()'>
+        <mat-icon class="like" aria-label="like">thumb_up</mat-icon>  
+        {{ loadedDreamTeam.likes || 0 }}
+      </p>
+      <p class="clickable" (click)='changeDislikes()'>
+        <mat-icon class="dislike" aria-label="dislike">thumb_down</mat-icon> 
+        {{ loadedDreamTeam.dislikes || 0 }}
+      </p>
+      
+      <div class="creator-info">
+        <h3>Creator</h3>
+        <p *ngIf="loadedDreamTeam.creator">{{ loadedDreamTeam.creator.name || 'Unknown Creator' }}</p>
+        <p *ngIf="!loadedDreamTeam.creator">Creator information unavailable</p>
+      </div>
+      <!-- Buttons -->
+      <div class="buttons-container">
+        <button type="button" (click)="updateDT(loadedDreamTeam.id)" mat-raised-button >Update</button>
+        <button type="button" (click)="goBackToProfile()" mat-raised-button >Return</button>
+      </div>
+    </div>
 
-    <h2>{{ loadedDreamTeam.name || 'Unnamed DreamTeam' }}</h2>
-    <p (click)='changeLikes()'>Likes: {{ loadedDreamTeam.likes || 0 }}</p>
-    <p (click)='changeDislikes()'>Dislikes: {{ loadedDreamTeam.dislikes || 0 }}</p>
+    <div class="players-container">
+      <h3>Players</h3>
+      <div class="players-list" *ngIf="loadedDreamTeam.players?.length; else noPlayersStore">
+        <app-show-player *ngFor="let player of loadedDreamTeam.players" [player]="player"></app-show-player>
+      </div>
+      <ng-template #noPlayersStore>
+        <p class="no-players-message">No players available for this DreamTeam.</p>
+      </ng-template>
+    </div>
+
     
-    <h3>Creator</h3>
-    <p *ngIf="loadedDreamTeam.creator">{{ loadedDreamTeam.creator.name || 'Unknown Creator' }}</p>
-    <p *ngIf="!loadedDreamTeam.creator">Creator information unavailable</p>
-
-    <h3>Players</h3>
-    <ul *ngIf="loadedDreamTeam?.players ; else noPlayersStore">
-      <li *ngFor="let player of loadedDreamTeam.players">
-        <img *ngIf="player.picture" [src]="player.picture" alt="{{ player.name }}" />
-        <p>{{ player.name || 'Unknown Player' }} - {{ player.position || 'Position Unknown' }} (Age: {{ player.age || 'N/A' }})</p>
-      </li>
-    </ul>
-    <button (click)="updateDT(loadedDreamTeam.id)">Update</button>
-    <button (click)="goBackToProfile()">Return</button>
-
-    <ng-template #noPlayersStore>
-      <p>No players available for this DreamTeam.</p>
-    </ng-template>
   </div>
 </ng-template>
 
 <ng-template #loading>
-  <p>Loading DreamTeam details...</p>
+  <p class="loading-message">Loading DreamTeam details...</p>
 </ng-template>
-
   

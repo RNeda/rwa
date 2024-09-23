@@ -1,45 +1,93 @@
+
+
 .game-teams {
-    display: flex;
-    align-items: center; // Align team names and score vertically in the middle
+  padding: 15px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   
-    .team-name {
-      font-weight: bold;
-      cursor: pointer;
-      margin: 0 0.5rem; // Add space between team names and score
+
+    .game-details {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      padding: 10px;
+      //background-color: #ffffff;
+      //border-radius: 5px;
+      //box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      
+      .team-name {
+        flex: 1;
+        text-align: center;
+        font-size: 1.4rem;
+        font-weight: bold;
+        color: rgb(32, 35, 84);
+      }
+      
+      .game-score {
+        // font-size: 1.6rem;
+        // font-weight: bold;
+        // color: #000;
+        flex: 0 0 auto;
+        margin: 0 15px;
+        font-size: 20px;
+        font-weight: bold;
+        color: #495057;
+      }
+    }
+
+    .buttons {
+      margin-top: 10px;
+      button {
+        margin-right: 10px;
+        //background-color: #3f51b5;
+        color: rgb(32, 35, 84);
+
+        // &:hover {
+        //   background-color: #303f9f;
+        // }
+
+        &[mat-button] {
+          padding: 10px 15px;
+          font-size: 1rem;
+        }
+      }
+    }
+
+    .team-details {
+      display: flex;
+      justify-content: space-evenly;
+      margin-top: 20px;
+      width: 100%;
+      
+      app-show-team {
+        flex: 1 1 48%; /* Make each team take up 48% of the row */
+        margin-right: 4%;
+        
+        &:last-child {
+          margin-right: 0; /* No margin for the last team */
+        }
+      }
+    }
+
+    @media (max-width: 600px) {
+      .game-details {
+        flex-direction: column;
+      }
+    
+      .team-name, .game-score {
+        margin-bottom: 8px;
+      }
+    
+      .game-score {
+        font-size: 18px;
+      }
     }
   
-    span {
-      margin: 0 0.5rem; // Add space around the score
-    }
-  }
-  
-  .team-details {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 1rem;
-  
-    app-show-team {
-      flex: 1; // Make both components take up equal width
-      margin-right: 1rem; // Space between the two components
-      min-width: 0; // Prevent overflow
-    }
-  
-    app-show-team:last-child {
-      margin-right: 0; // Remove margin from the last component
-    }
-  }
-  
-  button {
-    margin-top: 1rem;
-    padding: 0.5rem 1rem;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  
-    &:hover {
-      background-color: #0056b3;
-    }
-  }
-  
+}

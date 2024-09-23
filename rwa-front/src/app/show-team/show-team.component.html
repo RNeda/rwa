@@ -1,12 +1,10 @@
-<div *ngIf="team">
+<!-- <div *ngIf="team">
  
     <h2>{{ team.name || 'Unnamed Team' }}</h2>
     
     <h3>Players</h3>
     <ul *ngIf="fullteam?.players ; else noPlayers">
       <li *ngFor="let player of fullteam?.players">
-        <!--<img *ngIf="player.picture" [src]="player.picture" alt="{{ player.name }}" />
-        <p>{{ player.name || 'Unknown Player' }} - {{ player.position || 'Position Unknown' }} (Age: {{ player.age || 'N/A' }})</p>-->
         <app-show-player [player]="player"></app-show-player>
       </li>
     </ul>
@@ -18,4 +16,31 @@
   </div>
   
   
+     -->
+     <div *ngIf="team" class="team-container">
+  
+      <div class="team-details">
+        <h2>{{ team.name || 'Unnamed Team' }}</h2>
+        
+        <h3>Players</h3>
+        <div *ngIf="fullteam?.players; else noPlayers" class="players-container">
+          <div class="players-list">
+            <app-show-player 
+              *ngFor="let player of fullteam?.players" 
+              [player]="player"
+              class="player-card">
+            </app-show-player>
+          </div>
+        </div>
+    
+        <ng-template #noPlayers>
+          <p class="no-players-message">No players available for this Team.</p>
+        </ng-template>
+    
+        <button *ngIf="isAdmin && !fromG" (click)="openDeleteDialog()" mat-raised-button>
+          Delete team
+        </button>
+      </div>
+    
+    </div>
     

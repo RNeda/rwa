@@ -85,23 +85,26 @@ export class UpdateDreamteamComponent implements OnInit{
     if(playerId){
       this.playersToRemove.push(playerId);
       this.store.dispatch(removePlayer({teamId:this.dreamTeam.id, playerIds:this.playersToRemove}));
+      this.dreamTeam.players =this.dreamTeam.players.filter(p=>p.id!==playerId);
       this.playersToRemove=[];
-      this.dreamTeam.players.filter(p=>p.id!==playerId);
+      
     
       //console.log("players after remove: ", [this.dreamTeam.players]);
     }
   }
 
   onSubmit(): void {
-    const dto: DreamTeamDto = new DreamTeamDto(0, this.dreamTeam.name, this.playersToAddIds, this.dreamTeam.creator.id);
-    console.log("dto", [dto]);
-    //console.log("dreamTeam to update id: "+this.dreamTeam.id);
-    this.store.dispatch(updateDreamTeam({ id: this.dreamTeam.id, updates: dto }));
-    this.router.navigate(['/my-profile'],{ queryParams: { dtId:this.dreamTeam.id } });
+    
+      const dto: DreamTeamDto = new DreamTeamDto(0, this.dreamTeam.name, this.playersToAddIds, this.dreamTeam.creator.id);
+      console.log("dto", [dto]);
+      //console.log("dreamTeam to update id: "+this.dreamTeam.id);
+      if(this.dtId) {this.store.dispatch(updateDreamTeam({ id: this.dtId, updates: dto }));}
+      this.router.navigate(['/my-profile'],{ queryParams: { dtId:this.dtId } });
 
-    this.dialog.open(ConfirmUpdateDialogComponent, {
-      width: '250px',
-    });
+      this.dialog.open(ConfirmUpdateDialogComponent, {
+        width: '250px',
+      });
+    
   }
 
   cancelUpdate(){
