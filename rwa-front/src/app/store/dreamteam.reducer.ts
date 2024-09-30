@@ -11,12 +11,14 @@ export interface DreamTeamState {
   dreamTeam: DreamTeam | null;
   dreamTeams: DreamTeam[];
   availablePlayers: Player[];
+  user:User|null;
   //error: any;
 }
 
 export interface ProfileState {
   user:User |null;
   loading:boolean;
+  //dts:DreamTeam[];//new
   //dreamTeams: DreamTeam[];
 }
 
@@ -26,13 +28,14 @@ export const initialDreamTeamState: DreamTeamState = {
   dreamTeam: null,
   dreamTeams: [],
   availablePlayers: [], 
+  user:null
   //error: null
 };
 
 const initialProfileState: ProfileState = {
   user:null,
-  loading:false
-  //dreamTeams: []
+  loading:false,
+  //dts: []//new
 };
 
 export const profileReducer = createReducer(
@@ -50,6 +53,7 @@ export const profileReducer = createReducer(
   // Handle loadUserDreamTeamsSuccess action
   on(DreamTeamActions.loadUserDreamTeamsSuccess, (state, { dreamTeams }) => ({
     ...state,
+    dts: dreamTeams,
     loading: false,
     
     // user: {
@@ -113,6 +117,11 @@ export const dreamTeamReducer = createReducer(
        loading: false, 
        dreamTeam ,
        dreamTeams: [...state.dreamTeams, dreamTeam],//??
+
+       user:state.user?{
+        ...state.user,
+        dreamteams:[...(state.user.dreamteams || []),dreamTeam]
+       }: state.user
     })),
     on(DreamTeamActions.createDreamTeamFailure, (state, { error }) => ({ 
       ...state,

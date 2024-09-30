@@ -1,7 +1,7 @@
-<h1 mat-dialog-title>Game Over</h1>
+<h1 mat-dialog-title>{{data.text1}}</h1>
 <div mat-dialog-content>
-  <p>Game ended. Team {{data.teamWon}} won!</p>
+  <p>{{data.text2}}</p>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="closeDialog()">OK</button>   <!--(click)="closeDialog()"-->
+  <button mat-raised-button (click)="closeDialog()">OK</button>   <!--(click)="closeDialog()"-->
 </div>

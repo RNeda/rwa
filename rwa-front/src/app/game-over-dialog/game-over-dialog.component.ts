@@ -9,7 +9,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 export class GameOverDialogComponent {
 
   constructor(public dialogRef:MatDialogRef<GameOverDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { teamWon:string }
+    @Inject(MAT_DIALOG_DATA) public data: { text1:string, text2:string }
   ){}
 
   closeDialog():void{

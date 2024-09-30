@@ -1,44 +1,46 @@
-<app-nav (termToSearch)="handleTermToSearch($event)"></app-nav>
-<div *ngIf="!searchTermFlag">
+<app-nav (termToSearch)="handleTermToSearch($event)" (stopSearch)="handleStopSearch($event)" [fromProfile]="fromprofile"></app-nav>
+<div  class="glavni">
+  <div *ngIf="!searchTermFlag" class="childdiv">
 
-  <div *ngIf="games$ | async as games; else loadingGames" class="game-section">
-    <h2>Games</h2>
- 
-    <div class="gamee" *ngFor="let game of games">
-      <app-show-game [game]="game" [fromHP]="hpfleg"></app-show-game>
+    <div *ngIf="allGames as games; else loadingGames" class="game-section"> <!--games$ | async-->
+      <h2>Games</h2>
+  
+      <div class="gamee" *ngFor="let game of games">
+        <app-show-game [game]="game" [fromHP]="hpfleg"></app-show-game>
+      </div>
+
+    </div>
+    
+    
+    <ng-template #loadingGames>
+      <p>Loading games...</p>
+    </ng-template>
+
+    
+    
+    <div *ngIf="othersdts as dreamTeams" class="dreamteam-section">
+      <h2>Dream Teams</h2>
+      <div *ngFor="let dreamTeam of dreamTeams">
+        <app-show-dreamteam [dreamTeam]="dreamTeam"></app-show-dreamteam>
+      </div>
+    </div>
+  </div>
+    <!--
+    <ng-template #loading>
+      <p>Loading DreamTeams...</p>
+    </ng-template>-->
+
+  <div *ngIf="searchTermFlag" class="childdiv">
+    <div *ngIf="filteredGames$ | async as games; else noGames" class="game-section">
+      <h2>Games</h2>
+      <ul *ngFor="let game of games">
+        <app-show-game [game]="game" [fromHP]="hpfleg"></app-show-game>
+      </ul>
+
     </div>
 
+    <ng-template #noGames>
+      <p>No games...</p>
+    </ng-template>
   </div>
-  
-  
-  <ng-template #loadingGames>
-    <p>Loading games...</p>
-  </ng-template>
-
-  
-  
-  <div *ngIf="othersdts as dreamTeams" class="dreamteam-section">
-    <h2>Dream Teams</h2>
-    <div *ngFor="let dreamTeam of dreamTeams">
-      <app-show-dreamteam [dreamTeam]="dreamTeam"></app-show-dreamteam>
-    </div>
-  </div>
-</div>
-  <!--
-  <ng-template #loading>
-    <p>Loading DreamTeams...</p>
-  </ng-template>-->
-
-<div *ngIf="searchTermFlag">
-  <div *ngIf="filteredGames$ | async as games; else noGames" class="game-section">
-    <h2>Games</h2>
-    <ul *ngFor="let game of games">
-      <app-show-game [game]="game" [fromHP]="hpfleg"></app-show-game>
-    </ul>
-
-  </div>
-
-  <ng-template #noGames>
-    <p>No games...</p>
-  </ng-template>
 </div>

@@ -52,6 +52,17 @@ export class CreateTeamComponent implements OnInit{
     this.teamCreated.emit(created);
     this.createConfirm();
     //this.router.navigate(['/my-profile']);
+    /*
+    onSubmit(){
+    this.userInfo.select(selectUser).subscribe((data) => {
+      this.event.users = [data] ?? [this.user];
+      this.user = data ?? this.user;
+      this.store.dispatch(createEvent({event: {...this.event}}));
+      this.store.select(selectAllEvents).subscribe((data) => {
+        const events = [...data];
+    });
+    });
+    */
   }
 
   cancelTeam():void{

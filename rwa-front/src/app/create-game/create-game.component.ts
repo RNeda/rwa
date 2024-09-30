@@ -8,6 +8,7 @@ import { GameDto } from '../entities/game.dto';
 import { createGame } from '../store/game.actions';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmCreateDialogComponent } from '../confirm-create-dialog/confirm-create-dialog.component';
+import { Team } from '../entities/team';
 
 @Component({
   selector: 'app-create-game',
@@ -17,6 +18,7 @@ import { ConfirmCreateDialogComponent } from '../confirm-create-dialog/confirm-c
 export class CreateGameComponent implements OnInit{
 
   teams$=this.store.select(selectAllTeams);
+  allTeams:Team[]|null=null;
   selectedTeams:number[]=[];
   selectedTeam1:number|null=null;
   selectedTeam2:number|null=null;
@@ -26,6 +28,10 @@ export class CreateGameComponent implements OnInit{
 
   ngOnInit(): void {
     this.store.dispatch(loadTeams());
+    this.teams$.subscribe((data)=>{
+      this.allTeams=data;
+      this.allTeams=this.allTeams.filter(t=>t.players.length>0);
+    })
   }
 
   // toggleTeamSelection(teamId:number):void{

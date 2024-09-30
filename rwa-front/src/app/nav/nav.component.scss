@@ -1,3 +1,6 @@
+mat-toolbar{
+    box-shadow:  0 4px 8px rgba(0, 0, 0, 0.3);
+}
 .example-spacer {
     flex: 1 1 auto;
 }
@@ -15,3 +18,19 @@
 mat-toolbar{
     background-color: #70d3fd;
 }
+
+.input {
+    max-width: 150px;
+    max-height:5px;
+    padding: 0.875rem;
+    font-size: 0.8rem;
+    border: 1.5px solid #0c2f65;
+    border-radius: 0.5rem;
+    box-shadow: 2.5px 3px 0 #227a9f;
+    outline: none;
+    transition: ease 0.25s;
+  }
+   
+  .input:focus {
+    box-shadow: 5.5px 7px 0 #0c2f65;
+  }

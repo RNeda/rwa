@@ -52,7 +52,7 @@ class="edit-button">Cancel</button> -->
 <div class="create-game-container">
   <h3>Select Team 1:</h3>
   <ul>
-    <li *ngFor="let team of teams$ | async">
+    <li *ngFor="let team of allTeams"><!--teams$ | async-->
       <input type="radio" name="team1Selection" [value]="team.id"
         (change)="toggleTeamSelection(team.id, 1)"
         [checked]="team.id === selectedTeam1" [disabled]="team.id === selectedTeam2" /> 
@@ -62,7 +62,7 @@ class="edit-button">Cancel</button> -->
 
   <h3>Select Team 2:</h3>
   <ul>
-    <li *ngFor="let team of teams$ | async">
+    <li *ngFor="let team of allTeams"><!--teams$ | async-->
       <input type="radio" name="team2Selection" [value]="team.id"
         (change)="toggleTeamSelection(team.id, 2)"
         [checked]="team.id === selectedTeam2" [disabled]="team.id === selectedTeam1" /> 

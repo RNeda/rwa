@@ -24,6 +24,8 @@ export class SimulacijaComponent implements OnInit, AfterViewInit{
   currResT2:number=0;
   set1:number=0;
   set2:number=0;
+  team1:string="";
+  team2:string="";
   side:string[]=["levo", "desno"];
   player:number[]=[1,2,3,4,5,6];//string[]=["one","two","three","four","five","six"];
   pointContacts: number[] = [1, 2, 3, 4]; //0
@@ -50,11 +52,13 @@ export class SimulacijaComponent implements OnInit, AfterViewInit{
           this.game=data;
           this.set1=this.game.resTeam1;
           this.set2=this.game.resTeam2;
+          this.team1=this.game.teams[0].name;
+          this.team2=this.game.teams[1].name;
         }
       });
     });
-    this.currResT1=this.getRandomInt(20,24);
-    this.currResT2=this.getRandomInt(20,24);
+    this.currResT1=this.getRandomInt(0,24);
+    this.currResT2=this.getRandomInt(0,24);
     //console.log("players!: ", this.players!);
     this.startSimulation();
   }
@@ -272,19 +276,28 @@ export class SimulacijaComponent implements OnInit, AfterViewInit{
     }
   }
 
+  
   showGameOverPopup() {
-    let teamwon:string="";
+    let text1:string="";
+    let text2:string="";
     if(this.game){
       if(this.set1===3){
-        teamwon=this.game.teams[0].name;
+        text1="Game over";
+        text2=`${this.game.teams[0].name} won`;
       }else{
-        teamwon=this.game.teams[1].name;
+        if(this.set2===3){
+          text1="Game over";
+          text2=`${this.game.teams[1].name} won`;
+        }
+        text1="You exited live";
+        text2="";
       }
     }
     
     const dialogRef = this.dialog.open(GameOverDialogComponent, {
       data: {
-        teamWon:teamwon
+        text1:text1,
+        text2:text2
       }
     });
     dialogRef.afterClosed().subscribe(() => {

@@ -2,6 +2,7 @@ import { createAction, props } from "@ngrx/store";
 import { DreamTeam } from "../entities/dreamteam";
 import { Player } from "../entities/player";
 import { DreamTeamDto } from "../entities/dreamteam.dto";
+import { User } from "../entities/user";
 
 
 
@@ -52,6 +53,11 @@ export const loadUserDreamTeamsSuccess = createAction(
 export const loadUserDreamTeamsFailure = createAction(
   '[Profile] Load User DreamTeams Failure',
   props<{ error: any }>()
+);
+
+export const addDreamTeamToUser = createAction(
+  '[Profile] Add DreamTeam To User',
+  props<{dreamTeam:DreamTeam, user:User}>()
 );
 
 export const loadPlayers = createAction(

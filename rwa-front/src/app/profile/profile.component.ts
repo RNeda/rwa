@@ -8,14 +8,16 @@ import { selectUserData } from '../store/user.selectors';
 import { deleteUser, login } from '../store/user.actions';
 import { Observable } from 'rxjs';
 import { DreamTeam } from '../entities/dreamteam';
-import { deleteDreamteam, loadDreamTeam, loadUserDreamTeams } from '../store/dreamteam.actions';
-import { selectDreamTeamById, selectSingleDreamTeam, selectUserDreamTeams } from '../store/dreamteam.selectors';
+import { deleteDreamteam, loadDreamTeam, loadDreamTeams, loadUserDreamTeams } from '../store/dreamteam.actions';
+import { selectAllDreamTeams, selectDreamTeamById, selectSingleDreamTeam, selectUserDreamTeams } from '../store/dreamteam.selectors';
 import { DreamteamService } from '../dreamteam/dreamteam.service';
 import { Team } from '../entities/team';
 import { TeamService } from '../team/team.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDeleteDialogComponent } from '../confirm-delete-dialog/confirm-delete-dialog.component';
 import { ConfirmUpdateDialogComponent } from '../confirm-update-dialog/confirm-update-dialog.component';
+import { selectAllTeams } from '../store/team.selectors';
+import { loadTeams } from '../store/team.actions';
 
 
 
@@ -25,10 +27,10 @@ import { ConfirmUpdateDialogComponent } from '../confirm-update-dialog/confirm-u
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
-export class ProfileComponent implements OnInit, OnDestroy{
+export class ProfileComponent implements OnInit{
 
   profileToDisplay: any;
-  dreamTeams$: Observable<DreamTeam[]>=this.store.select(selectUserDreamTeams);
+  //dreamTeams$: Observable<DreamTeam[]>=this.store.select(selectAllDreamTeams);
 
   @Input()
   isMe: boolean = false;
@@ -45,6 +47,7 @@ export class ProfileComponent implements OnInit, OnDestroy{
   novi: DreamTeam[]=[];
   updatedDtId:number=0;
   //deleteDT:boolean=false;
+  fromprofile:boolean=true;
 
   
   constructor(
@@ -64,22 +67,28 @@ export class ProfileComponent implements OnInit, OnDestroy{
     this.profileToDisplay = data;
     //console.log([this.profileToDisplay.dreamteams])
     });
-   
-    this.dreamTeams$.subscribe(dreamTeams => {
-      this.fulldts = dreamTeams || []; 
+    // this.store.dispatch(loadDreamTeams());
+    // dreamTeams$ = this.store.select(selectAllDreamTeams).subscribe((data)=>{
+    //   this.fulldts=data.filter(dt=>dt.creator.id===this.profileToDisplay.id);
+    //  // console.log("fulldts after filter", this.fulldts);
+    // })
+    this.store.dispatch(loadDreamTeams());
+    this.store.select(selectAllDreamTeams).subscribe(dreamTeams => {
+      this.fulldts = dreamTeams.filter(dt=>dt.creator.id===this.profileToDisplay.id);//dreamTeams || []; 
       
-      console.log('DreamTeams:', [this.fulldts]); 
+      console.log('DreamTeams from fulldts:', [this.fulldts]); 
+      //kupi id dreamteam-a koji je updateovan
       this.route.queryParams.subscribe(params => {
           if (params['dtId']) {
-            this.updatedDtId = +params['dtId']; // Get the dtId from query params
-            this.store.dispatch(loadDreamTeam({ id: this.updatedDtId })); // Dispatch to load DreamTeam
+            this.updatedDtId = +params['dtId']; 
+            this.store.dispatch(loadDreamTeam({ id: this.updatedDtId })); 
             this.store.select(selectSingleDreamTeam).subscribe((updatedDreamTeam)=>{
               if (updatedDreamTeam) {
                 this.fulldts = this.fulldts.map(dt => 
                   dt.id === this.updatedDtId ? updatedDreamTeam : dt
                 );
                 
-                console.log("Updated DreamTeams list:", this.fulldts);
+                //console.log("Updated DreamTeams list:", this.fulldts);
               }
             });
           }
@@ -94,8 +103,7 @@ export class ProfileComponent implements OnInit, OnDestroy{
 
     
   }
-  ngOnDestroy(): void {
-  }
+ 
 
   //buttons
   deleteProfile() {
@@ -112,16 +120,28 @@ export class ProfileComponent implements OnInit, OnDestroy{
   deleteDreamteam(id:number){
     //if(this.deleteDT){
     this.store.dispatch(deleteDreamteam({id:id}));
-    this.router.navigate(['/my-profile']);
-
-    this.store.dispatch(login({email:this.profileToDisplay.email, password:this.profileToDisplay.password}));
+    this.store.dispatch(loadDreamTeams());
+    this.store.select(selectAllDreamTeams).subscribe((data)=>{
+      this.fulldts=data.filter(dt=>dt.creator.id===this.profileToDisplay.id);
+     // console.log("fulldts after filter", this.fulldts);
+    })
+    //this.router.navigate(['/my-profile']);
+    // this.store.select(selectAllDreamTeams).subscribe((data)=>{
+    //   this.fulldts=[...data];
+    // })
+    //this.store.dispatch(login({email:this.profileToDisplay.email, password:this.profileToDisplay.password}));
     //}
   }
 
   showTeamsBtn(){
-    this.teamService.getTeams().subscribe((teamss)=>{
-        this.allTeams=teamss;
-      })
+    // this.teamService.getTeams().subscribe((teamss)=>{
+    //     this.allTeams=teamss;
+    //   })
+    this.store.dispatch(loadTeams());
+    this.store.select(selectAllTeams).subscribe((data)=>{
+      this.allTeams=[...data];
+      this.allTeams=this.allTeams.filter(t=>t.players.length>0);
+    })
     if(this.showTeams===true){
       this.showteamsbtntext=this.showteamsbtn[1];
       this.showTeams=false;
@@ -183,18 +203,39 @@ export class ProfileComponent implements OnInit, OnDestroy{
   //handle outputs
   handleTeamCreated(created:boolean): void {
     this.createTeamflag=!created;
+    this.store.select(selectAllTeams).subscribe((data)=>{
+      this.allTeams=[...data];
+    })
+    
   }
   handleDreamTeamCreated(created:boolean): void {
     console.log("from profile: "+created);
     this.createDtFlag=!created;
-    this.store.dispatch(login({email:this.profileToDisplay.email, password:this.profileToDisplay.password}));
-
+    //this.store.dispatch(login({email:this.profileToDisplay.email, password:this.profileToDisplay.password}));
+    //treba dodati dt useru!!!!
+    // this.store.dispatch(loadUserDreamTeams());
+    // //ovo vraca prethodne
+    // this.store.select(selectUserDreamTeams).subscribe((data)=>{
+    //   this.fulldts=[...data];
+    //   console.log("user dts: ", this.fulldts);
+    //   // if(data){
+    //   //   this.fulldts=[...this.fulldts,data];
+    //   // }
+    // })
+    this.store.dispatch(loadDreamTeams());
+    this.store.select(selectAllDreamTeams).subscribe((data)=>{
+      this.fulldts=data.filter(dt=>dt.creator.id===this.profileToDisplay.id);
+      //console.log("fulldts after filter", this.fulldts);
+    })
     
   }
   handleTeamDeleted(deleted:boolean){
     if(deleted===true){
-      this.teamService.getTeams().subscribe((teamss)=>{
-        this.allTeams=teamss;
+      // this.teamService.getTeams().subscribe((teamss)=>{
+      //   this.allTeams=teamss;
+      // })
+      this.store.select(selectAllTeams).subscribe((data)=>{
+        this.allTeams=[...data];
       })
     }
   }
@@ -214,15 +255,15 @@ export class ProfileComponent implements OnInit, OnDestroy{
   }
 
   
-  getFullDts(){
+  // getFullDts(){
     
-    this.fulldts.forEach(dt => {
-      this.dreamteamService.getDreamTeam(dt.id).subscribe(novi2 => {
-        this.novi.push(novi2);  
-      });
-    });
-    console.log(this.novi);
-  }
+  //   this.fulldts.forEach(dt => {
+  //     this.dreamteamService.getDreamTeam(dt.id).subscribe(novi2 => {
+  //       this.novi.push(novi2);  
+  //     });
+  //   });
+  //   console.log(this.novi);
+  // }
 
 
 }
