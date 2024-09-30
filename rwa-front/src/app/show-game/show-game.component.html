@@ -8,6 +8,8 @@
         <div class="buttons">
             <button type="button" mat-raised-button (click)="showTeams()">{{currText}}</button>
             <button type="button" mat-raised-button *ngIf="isAdmin" (click)="openDeleteDialog(game.id)">Delete game</button>
+            <button type="button" mat-raised-button *ngIf="isLive" (click)="openSimulation(game.id)">Watch live</button>
+
         </div>
         <div *ngIf="showteams" class="team-details">
             <app-show-team [team]="game.teams[0]" [fromG]="fromHP"></app-show-team>

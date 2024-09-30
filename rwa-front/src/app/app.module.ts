@@ -56,6 +56,9 @@ import { ConfirmDeleteDialogComponent } from './confirm-delete-dialog/confirm-de
 import { MatDialogModule } from '@angular/material/dialog';
 import { ConfirmUpdateDialogComponent } from './confirm-update-dialog/confirm-update-dialog.component';
 import { ConfirmCreateDialogComponent } from './confirm-create-dialog/confirm-create-dialog.component';
+import { SimulacijaComponent } from './simulacija/simulacija.component';
+import { GameOverDialogComponent } from './game-over-dialog/game-over-dialog.component';
+///import { SimulationComponent } from './simulation/simulation.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +80,10 @@ import { ConfirmCreateDialogComponent } from './confirm-create-dialog/confirm-cr
     ShowPlayerComponent,
     ConfirmDeleteDialogComponent,
     ConfirmUpdateDialogComponent,
-    ConfirmCreateDialogComponent
+    ConfirmCreateDialogComponent,
+    SimulacijaComponent,
+    GameOverDialogComponent,
+    ///SimulationComponent
   ],
   imports: [
     BrowserModule,

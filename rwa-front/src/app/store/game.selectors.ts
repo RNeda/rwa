@@ -15,3 +15,8 @@ export const SelectSingleGame = createSelector(
   selectGamesState,
   (state:GameState)=>state.game
 )
+
+export const selectGameById = (gameId: number) => createSelector(
+  selectAllGames,
+  (games) => games.find(game => game.id === gameId)
+);

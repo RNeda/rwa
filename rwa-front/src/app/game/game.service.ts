@@ -32,4 +32,8 @@ export class GameService {
     return this.http.delete<void>(`${url}/game/${id}`);
   }
 
+  updateGame(id:number, updates:GameDto):Observable<Game>{
+    return this.http.put<Game>(`${url}/game/${id}`, updates);
+  }
+
 }

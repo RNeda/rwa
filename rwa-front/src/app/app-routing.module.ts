@@ -14,6 +14,8 @@ import { RoleGuard } from './auth/role.guard';
 import { CreateTeamComponent } from './create-team/create-team.component';
 import { CreateGameComponent } from './create-game/create-game.component';
 import { CreatePlayerComponent } from './create-player/create-player.component';
+import { SimulacijaComponent } from './simulacija/simulacija.component';
+//import { SimulationComponent } from './simulation/simulation.component';
 
 const routes: Routes = [
   {
@@ -32,7 +34,7 @@ const routes: Routes = [
     path:'home-page', component:HomePageComponent, pathMatch:'full', canActivate: [IsAuthGuard]
   },
   {
-    path: 'show-dreamteam'/*'dreamteam/:id'*/, component: ShowDreamteamComponent, pathMatch:'full', canActivate:[IsAuthGuard] 
+    path: 'show-dreamteam', component: ShowDreamteamComponent, pathMatch:'full', canActivate:[IsAuthGuard] 
   },
   {
     path:'my-profile', component: ProfileComponent, pathMatch: 'full', canActivate: [IsAuthGuard]
@@ -54,6 +56,9 @@ const routes: Routes = [
   },
   {
     path:'create-player', component:CreatePlayerComponent, pathMatch:'full', canActivate:[IsAuthGuard, RoleGuard]
+  },
+  {
+    path:'simulacija', component:SimulacijaComponent, pathMatch:'full', canActivate:[IsAuthGuard]
   },
   {
     path:'**', redirectTo: 'sign-in', pathMatch: 'full'

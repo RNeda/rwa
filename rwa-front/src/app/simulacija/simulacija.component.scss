@@ -1,0 +1,121 @@
+.maindiv{
+    background-color: aqua;
+    display:flex;
+    flex-direction: column;
+    width:100%;
+    height:100%;
+    
+}
+.result{
+    
+    height:50px;
+    //border: 1px solid black;
+    width:100%;
+    background-color:  rgba(255,255, 255, 0.8); 
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    //color:blue;
+    //padding: 10px 20px; /* Added padding */
+    //box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    //border-radius: 10px; 
+}
+.result-container {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Center align vertically */
+    flex-grow: 1; /* Allow it to take available space */
+    //flex-direction: column;
+    //border: 2px solid rgb(14, 55, 126);
+}
+
+.team-info {
+    display: flex;
+    //flex-direction: column; /* Stack team name and score vertically */
+    align-items: center; /* Center align horizontally */
+    margin: 0 15px; /* Spacing between teams */
+}
+.team-name {
+    font-size: 20px; /* Increased font size */
+    font-weight: bold; /* Bold text */
+    color: rgb(14, 55, 126); /* White color for team names */
+    //border: 1px solid rgb(14, 55, 126);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Subtle text shadow for depth */
+}
+
+.score {
+    font-size: 28px; /* Larger font size for scores */
+    font-weight: bold; /* Bold text */
+    color: rgb(0, 140, 255); /* Bright color for visibility */
+    margin-left: 20px;
+    margin-right:20px;
+}
+
+.score-divider {
+    font-size: 28px; /* Same size as the score */
+    font-weight: bold; /* Bold text */
+    color: rgb(14, 55, 126); /* White color for visibility */
+}
+
+.exit-button{
+    display:flex;
+    justify-content: flex-end;
+}
+.teren{
+    //flex:1;
+    margin-left:150px;
+    margin-right:150px;
+    margin-top:100px;
+    margin-bottom:80px;
+    border:4px solid white;// white;
+    display: flex;
+    background-color: orange;
+    flex-direction:row;
+    width:calc(100% - 300px);
+    height:calc(100% - 180px);
+}
+.levo6{
+    margin: 0px;
+    border: 1px solid white;
+    flex:2;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.levo3{
+    margin: 0px;
+    border: 1px solid white;
+    border-right: 2px solid white;
+    flex:1;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.desno3{
+    margin: 0px;
+    border: 1px solid white;
+    border-left: 2px solid white;;
+    flex:1;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.desno6{
+    margin: 0px;
+    border: 1px solid white;
+    flex:2;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.player{
+    width:30px;
+    height:30px;
+    background-color: yellow;
+    border:2px solid white;
+    border-radius: 50%;
+}

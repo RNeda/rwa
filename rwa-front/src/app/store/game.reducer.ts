@@ -1,7 +1,7 @@
 import { createEntityAdapter, EntityState } from "@ngrx/entity";
 import { Game } from "../entities/game";
 import { createReducer, on } from "@ngrx/store";
-import { createGame, createGameFailure, createGameSuccess, deleteGameFailure, deleteGameSuccess, loadGameFailure, loadGamesFailure, loadGamesSuccess, loadGameSuccess, selectGame } from "./game.actions";
+import { createGame, createGameFailure, createGameSuccess, deleteGameFailure, deleteGameSuccess, loadGameFailure, loadGamesFailure, loadGamesSuccess, loadGameSuccess, selectGame, updateGame, updateGameFailure, updateGameSuccess } from "./game.actions";
 
 
 
@@ -54,10 +54,21 @@ export interface GameState {
     ...state,
     games: state.games.filter(game => game.id !== id),
     loading: false
-    })),
-    on(deleteGameFailure, (state, { error }) => ({
+  })),
+  on(deleteGameFailure, (state, { error }) => ({
     ...state,
     //error: error,
     loading: false
-    })),
+  })),
+  on(updateGame, state=>({
+    ...state,
+    loading:true
+  })),
+  on(updateGameSuccess,(state,{game})=>({
+    ...state,
+    games:state.games.map(g=>g.id===game.id?game:g)
+  })),
+  on(updateGameFailure, (state,{error})=>({
+    ...state,loading:false
+  }))
   )

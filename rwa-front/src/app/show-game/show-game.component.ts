@@ -24,7 +24,7 @@ export class ShowGameComponent implements OnInit{
   currText:string=this.buttonText[0];
   isAdmin:boolean=false;
   profileToDisplay: any;
-
+  isLive:boolean=false;
 
 
   constructor(
@@ -52,9 +52,9 @@ export class ShowGameComponent implements OnInit{
         return this.game$; // Return the observable to be used in the template
       })
     ).subscribe();
-    if(this.game){
-      console.log("each game:" + [this.game.resTeam1]);
-
+    if(this.game?.resTeam1!==3 && this.game?.resTeam2!==3){
+      //console.log("each game:" + [this.game.resTeam1]);
+      this.isLive=true;
     }
     
   }
@@ -95,5 +95,10 @@ export class ShowGameComponent implements OnInit{
         console.log('Delete cancelled');
       }
     });
+  }
+
+  openSimulation(gameid:number){
+    //dodaj id da se salje
+    this.router.navigate(['/simulacija'],{ queryParams: { id: gameid }});
   }
 }

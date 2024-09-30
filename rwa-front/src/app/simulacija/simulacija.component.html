@@ -1,0 +1,39 @@
+<div class="maindiv">
+    <div class="result">
+        <!--{{set1}} | {{currResT1}} : {{currResT2}} | {{set2}}-->
+        <div class="result-container">
+            <div class="team-info">
+                <div class="team-name">{{set1}}</div>
+                <div class="score">{{currResT1}}</div>
+            </div>
+            <div class="score-divider">:</div>
+            <div class="team-info">
+                <div class="score">{{currResT2}}</div>
+                <div class="team-name">{{set2}}</div>
+            </div>
+        </div>
+        <button class="exit-button" type="button" mat-raised-button (click)="exitSimulation()">Exit Simulation</button>
+    </div>
+    <div class="teren">
+        <div class="levo6">
+            <div class="player five" #player></div>
+            <div class="player six" #player></div>
+            <div class="player one" #player></div>
+        </div>
+        <div class="levo3">
+            <div class="player four" #player></div>
+            <div class="player three" #player></div>
+            <div class="player two" #player></div>
+        </div>
+        <div class="desno3">
+            <div class="player two" #player></div>
+            <div class="player three" #player></div>
+            <div class="player four" #player></div>
+        </div>
+        <div class="desno6">
+            <div class="player one" #player></div>
+            <div class="player six" #player></div>
+            <div class="player five" #player></div>
+        </div>
+    </div>
+</div>

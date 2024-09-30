@@ -59,3 +59,18 @@ export const deleteGameFailure = createAction(
     "[Game] Delete Game Failure",
     props<{ error: any }>()
 );
+
+export const updateGame=createAction(
+    '[Game] Update Game',
+    props<{id:number, updates:GameDto}>()
+);
+
+export const updateGameSuccess = createAction(
+    '[Game] Update Game Success',
+    props<{game:Game}>()
+);
+
+export const updateGameFailure = createAction(
+    '[Game] Update Game Failure',
+    props<{error :any}>()
+);

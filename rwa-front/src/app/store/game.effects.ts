@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { GameService } from "../game/game.service";
-import { createGame, createGameFailure, createGameSuccess, deleteGame, deleteGameFailure, deleteGameSuccess, loadGame, loadGameFailure, loadGames, loadGamesFailure, loadGamesSuccess, loadGameSuccess } from "./game.actions";
+import { createGame, createGameFailure, createGameSuccess, deleteGame, deleteGameFailure, deleteGameSuccess, loadGame, loadGameFailure, loadGames, loadGamesFailure, loadGamesSuccess, loadGameSuccess, updateGame, updateGameFailure, updateGameSuccess } from "./game.actions";
 import { catchError, map, mergeMap, of } from "rxjs";
 import { Game } from "../entities/game";
 
@@ -63,4 +63,15 @@ export class GameEffects{
       ))
     )
   );
+
+  updateGame$=createEffect(()=>this.actions$.pipe(
+    ofType(updateGame),
+    mergeMap(action=>this.gameService.updateGame(action.id,action.updates)
+      .pipe(
+        map((game:Game)=>updateGameSuccess({game})),
+        catchError(error=>of(updateGameFailure({error})))
+      
+      )
+    )
+  ))
 }
