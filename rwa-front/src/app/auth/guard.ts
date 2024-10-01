@@ -11,16 +11,7 @@ export class IsAuthGuard implements CanActivate {
     constructor(private store: Store<AppState>, private router: Router) {}
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-        // const isAuth = this.store.select(selectIsAuth).subscribe(isAuth => {
-        //     return isAuth;
-        // });
-        // if (isAuth) {
-        //     return true;
-        // }
-        // else {
-
-        //     return this.router.parseUrl('/sign-in');
-        // }
+        
         return this.store.select(selectIsAuth).pipe(
             map(isAuth => {
                 if (isAuth) {

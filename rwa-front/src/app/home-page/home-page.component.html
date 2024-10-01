@@ -31,7 +31,7 @@
     </ng-template>-->
 
   <div *ngIf="searchTermFlag" class="childdiv">
-    <div *ngIf="filteredGames$ | async as games; else noGames" class="game-section">
+    <div *ngIf="filteredGames as games; else noGames" class="game-section"><!--$ | async0-->
       <h2>Games</h2>
       <ul *ngFor="let game of games">
         <app-show-game [game]="game" [fromHP]="hpfleg"></app-show-game>

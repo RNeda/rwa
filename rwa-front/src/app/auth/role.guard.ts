@@ -14,12 +14,11 @@ export class RoleGuard implements CanActivate {
 
   canActivate(): Observable<boolean> {
     return this.store.select(selectUserData).pipe(
-      take(1), // Ensures the observable completes after one emission
+      take(1), 
       map(user => {
         if (user && user.role === 'admin') {
-          return true; // Allow navigation if the user is an admin
+          return true; 
         } else {
-          //this.router.navigate(['/not-authorized']); // Redirect if not an admin
           return false;
         }
       })

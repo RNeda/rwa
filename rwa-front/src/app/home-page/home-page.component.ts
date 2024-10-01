@@ -31,6 +31,7 @@ export class HomePageComponent implements OnInit{
   termToSearch:string="";
   stopSearch:boolean=false;
   filteredGames$: Observable<Game[]>=this.games$.pipe(startWith([]));//, tap(filteredGames => console.log('Filtered Games Before:', filteredGames)));
+  filteredGames:Game[]=[];
   fromprofile:boolean=false;
 
   // childShowTeams:boolean |null=null;
@@ -46,7 +47,7 @@ export class HomePageComponent implements OnInit{
     this.store.dispatch(loadGames());
     this.games$.subscribe((data)=>{
       this.allGames=data;
-      this.sortGames();
+      this.allGames=this.sortGames(this.allGames);
       console.log("all games: ", this.allGames);
     });
    
@@ -70,13 +71,15 @@ export class HomePageComponent implements OnInit{
   handleTermToSearch(term:string):void{
     this.searchTermFlag=true;
     this.stopSearch=true;
-    this.termToSearch=term;
-    //console.log("term to search "+ this.termToSearch);
+    let termToUpper=term;
+    this.termToSearch=termToUpper.charAt(0).toUpperCase() + termToUpper.slice(1);
+    console.log("term to search "+ this.termToSearch);
     //ako imam pretragu po nazivu tima
     if(this.termToSearch!==""){
 
       this.filteredGames$ = this.games$;
-      this.filteredGames$.pipe(
+      this.filteredGames$.subscribe((games)=> console.log("before filtering: ", games));
+      this.filteredGames$=this.filteredGames$.pipe(
         map(games => games.filter(game => 
           
           game.teams.some(team => team.name === this.termToSearch), // Check if any team matches the team name
@@ -85,6 +88,8 @@ export class HomePageComponent implements OnInit{
         tap(filteredGames => console.log('Filtered Games:', filteredGames))
         // ,startWith([])
       );
+      this.filteredGames$.subscribe((data)=>this.filteredGames=data);
+      this.filteredGames=this.sortGames(this.filteredGames);
     }
   }
 
@@ -94,20 +99,21 @@ export class HomePageComponent implements OnInit{
 
   }
 
-  sortGames(){
+  sortGames(forSort:Game[]):Game[]{
     let games:Game[] = [];//this.allGames;
-    
-    this.allGames.forEach(g=>{
+    //this.allGames
+    forSort.forEach(g=>{
       if(g.resTeam1!==3 && g.resTeam2!==3){
         games.push(g);
       }
     });
-    this.allGames.forEach(g=>{
+    forSort.forEach(g=>{
       if(!games.some(game=>game.id===g.id)){
         games.push(g);
       }
     });
-    this.allGames=games;
+    forSort=games;
+    return forSort;
   }
 
 }

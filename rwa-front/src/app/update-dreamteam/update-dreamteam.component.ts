@@ -9,7 +9,8 @@ import { loadAvailablePlayers, loadDreamTeam, removePlayer, removePlayerFailure,
 import { selectAvailablePlayers, selectDreamTeamById, selectSingleDreamTeam } from '../store/dreamteam.selectors';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmUpdateDialogComponent } from '../confirm-update-dialog/confirm-update-dialog.component';
-import { selectPlayerById } from '../store/player.selectors';
+import { selectPlayerById, selectSinglePlayer } from '../store/player.selectors';
+import { loadPlayer } from '../store/player.actions';
 
 @Component({
   selector: 'app-update-dreamteam',
@@ -26,6 +27,7 @@ export class UpdateDreamteamComponent implements OnInit{
   playersToAddIds:number[]=[];
   playersToAdd:string[]=[];
   playersToRemove: number[] = [];
+  creatorId:number=0;
   //dreamTeamService: any;
 
   constructor(private store: Store<AppState>, private route: ActivatedRoute, private router:Router, private dialog: MatDialog,) {}
@@ -49,7 +51,7 @@ export class UpdateDreamteamComponent implements OnInit{
         //console.log("dt loaded: "+dreamTeam);
       }
     });
-
+    this.creatorId=this.dreamTeam.creator.id;
     this.store.select(selectAvailablePlayers).subscribe((players) => {
       this.allPlayers = players;
       this.filterAvailablePlayers();
@@ -86,6 +88,14 @@ export class UpdateDreamteamComponent implements OnInit{
       this.playersToRemove.push(playerId);
       this.store.dispatch(removePlayer({teamId:this.dreamTeam.id, playerIds:this.playersToRemove}));
       this.dreamTeam.players =this.dreamTeam.players.filter(p=>p.id!==playerId);
+      let pl:Player|null=null;
+      this.store.dispatch(loadPlayer({id: this.playersToRemove[0]}));
+      this.store.select(selectSinglePlayer).subscribe((data)=>{
+        console.log("removed player from select:" , data)
+        if(data) {this.availablePlayers.push(data);}
+        
+      });
+      //if(pl) {this.availablePlayers.push(pl);}
       this.playersToRemove=[];
       
     
@@ -95,10 +105,12 @@ export class UpdateDreamteamComponent implements OnInit{
 
   onSubmit(): void {
     
-      const dto: DreamTeamDto = new DreamTeamDto(0, this.dreamTeam.name, this.playersToAddIds, this.dreamTeam.creator.id);
+      const dto: DreamTeamDto = new DreamTeamDto(0, this.dreamTeam.name, this.playersToAddIds, this.creatorId);
       console.log("dto", [dto]);
       //console.log("dreamTeam to update id: "+this.dreamTeam.id);
-      if(this.dtId) {this.store.dispatch(updateDreamTeam({ id: this.dtId, updates: dto }));}
+      if(this.dtId) {
+        console.log("id for team to update: "+ this.dtId+ ", updates: "+ dto);
+        this.store.dispatch(updateDreamTeam({ id: this.dtId, updates: dto }));}
       this.router.navigate(['/my-profile'],{ queryParams: { dtId:this.dtId } });
 
       this.dialog.open(ConfirmUpdateDialogComponent, {
