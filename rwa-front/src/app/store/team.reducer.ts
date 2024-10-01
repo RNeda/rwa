@@ -5,12 +5,11 @@ import * as TeamActions from "./team.actions";
 
 
 export interface TeamState {
-    players:Player[];  //create
-    loading: boolean;//create
+    players:Player[];  
+    loading: boolean;
     team: Team | null;
     teams: Team[];
     availablePlayers: Player[];
-    //error: any;
 }
 
 export const initialTeamState: TeamState = {
@@ -19,7 +18,6 @@ export const initialTeamState: TeamState = {
     team: null,
     teams: [],
     availablePlayers: [], 
-    //error: null
 };
 
 export const TeamReducer = createReducer(
@@ -68,7 +66,7 @@ export const TeamReducer = createReducer(
         ...state, 
         loading: false, 
         team ,
-        teams: [...state.teams, team],//??
+        teams: [...state.teams, team],
     })),
     on(TeamActions.createTeamFailure, (state, { error }) => ({ 
     ...state,

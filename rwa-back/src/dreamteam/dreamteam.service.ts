@@ -44,25 +44,14 @@ export class DreamteamService {
         //dodajemo usera koji je kreator
         const cr = await this.userRepository.findOne({
             where:{id:creatorid},
-            //relations:['dreamteams'],
         });
         newteam.creator=cr;
         //postavi random lkikes i dislikes
-        newteam.likes=(Math.floor(Math.random()*10));//int random do 10
-        newteam.dislikes = (Math.floor(Math.random() * 10)); //int random do 10
-        await this.dreamteamRepository.save(newteam);//ovde sam zavrsila sa editovanjem newteam, pa ga push da bi mogli ostali da ga dodaju
-        //kreatoru dodjaemo ovaj dreamteam u listu
-        // cr.dreamteams.push(newteam);
-        // await this.userRepository.save(cr);
-        //DODAJ DEO DA SE PLAYERIMA POSTAVI TEAM U KOJI SU DODATI
-        // const players = await this.playerRepository.findByIds(playerids);
-        // players.forEach(player =>{
-        //     player.dreamTeams.push(newteam);
-        // })
-        // await this.playerRepository.save(players);
-        
+        newteam.likes=(Math.floor(Math.random()*10));
+        newteam.dislikes = (Math.floor(Math.random() * 10)); 
+        await this.dreamteamRepository.save(newteam);
         return newteam;
-    }//deluje ok
+    }
 
     async update(id:number, dreamteam:DreamTeamDto):Promise<DreamTeam>{
         //changes name, adds players
@@ -71,11 +60,6 @@ export class DreamteamService {
             relations:['players'],
         });
         newteam.name=dreamteam.name;
-
-        // const newPlayers = await this.playerRepository.findByIds(dreamteam.playerids); // Fetch new players by their IDs
-
-        // // Combine existing players with the new ones
-        // newteam.players = [...newteam.players, ...newPlayers];
 
         //update likes and dislikes
         if(dreamteam.likes===1){
@@ -86,29 +70,13 @@ export class DreamteamService {
             }
         }
         if(dreamteam.playerids && dreamteam.playerids.length !== 0){
-            const newPlayers = await this.playerRepository.findByIds(dreamteam.playerids); // Fetch new players by their IDs
-            //console.log("new players: "+newPlayers);
-            // Combine existing players with the new ones
+            const newPlayers = await this.playerRepository.findByIds(dreamteam.playerids); 
             newteam.players = [...newteam.players, ...newPlayers];
-            //console.log("after merge: "+ newteam.players);
             await this.dreamteamRepository.save(newteam);
-            //kad dodam nove playere njima treba da se postavi tim
-            // newPlayers.forEach(pl=>{
-            //     pl.team=newteam;
-            // })
-            // await this.playerRepository.save(newPlayers);
         }
         else{
             await this.dreamteamRepository.save(newteam); 
         }
-        
-        
-        //DODAJ DEO DA SE PLAYERIMA POSTAVI TEAM U KOJI SU DODATI
-        //const players = await this.playerRepository.findByIds(playerids);
-        // newPlayers.forEach(player =>{
-        //     player.dreamTeams.push(newteam);
-        // })
-        // await this.playerRepository.save(newPlayers);
         return newteam;
     }
 
@@ -117,17 +85,6 @@ export class DreamteamService {
             where:{id},
             relations:['players', 'creator'],
         });
-        //brisemo dreamteam iy svakog playera
-        // const players = team.players;
-        // players.forEach(p=>{
-        //     //p.team=null;
-        //     p.dreamTeams=p.dreamTeams.filter(dt=>dt.id!==team.id);
-        // })
-        // await this.playerRepository.save(players);
-        // //brisemo iy creatora ovaj dreamteam
-        // const cr=team.creator;
-        // cr.dreamteams=cr.dreamteams.filter(t=>t.id!==team.id);
-        // await this.userRepository.save(cr);
         return await this.dreamteamRepository.remove(team);
     }
 
@@ -137,21 +94,11 @@ export class DreamteamService {
             relations: ['players'],  
         });
 
-        // 2. Filter out players with IDs that are in the playerIds list
-        //team.players = team.players.filter(player => !playerids.includes(player.id));
         const pl = await this.playerRepository.findByIds(playerids);
         pl.forEach(pid=>{
-            //console.log(pid.dreamTeams);
             team.players=team.players.filter(player=>player.id!==pid.id);
-            //pid.dreamTeams=pid.dreamTeams.filter(dt=>dt.id!==teamid);
         });
-        //kod tih igraca ogrisemo ovaj dreamteam
-        //const players=await this.playerRepository.findByIds(playerids);
-        // players.forEach(p=>{
-        //     p.dreamTeams=p.dreamTeams.filter(dt=>dt.id!==team.id);
-        // });
         await this.playerRepository.save(pl);
-        // 3. Save the updated team with the players removed
         return await this.dreamteamRepository.save(team);
     }
 }

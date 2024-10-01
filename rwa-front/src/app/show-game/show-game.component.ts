@@ -44,23 +44,21 @@ export class ShowGameComponent implements OnInit{
     }
     
     this.route.paramMap.pipe(
-      map(params => params.get('id')), // Get the 'id' parameter from the route
+      map(params => params.get('id')), 
       switchMap(id => {
         if (id) {
-          this.store.dispatch(loadGame({ id: +id })); // Dispatch the action with the ID
+          this.store.dispatch(loadGame({ id: +id })); 
         }
-        return this.game$; // Return the observable to be used in the template
+        return this.game$; 
       })
     ).subscribe();
     if(this.game?.resTeam1!==3 && this.game?.resTeam2!==3){
-      //console.log("each game:" + [this.game.resTeam1]);
       this.isLive=true;
     }
     
   }
 
   showTeams(){
-    //this.showteams=true;
     if(this.showteams===true){
       this.currText=this.buttonText[1];
       this.showteams=false;
@@ -90,7 +88,6 @@ export class ShowGameComponent implements OnInit{
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.deleteGame(id);
-        //this.deleteDT=true;
       } else {
         console.log('Delete cancelled');
       }
@@ -98,7 +95,6 @@ export class ShowGameComponent implements OnInit{
   }
 
   openSimulation(gameid:number){
-    //dodaj id da se salje
     this.router.navigate(['/simulacija'],{ queryParams: { id: gameid }});
   }
 }

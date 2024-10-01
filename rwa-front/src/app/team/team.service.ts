@@ -13,14 +13,13 @@ import { TeamDto } from '../entities/team.dto';
 })
 export class TeamService {
 
-  constructor(private http: HttpClient, private store:Store<AppState>) { }
+  constructor(private http: HttpClient) { }
 
   getTeams(): Observable<Team[]> {
     return this.http.get<Team[]>(`${url}/team`);
   }
 
   getTeam(id: number): Observable<Team> {
-    //console.log("get dt service id: "+id);
     return this.http.get<Team>(`${url}/team/${id}`);
   }
 

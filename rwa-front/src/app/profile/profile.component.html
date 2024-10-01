@@ -32,7 +32,6 @@
           class="edit-button"
         >
           Delete profile
-          <!-- <mat-icon aria-label="Delete icon">delete</mat-icon> -->
         </button>
       
         <button *ngIf="isAdmin"
@@ -43,7 +42,6 @@
           class="edit-button"
         >
           {{showteamsbtntext}}
-          <!-- <mat-icon aria-label="Delete icon">delete</mat-icon> -->
         </button>
       </div>
       <div class="edit-profile2">
@@ -55,7 +53,6 @@
           class="edit-button"
         >
           New dreamteam
-          <!-- <mat-icon aria-label="Delete icon">delete</mat-icon> -->
         </button>
         <button *ngIf="isAdmin"
           type="button"
@@ -65,7 +62,6 @@
           class="edit-button"
         >
           New team
-          <!-- <mat-icon aria-label="Delete icon">delete</mat-icon> -->
         </button>
         
         <button *ngIf="isAdmin"
@@ -76,7 +72,6 @@
           class="edit-button"
         >
           New game
-          <!-- <mat-icon aria-label="Delete icon">delete</mat-icon> -->
         </button>
         <button *ngIf="isAdmin"
           type="button"
@@ -86,7 +81,6 @@
           class="edit-button"
         >
           New player
-          <!-- <mat-icon aria-label="Delete icon">delete</mat-icon> -->
         </button> 
       </div>
          
@@ -118,8 +112,6 @@
             <div class="dt-info">
               <h3>{{ dreamTeam.name }}</h3>
               
-              <!--<p>Likes: {{ dreamTeam.likes }}</p>
-              <p>Dislikes: {{ dreamTeam.dislikes }}</p>-->
               <p>
                 <mat-icon aria-label="like">thumb_up</mat-icon> 
                 {{ dreamTeam.likes }}
@@ -151,7 +143,6 @@
               class="edit-button">
               Delete</button>
             </div>
-            <!--"deleteDreamteam(dreamTeam.id)"-->
             
           </div>
 
@@ -161,7 +152,6 @@
 
 
         </div>
-      <!--</div>-->
       
       <ng-template #noDreamTeams>
         <p>No DreamTeams available.</p>
@@ -169,5 +159,3 @@
     </div>
   </div>
 </div>
-
-  <!--<app-background-canvas></app-background-canvas>-->

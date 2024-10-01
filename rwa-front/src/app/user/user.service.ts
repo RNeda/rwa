@@ -60,5 +60,4 @@ export class UserService {
          observe: 'response' });
   }
 
-  //ima jos?
 }

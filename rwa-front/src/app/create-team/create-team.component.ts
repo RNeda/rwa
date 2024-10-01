@@ -16,7 +16,6 @@ import { ConfirmCreateDialogComponent } from '../confirm-create-dialog/confirm-c
 })
 export class CreateTeamComponent implements OnInit{
 
-  //players$ = this.store.select(selectAllPlayers);
   selectedPlayers: number[] = [];
   teamName: string = "";
   allPlayers:Player[] = [];
@@ -24,7 +23,7 @@ export class CreateTeamComponent implements OnInit{
   @Output() teamCreated = new EventEmitter<boolean>();
   @Output() cancelCreation = new EventEmitter<boolean>();
 
-  constructor(private store: Store<AppState>,private router:Router,private route: ActivatedRoute, private dialog:MatDialog) {}
+  constructor(private store: Store<AppState>, private dialog:MatDialog) {}
 
 
   ngOnInit(): void {
@@ -39,9 +38,9 @@ export class CreateTeamComponent implements OnInit{
   togglePlayerSelection(playerId: number): void {
     const index = this.selectedPlayers.indexOf(playerId);
     if (index > -1) {
-      this.selectedPlayers.splice(index, 1); // Remove player ID from the array
+      this.selectedPlayers.splice(index, 1); 
     } else {
-      this.selectedPlayers.push(playerId); // Add player ID to the array
+      this.selectedPlayers.push(playerId); 
     }
   }
 
@@ -51,18 +50,6 @@ export class CreateTeamComponent implements OnInit{
     const created:boolean=true;
     this.teamCreated.emit(created);
     this.createConfirm();
-    //this.router.navigate(['/my-profile']);
-    /*
-    onSubmit(){
-    this.userInfo.select(selectUser).subscribe((data) => {
-      this.event.users = [data] ?? [this.user];
-      this.user = data ?? this.user;
-      this.store.dispatch(createEvent({event: {...this.event}}));
-      this.store.select(selectAllEvents).subscribe((data) => {
-        const events = [...data];
-    });
-    });
-    */
   }
 
   cancelTeam():void{
@@ -74,7 +61,7 @@ export class CreateTeamComponent implements OnInit{
     this.availablePlayers=this.allPlayers.filter(
       (player) => player.team === null
     );
-    console.log("Available players: "+ this.availablePlayers);
+    //console.log("Available players: "+ this.availablePlayers);
   }
 
   createConfirm(): void {

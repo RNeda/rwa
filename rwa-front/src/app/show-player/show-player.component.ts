@@ -14,7 +14,7 @@ export class ShowPlayerComponent implements OnInit{
 
   @Input() player: Player | null = null;
 
-  constructor(private store: Store<AppState>, private route: ActivatedRoute, private router:Router,private playerService:PlayerService) {}
+  constructor() {}
 
   ngOnInit(): void {
     

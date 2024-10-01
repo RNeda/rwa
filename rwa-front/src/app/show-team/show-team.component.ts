@@ -25,14 +25,10 @@ export class ShowTeamComponent implements OnInit{
   @Output() teamDeleted = new EventEmitter<boolean>();
   fullteam:Team | null=null;
   user:any;
-  //team$: Observable<Team | null> = this.store.select(selectSingleTeam);
-  //@Output() valueSent = new EventEmitter<boolean>();
-  //tId: number | null = null;
   isAdmin:boolean=false;
+
   constructor(
-    private store: Store<AppState>, 
-    private route: ActivatedRoute, 
-    private router:Router,
+    private store: Store<AppState>,
     private teamService:TeamService,
     public dialog:MatDialog,
   ) {}
@@ -41,31 +37,25 @@ export class ShowTeamComponent implements OnInit{
       
     this.store.select(selectUserData).subscribe((data)=>{
       this.user=data;
-      //console.log("users role from show team" + this.user.role);
     });
     this.isAdmin=(this.user.role==="admin");
     if (this.team) {
-      //console.log("team " +[this.team]);
-      console.log("team from input id:"+ this.team.id + " name: "+ this.team.name+ " games: "+ this.team.games+ " players: "+this.team.players);
+      //console.log("team from input id:"+ this.team.id + " name: "+ this.team.name+ " games: "+ this.team.games+ " players: "+this.team.players);
     }
     this.getFullTeam();
-    
   }
 
   getFullTeam(){
     if(this.team){
-      //this.fullteam = 
       this.teamService.getTeam(this.team.id).subscribe(novi=>{
         this.fullteam=novi;
         console.log("fullteam: " + this.fullteam.players);
       });
-      
     }
   }
 
   deleteTeam(){
     if(this.team){
-      //this.teamService.deleteTeam(this.team.id);
       this.store.dispatch(deleteTeam({id:this.team.id}));
       //posalji u parent da se ponovo ucitaju timovi
       const deleted:boolean=true;
@@ -82,7 +72,6 @@ export class ShowTeamComponent implements OnInit{
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.deleteTeam();
-        //this.deleteDT=true;
       } else {
         console.log('Delete cancelled');
       }

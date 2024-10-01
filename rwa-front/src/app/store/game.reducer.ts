@@ -21,7 +21,7 @@ export interface GameState {
     initialGamesState,
     on(loadGamesSuccess, (state, { games }) => ({
       ...state,
-      games: [...games],  // Update state with the new games
+      games: [...games],  
     })),
     on(loadGamesFailure, (state, { error }) => ({
       ...state,
@@ -44,7 +44,7 @@ export interface GameState {
       ...state, 
       loading: false, 
       game ,
-      games: [...state.games, game],//??
+      games: [...state.games, game],
   })),
   on(createGameFailure, (state, { error }) => ({ 
   ...state,

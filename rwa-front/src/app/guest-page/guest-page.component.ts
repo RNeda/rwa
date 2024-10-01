@@ -13,12 +13,9 @@ export class GuestPageComponent implements OnInit{
 
   constructor(private store:Store<AppState>){}
   
-  //selectedGame$ = this.store.select(selectSelectedGame);
   games$ = this.store.select(selectAllGames);
   
-
-  ngOnInit(): void {
-    
+  ngOnInit(): void {  
     this.store.dispatch(loadGames());
   }
 

@@ -1,11 +1,9 @@
-/* Styling the game list container */
 .game-list {
   list-style-type: none;
   padding: 0;
   margin: 0;
 }
 
-/* Each game item will have some space between it */
 .game-item {
   margin: 10px 0;
   padding: 15px;
@@ -16,12 +14,10 @@
   transition: background-color 0.2s;
 }
 
-/* Hover effect for better interaction */
 .game-item:hover {
   background-color: #e9ecef;
 }
 
-/* Layout the game details side by side */
 .game-details {
   display: flex;
   justify-content: space-between;
@@ -31,7 +27,6 @@
   color: #343a40;
 }
 
-/* Styling for team names */
 .team-name {
   flex: 1;
   text-align: center;
@@ -45,7 +40,6 @@ h2{
   color:rgb(32, 35, 84);
 }
 
-/* Styling for game score */
 .game-score {
   flex: 0 0 auto;
   margin: 0 15px;
@@ -54,7 +48,6 @@ h2{
   color: #495057;
 }
 
-/* Media queries for responsiveness */
 @media (max-width: 600px) {
   .game-details {
     flex-direction: column;

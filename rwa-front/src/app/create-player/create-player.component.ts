@@ -21,7 +21,7 @@ export class CreatePlayerComponent implements OnInit{
   @Output() playerCreated = new EventEmitter<boolean>();
   @Output() cancelPlayerCreation = new EventEmitter<boolean>();
 
-  constructor(private store: Store<AppState>,private router:Router,private route: ActivatedRoute,private dialog: MatDialog) {}
+  constructor(private store: Store<AppState>,private dialog: MatDialog) {}
 
 
   ngOnInit(): void {

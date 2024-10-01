@@ -32,58 +32,53 @@ export class ShowDreamteamComponent implements OnInit{
       this.creatorId=this.dreamTeam.creator.id;
     }
     if (!this.dreamTeam) {
-      // If no input, try to load it from the query params
+      // ako nije iz input, ucitaj iz query params
       this.route.queryParams.subscribe(params => {
         if (params['dtId']) {
-          this.dtId = +params['dtId']; // Get the dtId from query params
-          this.store.dispatch(loadDreamTeam({ id: this.dtId })); // Dispatch to load DreamTeam
+          this.dtId = +params['dtId']; 
+          this.store.dispatch(loadDreamTeam({ id: this.dtId })); 
         }
       });
     }
 
     this.route.paramMap.pipe(
-      map(params => params.get('id')), // Get the 'id' parameter from the route
+      map(params => params.get('id')), 
       switchMap(id => {
         if (id) {
-          this.store.dispatch(loadDreamTeam({ id: +id })); // Dispatch the action with the ID
+          this.store.dispatch(loadDreamTeam({ id: +id })); 
         }
-        return this.dreamTeam$; // Return the observable to be used in the template
+        return this.dreamTeam$; 
       })
     ).subscribe();
 
-    
-    
   }
 
   changeLikes():void{
     if (this.dreamTeam) {
-      const updates = new DreamTeamDto(1, this.dreamTeam.name, [], this.creatorId/*this.dreamTeam.creator.id*/);
-      console.log("likes before: "+this.dreamTeam.likes);
+      const updates = new DreamTeamDto(1, this.dreamTeam.name, [], this.creatorId);
+      //console.log("likes before: "+this.dreamTeam.likes);
       this.store.dispatch(updateDreamTeam({ id: this.dreamTeam.id, updates }));
       const dt=this.store.select(selectDreamTeamById(this.dreamTeam.id)).subscribe((data) => {
         if(data){this.updateddt = data}
         this.dreamTeam=this.updateddt;
-        console.log([this.updateddt?.creator.name])
+        //console.log([this.updateddt?.creator.name])
         });
-      console.log("likes after: "+this.dreamTeam.likes);
-
-      //console.log("userid after like: "+ this.dreamTeam.creator.id);
+      //console.log("likes after: "+this.dreamTeam.likes);
     }
   }
 
   changeDislikes():void{
     if (this.dreamTeam) {
-      const updates = new DreamTeamDto(2, this.dreamTeam.name, [], this.creatorId/*this.dreamTeam.creator.id*/);
-      console.log("dislikes before: "+this.dreamTeam.dislikes);
+      const updates = new DreamTeamDto(2, this.dreamTeam.name, [], this.creatorId);
+      //console.log("dislikes before: "+this.dreamTeam.dislikes);
 
       this.store.dispatch(updateDreamTeam({ id: this.dreamTeam.id, updates }));
       const dt=this.store.select(selectDreamTeamById(this.dreamTeam.id)).subscribe((data) => {
         if(data){this.updateddt = data}
         this.dreamTeam=this.updateddt;
-        console.log([this.updateddt?.creator.name])
+        //console.log([this.updateddt?.creator.name])
         });
-      //console.log("likes after: "+this.dreamTeam.likes);
-      console.log("dislikes after: "+this.dreamTeam.dislikes);
+      //console.log("dislikes after: "+this.dreamTeam.dislikes);
 
     }
   }
@@ -94,7 +89,4 @@ export class ShowDreamteamComponent implements OnInit{
   goBackToProfile(){
     this.router.navigate(['/my-profile']);
   }
-
-  
-
 }

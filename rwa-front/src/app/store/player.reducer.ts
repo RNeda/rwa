@@ -46,7 +46,7 @@ export const PlayerReducer=createReducer(
         ...state, 
         loading: false, 
         player ,
-        players: [...state.players, player],//??
+        players: [...state.players, player],
     })),
     on(createPlayerFailure, (state, { error }) => ({ 
     ...state,

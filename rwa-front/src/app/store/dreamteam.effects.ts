@@ -4,7 +4,6 @@ import { DreamteamService } from "../dreamteam/dreamteam.service";
 import * as DreamTeamActions from './dreamteam.actions';
 import { catchError, map, mergeMap, of } from "rxjs";
 import { DreamTeam } from "../entities/dreamteam";
-import { Observable } from 'rxjs';//???
 
 @Injectable()
 export class DreamTeamEffects {
@@ -24,7 +23,7 @@ export class DreamTeamEffects {
       )
     )
   );
-  // Effect to load DreamTeams
+
   loadDreamTeams$ = createEffect(() =>{
     return this.actions$.pipe(
       ofType(DreamTeamActions.loadDreamTeams),
@@ -43,7 +42,7 @@ export class DreamTeamEffects {
 
   loadUserDreamTeams$ = createEffect(() => this.actions$.pipe(
     ofType(DreamTeamActions.loadUserDreamTeams),
-    mergeMap(action => this.DreamTeamService.getDreamTeamsByUserId()//action.userId)
+    mergeMap(action => this.DreamTeamService.getDreamTeamsByUserId()
       .pipe(
         map(dreamTeams => DreamTeamActions.loadUserDreamTeamsSuccess({ dreamTeams })),
         catchError(error => of(DreamTeamActions.loadUserDreamTeamsFailure({ error })))
@@ -51,17 +50,7 @@ export class DreamTeamEffects {
     )
   ));
 
-  /*
-  loadUserDreamTeams$ = createEffect(() => this.actions$.pipe(
-    ofType(DreamTeamActions.loadUserDreamTeams),
-    mergeMap(action => this.DreamTeamService.getDreamTeams()//ByUserId(action.userId)
-    .pipe(
-      map(dreamTeams => DreamTeamActions.loadUserDreamTeamsSuccess({ dreamTeams })),
-      catchError(error => of(DreamTeamActions.loadUserDreamTeamsFailure({ error })))
-    )
-  )
-));
-  */
+  
 
   loadPlayers$ = createEffect(() =>
     this.actions$.pipe(
@@ -87,13 +76,7 @@ export class DreamTeamEffects {
     )
   );
 
-  // addDtToUser$=createEffect(()=>
-  //   this.actions$.pipe(
-  //     ofType(DreamTeamActions.addDreamTeamToUser),
-  //     mergeMap(({dreamTeam,user}).pipe()
-  //     )
-  //   )
-  // )
+  
 
   deleteDreamteam$ = createEffect(() => this.actions$.pipe(
     ofType(DreamTeamActions.deleteDreamteam),
@@ -104,9 +87,6 @@ export class DreamTeamEffects {
       ))
   ));
  
-
-
-  
 
   loadAvailablePlayers$ = createEffect(() =>
     this.actions$.pipe(
@@ -131,16 +111,7 @@ export class DreamTeamEffects {
     )
   ));
  
-  // removePlayer$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(DreamTeamActions.removePlayer),
-  //     mergeMap(action => this.DreamTeamService.removePlayers(action.teamId,action.playerIds)
-  //   .pipe(
-  //     map((dreamTeam:DreamTeam)=>DreamTeamActions.updateDreamTeamSuccess({dreamTeam})),
-  //     catchError(error=>of(DreamTeamActions.updateDreamTeamFailure({error})))
-  //   ))
-  //   )
-  // );
+ 
   removePlayer$ = createEffect(() =>
     this.actions$.pipe(
       ofType(DreamTeamActions.removePlayer),
@@ -152,27 +123,5 @@ export class DreamTeamEffects {
     )
   );
  
-
-    /*this.actions$.pipe(
-      ofType(DreamTeamActions.removePlayer),
-      switchMap(({ teamId, playerIds }) =>
-        this.dreamTeamService.removePlayers(teamId, playerIds).pipe(
-          map((dreamTeam: DreamTeam) => DreamTeamActions.removePlayerSuccess({ dreamTeam })),
-          catchError(error => of(DreamTeamActions.removePlayerFailure({ error })))
-        )
-      )
-    )
-  );
-
-    /*this.actions$.pipe(
-      ofType(DreamTeamActions.removePlayer),
-      switchMap(({ teamId, playerId }) =>
-        this.dreamTeamService.removePlayers(teamId, [playerId]).pipe(
-          map(dreamTeam => DreamTeamActions.removePlayerSuccess({ dreamTeam })),
-          catchError(error => of(DreamTeamActions.removePlayerFailure({ error })))
-        )
-      )
-    )
-  );*/
 
 }

@@ -13,10 +13,9 @@ import { GameDto } from '../entities/game.dto';
 })
 export class GameService {
 
-  constructor(private http:HttpClient, private store:Store<AppState>) { } //, private store:Store<AppState>
+  constructor(private http:HttpClient, private store:Store<AppState>) { } 
 
- // Method to get all games and dispatch action
-  getGames(): Observable<Game[]> { //<Game[]>
+  getGames(): Observable<Game[]> { 
     return this.http.get<Game[]>(`${url}/game`);
   }
 

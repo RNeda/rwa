@@ -12,9 +12,8 @@ import { selectUserData } from '../store/user.selectors';
 })
 export class NavComponent implements OnInit{
 
-  
-  showSearchInput = false; // Track whether the search input is visible
-  searchTerm: string = ''; // Store the search term
+  showSearchInput = false; 
+  searchTerm: string = ''; 
   userLogged:boolean=false;
   @Output() termToSearch = new EventEmitter<string>();
   @Output() stopSearch = new EventEmitter<boolean>();
@@ -28,27 +27,22 @@ export class NavComponent implements OnInit{
         this.userLogged=true;
       }
     })
-    console.log("this.fromprofile: ", this.fromProfile);
+    //console.log("this.fromprofile: ", this.fromProfile);
   }
   homepage(){
     this.router.navigate(['/home-page']);
-    //this.fromProfile=false;
   }
   goBack(){
     this.showSearchInput = !this.showSearchInput;
     this.stopSearch.emit(true);
-    //this.fromProfile=false;
   }
   searchTeams(){
     this.showSearchInput = !this.showSearchInput; 
-
   }
   goToProfile() {
     this.router.navigate(['/my-profile']);
-    //this.fromProfile=true;
   }
   signOut() {
-   
     this.store.dispatch(logout());
     this.router.navigate(['/guest-page']);
   }
@@ -57,7 +51,6 @@ export class NavComponent implements OnInit{
     if (this.searchTerm) {
       console.log("search term from nav:"+ this.searchTerm);
       this.termToSearch.emit(this.searchTerm);
-      //this.fromProfile=false;
     }
   }
   

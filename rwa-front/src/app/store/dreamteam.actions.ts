@@ -7,7 +7,7 @@ import { User } from "../entities/user";
 
 
 export const loadDreamTeams = createAction(
-    '[DreamTeam] Load DreamTeams'
+  '[DreamTeam] Load DreamTeams'
 );
 
 export const loadDreamTeamsSuccess = createAction(
@@ -35,14 +35,8 @@ export const loadDreamTeamFailure = createAction(
   props<{ error: any }>()
 );
 
-
-// export const loadUserDreamTeams = createAction(
-//   '[Profile] Load User DreamTeams',
-//   props<{ userId: number }>()
-// );
 export const loadUserDreamTeams = createAction(
   '[Profile] Load User DreamTeams',
-  //props<{ userId: number }>()
 );
 
 export const loadUserDreamTeamsSuccess = createAction(
@@ -100,11 +94,6 @@ export const deleteDreamteamFailure = createAction(
   props<{ error: any }>()
 );
 
-// export const updateDreamTeamLikes = createAction(
-//   '[DreamTeam] Update DreamTeam Likes',
-//   props<{ id: number; likes: number }>()
-// );
-
 export const updateDreamTeam = createAction(
   '[DreamTeam] Update DreamTeam',
   props<{ id: number; updates: DreamTeamDto }>()
@@ -142,10 +131,6 @@ export const removePlayerSuccess = createAction(
   '[DreamTeam] Remove Player Success',
   props<{ dreamTeam: DreamTeam }>()
 );
-// export const removePlayerSuccess = createAction(
-//   '[DreamTeam] Remove Player Success',
-//   props<{ dreamTeam: DreamTeam ,id:number}>()
-// );
 
 export const removePlayerFailure = createAction(
   '[DreamTeam] Remove Player Failure',

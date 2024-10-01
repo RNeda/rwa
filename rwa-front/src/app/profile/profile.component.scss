@@ -1,10 +1,4 @@
-// .glavni{
-//   margin:0rem;
-//   margin-top:-10px;
-//   padding:0rem;
-//   background-color: #a1c7f9a3;
-// }
-  
+
   .centeredDiv {
     display: flex;
     flex-direction: column;
@@ -13,8 +7,7 @@
   }
   
   .profile {
-    //background-color: transparent;
-    max-width: 475px;//456px;
+    max-width: 475px;
     margin: 30px auto;
     padding: 20px;
     border: 1px solid #ccc;
@@ -93,7 +86,6 @@
     font-size: 14px;
     transition: background-color 0.3s ease;
     margin-left: 10px;
-    //margin-top: 10px;
     color:rgb(32, 35, 84);
 
   }
@@ -164,11 +156,11 @@
           }
   
           &:nth-child(2) mat-icon {
-            color: #98ef9b; /* Green for likes */
+            color: #98ef9b;
           }
     
           &:nth-child(3) mat-icon {
-            color: #e73124; /* Red for dislikes */
+            color: #e73124; 
           }
         }
       }
@@ -178,18 +170,6 @@
         flex-direction: column;
         justify-content: flex-start;
         
-        // button {
-        //   margin-bottom: 10px;
-        //   background-color: #3f51b5 !important;
-        //   color: white !important;
-        //   text-transform: uppercase;
-        //   font-weight: bold;
-        //   transition: background-color 0.3s ease-in-out;
-          
-        //   &:hover {
-        //     background-color: #283593 !important;
-        //   }
-        // }
       }
     }
   

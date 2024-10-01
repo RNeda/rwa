@@ -33,17 +33,6 @@ export class TeamController {
         return this.teamService.update(id,team);
     }
 
-    //http://localhost:3000/team/1/addgame/2 primer poziva
-    // @Put(':teamid/addgame/:gameid')
-    // addGame(@Param('teamid', ParseIntPipe)teamid:number, @Param('gameid',ParseIntPipe)gameid:number):Promise<Team>{
-    //     return this.teamService.addGame(teamid,gameid);
-    // }
-
-    // @Put(':teamid/removegame/:gameid')
-    // removeGame(@Param('teamid', ParseIntPipe)teamid:number, @Param('gameid',ParseIntPipe)gameid:number):Promise<Team>{
-    //     return this.teamService.removeGame(teamid,gameid);
-    // }
-
     @Put(':teamid/player')
     async removePlayers(@Param('teamid', ParseIntPipe) teamid: number, @Body() body: { playerids: number[] }): Promise<Team> {
         const{playerids}  =body;

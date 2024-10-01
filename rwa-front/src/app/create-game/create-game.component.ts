@@ -24,7 +24,7 @@ export class CreateGameComponent implements OnInit{
   selectedTeam2:number|null=null;
   resTeam1:number=0;
   resTeam2:number=0;
-  constructor(private store: Store<AppState>,private router:Router,private route: ActivatedRoute,private dialog: MatDialog) {}
+  constructor(private store: Store<AppState>,private router:Router,private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.store.dispatch(loadTeams());
@@ -34,27 +34,17 @@ export class CreateGameComponent implements OnInit{
     })
   }
 
-  // toggleTeamSelection(teamId:number):void{
-  //   const index = this.selectedTeams.indexOf(teamId);
-  //   if(index>-1){
-  //     this.selectedTeams.splice(index,1);
-  //   }else{
-  //     this.selectedTeams.push(teamId);
-  //   }
-  // }
-
   toggleTeamSelection(teamId: number, teamNumber: number): void {
+    //ako smo neki tim selektovali za prvi, ne mzemo ga izabrati kao drugi
     if (teamNumber === 1) {
       this.selectedTeam1 = teamId;
     } else if (teamNumber === 2) {
       this.selectedTeam2 = teamId;
     }
 
-    // Update the `selectedTeams` array with the current selections
     this.updateSelectedTeams();
   }
 
-  // Add both selected teams (if any) to the `selectedTeams` array
   updateSelectedTeams(): void {
     this.selectedTeams = [];
 

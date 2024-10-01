@@ -40,38 +40,7 @@ export class GameService {
             newgame.teams=teams;
         }
         await this.gameRepository.save(newgame);
-        //timovima dodam game
-        // const teams = await this.teamRepository.findByIds(teamids);
-        // teams.forEach(t=>{
-        //     t.games.push(newgame);
-        // })
-        // await this.teamRepository.save(teams);
         return newgame;
-
-
-        // Validate and find or save the teams
-        // const teamEntities: Team[] = [];
-        
-        // for (const team of teams) {
-        // let teamEntity = await this.teamRepository.findOne({ where: { id: team.id } });
-        //     if (!teamEntity) {
-        //         // If the team doesn't exist, create a new team entity
-        //         teamEntity = this.teamRepository.create(team); //NEMAS GET I CREATE METODU U TEAM SERVICE!!
-        //         await this.teamRepository.save(teamEntity);
-                
-        //     }
-
-        //     teamEntities.push(teamEntity);
-        // }
-
-        // const newgame = this.gameRepository.create({
-        //     resTeam1,
-        //     resTeam2,
-        //     teams: teamEntities, // Attach the teams array
-        // });
-
-        // return await this.gameRepository.save(newgame);
-
     }
 
     async updateRes(id:number, game:GameDto):Promise<Game>{
@@ -88,12 +57,6 @@ export class GameService {
             where:{id},
             relations:['teams'],
         });
-        //mora da brise i iz timova taj game
-        // const timovi = game.teams;
-        // timovi.forEach(t=>{
-        //     t.games=t.games.filter(g=>g.id!==game.id);
-        // })
-        // await this.teamRepository.save(timovi);
         return await this.gameRepository.remove(game);
     }
 

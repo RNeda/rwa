@@ -2,7 +2,7 @@
 <div  class="glavni">
   <div *ngIf="!searchTermFlag" class="childdiv">
 
-    <div *ngIf="allGames as games; else loadingGames" class="game-section"> <!--games$ | async-->
+    <div *ngIf="allGames as games; else loadingGames" class="game-section"> 
       <h2>Games</h2>
   
       <div class="gamee" *ngFor="let game of games">
@@ -25,13 +25,10 @@
       </div>
     </div>
   </div>
-    <!--
-    <ng-template #loading>
-      <p>Loading DreamTeams...</p>
-    </ng-template>-->
+    
 
   <div *ngIf="searchTermFlag" class="childdiv">
-    <div *ngIf="filteredGames as games; else noGames" class="game-section"><!--$ | async0-->
+    <div *ngIf="filteredGames as games; else noGames" class="game-section">
       <h2>Games</h2>
       <ul *ngFor="let game of games">
         <app-show-game [game]="game" [fromHP]="hpfleg"></app-show-game>

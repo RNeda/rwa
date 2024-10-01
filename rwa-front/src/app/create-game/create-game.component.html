@@ -1,58 +1,9 @@
-<!-- <h1>Create New Game</h1>
-
-<h3>Select Team 1:</h3>
-<ul>
-  <li *ngFor="let team of teams$ | async">
-    <input type="radio"
-    name="team1Selection"
-    [value]="team.id"
-    (change)="toggleTeamSelection(team.id, 1)"
-    [checked]="team.id === selectedTeam1"
-    [disabled]="team.id === selectedTeam2"/> {{ team.name }}
-  </li>
-</ul>
-
-<h3>Select Team 2:</h3>
-<ul>
-  <li *ngFor="let team of teams$ | async">
-    <input type="radio"
-    name="team2Selection"
-    [value]="team.id"
-    (change)="toggleTeamSelection(team.id, 2)"
-    [checked]="team.id === selectedTeam2" 
-    [disabled]="team.id === selectedTeam1"/> {{ team.name }}
-  </li>
-</ul>
-
-<div>
-    <label for="team1Res">Result team 1:</label>
-    <input id="team1Res" [(ngModel)]="resTeam1" />
-</div>
-
-<div>
-    <label for="team2Res">Result team 2:</label>
-    <input id="team2Res" [(ngModel)]="resTeam2" />
-</div>
-
-<button 
-type="button"
-aria-label="New team"
-(click)="createGame()"
-mat-raised-button
-class="edit-button">Create Game</button>
-<button 
-type="button"
-aria-label="New team cancle"
-(click)="cancelGame()"
-mat-raised-button
-class="edit-button">Cancel</button> -->
-
 <h1>Create New Game</h1>
 
 <div class="create-game-container">
   <h3>Select Team 1:</h3>
   <ul>
-    <li *ngFor="let team of allTeams"><!--teams$ | async-->
+    <li *ngFor="let team of allTeams">
       <input type="radio" name="team1Selection" [value]="team.id"
         (change)="toggleTeamSelection(team.id, 1)"
         [checked]="team.id === selectedTeam1" [disabled]="team.id === selectedTeam2" /> 
@@ -62,7 +13,7 @@ class="edit-button">Cancel</button> -->
 
   <h3>Select Team 2:</h3>
   <ul>
-    <li *ngFor="let team of allTeams"><!--teams$ | async-->
+    <li *ngFor="let team of allTeams">
       <input type="radio" name="team2Selection" [value]="team.id"
         (change)="toggleTeamSelection(team.id, 2)"
         [checked]="team.id === selectedTeam2" [disabled]="team.id === selectedTeam1" /> 

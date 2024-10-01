@@ -12,7 +12,7 @@ import { PlayerDto } from '../entities/player.dto';
 })
 export class PlayerService {
 
-  constructor(private http: HttpClient, private store:Store<AppState>) { }
+  constructor(private http: HttpClient) { }
 
   getPlayer(id:number):Observable<Player>{
     return this.http.get<Player>(`${url}/player/${id}`);

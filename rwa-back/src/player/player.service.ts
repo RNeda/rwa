@@ -34,8 +34,6 @@ export class PlayerService {
         newplayer.age=player.age;
         newplayer.picture=player.picture;
         newplayer.position=player.position;
-        //igracu senaknadno ayurira tim kome pripada tako da kad se kreira ne postavlja se tim
-        //isto i ya dreamteams
         return await this.playerRepository.save(newplayer);
     }
 
@@ -49,7 +47,6 @@ export class PlayerService {
         newplayer.age=player.age;
         newplayer.picture=player.picture;
         newplayer.position=player.position;
-        //kad dodajem ili uklanjam playere u team i dt njima se automatski iy tih metoda menja tim tkd ne moram to ovde
         return await this.playerRepository.save(newplayer);
     }
 
@@ -58,14 +55,6 @@ export class PlayerService {
             where:{id},
             relations:['team','dreamTeams'],
         });
-        // const t = pl.team;
-        // const dts =pl.dreamTeams;
-        // t.players=t.players.filter(p=>p.id!==pl.id);
-        // await this.teamRepository.save(t);
-        // dts.forEach(dt=>{
-        //     dt.players=dt.players.filter(p=>p.id!==pl.id);
-        // })
-        // await this.dreamteamRepository.save(dts);
         return await this.playerRepository.remove(pl);
     }
 }

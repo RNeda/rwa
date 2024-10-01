@@ -1,29 +1,4 @@
 
-// .player-info {
-//     display: flex;
-//     flex-direction: column; // Stack the image and text vertically
-//     align-items: center; // Center align image and text
-//     padding: 10px;
-  
-//     img {
-//       width: 150px; // Adjust as needed
-//       height: auto;
-//       margin-bottom: 10px; // Space between the image and the text
-//       border-radius: 20%; // Makes the image circular
-//     }
-  
-//     p {
-//       margin: 0;
-//       font-size: 16px;
-//       color: #333;
-//       text-align: center; // Center the text under the image
-  
-//       &:not(:last-child) {
-//         margin-bottom: 5px; // Space between the name, position, and age
-//       }
-//     }
-//   }
-  
 .player-info {
   display: flex;
   flex-direction: column;
@@ -50,10 +25,6 @@
     text-align: center;
     margin: 5px 0;
 
-    // &:first-child {
-    //   font-weight: bold;
-    //   font-size: 1.4rem;
-    // }
 
     &:last-child {
       color: #666;

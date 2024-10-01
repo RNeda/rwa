@@ -71,27 +71,15 @@ h1 {
     .edit-button {
       width: 100%;
       margin: 10px 0;
-      //background-color: #3f51b5;
       color: rgb(32, 35, 84);
       font-size: 1.2rem;
       padding: 10px;
       text-align: center;
   
-    //   &:hover {
-    //     background-color: #303f9f;
-    //   }
-  
       &:first-child {
         margin-right: 10px;
       }
   
-    //   &:last-child {
-    //     background-color: #e73124;
-        
-    //     &:hover {
-    //       background-color: #c62828;
-    //     }
-    //   }
     }
   }
   

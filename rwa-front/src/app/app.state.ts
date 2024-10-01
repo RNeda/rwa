@@ -11,6 +11,4 @@ export interface AppState{
     profile: ProfileState;
     teams:TeamState;
     players:PlayerState;
-    // myDecisions: MyDecisionsState;
-    // searchedDecisions: DecisionsState;
 }

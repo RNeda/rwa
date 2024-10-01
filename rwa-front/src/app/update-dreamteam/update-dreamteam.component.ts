@@ -28,17 +28,13 @@ export class UpdateDreamteamComponent implements OnInit{
   playersToAdd:string[]=[];
   playersToRemove: number[] = [];
   creatorId:number=0;
-  //dreamTeamService: any;
 
   constructor(private store: Store<AppState>, private route: ActivatedRoute, private router:Router, private dialog: MatDialog,) {}
 
   ngOnInit(): void {
-    // Load DreamTeam and available players
-    //const dreamTeamId = +this.route.snapshot.paramMap.get('id')!;
     this.route.queryParams.subscribe(params => {
       if (params['dtId']) {
         this.dtId = +params['dtId'];
-        //console.log("Query Param dtId: " + this.dtId);
         this.store.dispatch(loadDreamTeam({ id: this.dtId }));
       }
     });
@@ -48,7 +44,6 @@ export class UpdateDreamteamComponent implements OnInit{
     this.store.select(selectSingleDreamTeam).subscribe((dreamTeam) => {
       if (dreamTeam) {
         this.dreamTeam = { ...dreamTeam };
-        //console.log("dt loaded: "+dreamTeam);
       }
     });
     this.creatorId=this.dreamTeam.creator.id;
@@ -64,18 +59,12 @@ export class UpdateDreamteamComponent implements OnInit{
     this.availablePlayers = this.allPlayers.filter(
       (player) => !this.dreamTeam.players.some((dtPlayer) => dtPlayer.id === player.id)
     );
-    //console.log("Filtered available players: ", this.availablePlayers);
   }
 
   addPlayer(): void {
     if (this.selectedPlayerId) {
-      console.log("selected player id:"+ this.selectedPlayerId+".");
-      console.log("from available players:"+ this.availablePlayers[0].id+".");
       const playerToAdd = this.availablePlayers.find(player => player.id === Number(this.selectedPlayerId));
-      console.log("player to add: "+ playerToAdd);
       if (playerToAdd && !this.dreamTeam.players.some(p => p.id === playerToAdd.id)) {
-        //this.dreamTeam.players.push(playerToAdd);
-        console.log("player to add id: " +playerToAdd.id);
         this.playersToAdd.push(playerToAdd.name);
         this.playersToAddIds.push(playerToAdd.id);
       }
@@ -83,34 +72,25 @@ export class UpdateDreamteamComponent implements OnInit{
   }
 
   removePlayer(playerId: number): void {
-    //this.dreamTeam.players = this.dreamTeam.players.filter(player => player.id !== playerId);
     if(playerId){
       this.playersToRemove.push(playerId);
       this.store.dispatch(removePlayer({teamId:this.dreamTeam.id, playerIds:this.playersToRemove}));
       this.dreamTeam.players =this.dreamTeam.players.filter(p=>p.id!==playerId);
-      let pl:Player|null=null;
       this.store.dispatch(loadPlayer({id: this.playersToRemove[0]}));
       this.store.select(selectSinglePlayer).subscribe((data)=>{
-        console.log("removed player from select:" , data)
+        //console.log("removed player from select:" , data)
         if(data) {this.availablePlayers.push(data);}
-        
       });
-      //if(pl) {this.availablePlayers.push(pl);}
       this.playersToRemove=[];
-      
-    
-      //console.log("players after remove: ", [this.dreamTeam.players]);
     }
   }
 
   onSubmit(): void {
     
       const dto: DreamTeamDto = new DreamTeamDto(0, this.dreamTeam.name, this.playersToAddIds, this.creatorId);
-      console.log("dto", [dto]);
-      //console.log("dreamTeam to update id: "+this.dreamTeam.id);
       if(this.dtId) {
-        console.log("id for team to update: "+ this.dtId+ ", updates: "+ dto);
-        this.store.dispatch(updateDreamTeam({ id: this.dtId, updates: dto }));}
+        this.store.dispatch(updateDreamTeam({ id: this.dtId, updates: dto }));
+      }
       this.router.navigate(['/my-profile'],{ queryParams: { dtId:this.dtId } });
 
       this.dialog.open(ConfirmUpdateDialogComponent, {

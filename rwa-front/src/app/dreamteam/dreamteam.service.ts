@@ -24,8 +24,8 @@ export class DreamteamService {
     return this.http.get<DreamTeam>(`${url}/dreamteam/${id}`);
   }
 
-  getDreamTeamsByUserId(/*userId: number*/): Observable<DreamTeam[]> {
-    return this.http.get<DreamTeam[]>(`${url}/user`);//s/${userId}/dreamteams`);
+  getDreamTeamsByUserId(): Observable<DreamTeam[]> {
+    return this.http.get<DreamTeam[]>(`${url}/user`);
   }
 
   getAllPlayers(): Observable<Player[]> {

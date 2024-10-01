@@ -30,13 +30,12 @@ export class HomePageComponent implements OnInit{
   searchTermFlag:boolean=false;
   termToSearch:string="";
   stopSearch:boolean=false;
-  filteredGames$: Observable<Game[]>=this.games$.pipe(startWith([]));//, tap(filteredGames => console.log('Filtered Games Before:', filteredGames)));
+  filteredGames$: Observable<Game[]>=this.games$.pipe(startWith([]));
   filteredGames:Game[]=[];
   fromprofile:boolean=false;
 
-  // childShowTeams:boolean |null=null;
 
-  constructor(private store:Store<AppState>, private router: Router) { }
+  constructor(private store:Store<AppState>) { }
 
   ngOnInit(): void {
 
@@ -48,24 +47,21 @@ export class HomePageComponent implements OnInit{
     this.games$.subscribe((data)=>{
       this.allGames=data;
       this.allGames=this.sortGames(this.allGames);
-      console.log("all games: ", this.allGames);
+      //console.log("all games: ", this.allGames);
     });
    
     this.store.dispatch(loadDreamTeams());
     this.store.select(selectAllDreamTeams).subscribe((dts)=>{
       this.alldreamteams=dts;
       this.filterDreamTeams();
-
     })
-   
-    
   }
   
   filterDreamTeams(){
     this.othersdts=this.alldreamteams.filter(
       (dt)=>dt.creator.id!==this.user.id
     )
-    console.log("user:" + this.user.name+"filtered dts:" + this.othersdts);
+    //console.log("user:" + this.user.name+"filtered dts:" + this.othersdts);
   }
 
   handleTermToSearch(term:string):void{
@@ -73,20 +69,17 @@ export class HomePageComponent implements OnInit{
     this.stopSearch=true;
     let termToUpper=term;
     this.termToSearch=termToUpper.charAt(0).toUpperCase() + termToUpper.slice(1);
-    console.log("term to search "+ this.termToSearch);
+    //console.log("term to search "+ this.termToSearch);
     //ako imam pretragu po nazivu tima
     if(this.termToSearch!==""){
 
       this.filteredGames$ = this.games$;
-      this.filteredGames$.subscribe((games)=> console.log("before filtering: ", games));
       this.filteredGames$=this.filteredGames$.pipe(
         map(games => games.filter(game => 
           
-          game.teams.some(team => team.name === this.termToSearch), // Check if any team matches the team name
-          //console.log("term to search:"+ this.termToSearch),
+          game.teams.some(team => team.name === this.termToSearch), 
         )),
         tap(filteredGames => console.log('Filtered Games:', filteredGames))
-        // ,startWith([])
       );
       this.filteredGames$.subscribe((data)=>this.filteredGames=data);
       this.filteredGames=this.sortGames(this.filteredGames);
@@ -96,12 +89,10 @@ export class HomePageComponent implements OnInit{
   handleStopSearch(stop:boolean){
     this.stopSearch=stop;
     this.searchTermFlag=false;
-
   }
 
   sortGames(forSort:Game[]):Game[]{
-    let games:Game[] = [];//this.allGames;
-    //this.allGames
+    let games:Game[] = [];
     forSort.forEach(g=>{
       if(g.resTeam1!==3 && g.resTeam2!==3){
         games.push(g);

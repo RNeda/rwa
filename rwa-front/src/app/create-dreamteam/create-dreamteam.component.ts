@@ -29,51 +29,36 @@ export class CreateDreamteamComponent implements OnInit{
   @Output() dreamteamCreated = new EventEmitter<boolean>();
   @Output() canceldreamteamCreation = new EventEmitter<boolean>();
 
-  constructor(private store: Store<AppState>,public dialog:MatDialog,/*private router:Router,private route: ActivatedRoute*/) {}
+  constructor(private store: Store<AppState>,public dialog:MatDialog) {}
 
   ngOnInit(): void {
     this.store.dispatch(loadPlayers());
     this.store.select(selectUserData).subscribe((data)=>this.creator=data);
-    // this.route.queryParams.subscribe(params => {
-    //   this.creatorId = params['creatorId']; // Extract the creator ID
-    //   this.creatoremail=params['creatoremail'];
-    //   this.creatorpass=params['creatorpass'];
-    // });
-
   }
 
   togglePlayerSelection(playerId: number): void {
     const index = this.selectedPlayers.indexOf(playerId);
     if (index > -1) {
-      this.selectedPlayers.splice(index, 1); // Remove player ID from the array
+      this.selectedPlayers.splice(index, 1); 
     } else {
-      this.selectedPlayers.push(playerId); // Add player ID to the array
+      this.selectedPlayers.push(playerId); 
     }
   }
 
   createDreamTeam(): void {
-   // if (this.creatorId) {
       const newTeam: DreamTeamDto = {
         likes: 0,
         name: this.teamName,
         playerids: this.selectedPlayers,
-        creatorid: this.creator.id, // Now using the creatorId from @Input()
+        creatorid: this.creator.id, 
       };
       this.store.dispatch(createDreamTeam({ dreamTeam: newTeam }));
       
       const created:boolean=true;
       this.dreamteamCreated.emit(created);
       this.createConfirm();
-      //console.log("from create: "+created);
-      //this.store.dispatch(login({email:this.creatoremail, password:this.creatorpass}));
-
-      //this.router.navigate(['/my-profile']);
-    //}
-    
   }
   cancelDreamTeam():void{
-    //ako ostane ovako u posebnom royoru ovo je okej, ako prebacim na profile onda mora output()
-    //this.router.navigate(['/my-profile']);
     const cncl:boolean=true;
     this.canceldreamteamCreation.emit(cncl);
   }

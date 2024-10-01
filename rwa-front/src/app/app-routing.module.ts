@@ -15,7 +15,6 @@ import { CreateTeamComponent } from './create-team/create-team.component';
 import { CreateGameComponent } from './create-game/create-game.component';
 import { CreatePlayerComponent } from './create-player/create-player.component';
 import { SimulacijaComponent } from './simulacija/simulacija.component';
-//import { SimulationComponent } from './simulation/simulation.component';
 
 const routes: Routes = [
   {

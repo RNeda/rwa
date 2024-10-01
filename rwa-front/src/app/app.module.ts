@@ -58,7 +58,6 @@ import { ConfirmUpdateDialogComponent } from './confirm-update-dialog/confirm-up
 import { ConfirmCreateDialogComponent } from './confirm-create-dialog/confirm-create-dialog.component';
 import { SimulacijaComponent } from './simulacija/simulacija.component';
 import { GameOverDialogComponent } from './game-over-dialog/game-over-dialog.component';
-///import { SimulationComponent } from './simulation/simulation.component';
 
 @NgModule({
   declarations: [
@@ -83,12 +82,10 @@ import { GameOverDialogComponent } from './game-over-dialog/game-over-dialog.com
     ConfirmCreateDialogComponent,
     SimulacijaComponent,
     GameOverDialogComponent,
-    ///SimulationComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    //FontAwesomeModule,
     StoreModule.forRoot<AppState>({auth:authReducer, games: gamesReducer, dreamteams:dreamTeamReducer, profile:profileReducer, teams:TeamReducer, players:PlayerReducer}),
     StoreDevtoolsModule.instrument({
       maxAge:25,
@@ -127,7 +124,6 @@ import { GameOverDialogComponent } from './game-over-dialog/game-over-dialog.com
     RoleGuard
 
   ],
-  //entryComponents: [ConfirmDeleteDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

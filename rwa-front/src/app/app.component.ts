@@ -10,5 +10,4 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 })
 export class AppComponent {
   title = 'rwa-front';
-  //kad hocu da dodjaem ikonice iy fontawesome dodajem ovde prvo
 }

@@ -1,7 +1,6 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { DreamTeamState, ProfileState } from "./dreamteam.reducer";
 
-// Selectors for DreamTeams
 export const selectDreamTeamState = createFeatureSelector<DreamTeamState>('dreamteams');
 
 
@@ -44,7 +43,3 @@ export const selectAvailablePlayers = createSelector(
   (state: DreamTeamState) => state.availablePlayers
 );
 
-// export const selectDreamTeamError = createSelector(
-//   selectDreamTeamState,
-//   (state: DreamTeamState) => state.error
-// );

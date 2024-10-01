@@ -5,12 +5,10 @@
   background-color:#ade3fc83;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  //max-width: 800px;
   margin: 40px auto;
 
-  /* Left side for DreamTeam details */
   .details-container {
-    flex: 1 1 25%; /* Takes 25% of the width */
+    flex: 1 1 25%; 
     padding-right: 20px;
 
     h2 {
@@ -37,11 +35,11 @@
       }
 
       &:nth-child(2) mat-icon {
-        color: #98ef9b; /* Green for likes */
+        color: #98ef9b; 
       }
       
       &:nth-child(3) mat-icon {
-        color: #e73124; /* Red for dislikes */
+        color: #e73124; 
       }
 
       &.clickable {
@@ -49,26 +47,11 @@
         color: rgb(32, 35, 84);;
       }
     
-     
     }
-    //&:nth-child(1) mat-icon {
-      // mat-icon {
-      //   margin-right: 5px;
-      //   font-size: 1.5rem;
-      //   .like{
-      //     color: #98ef9b; /* Green for likes */
-      //   }
-    
-      //   //&:nth-child(2) mat-icon 
-      //   .dislike{
-      //     color: #e73124; /* Red for dislikes */
-      //   }
-      // }
   }
 
-  /* Right side for players */
   .players-container {
-    flex: 1 1 75%; /* Takes 75% of the width */
+    flex: 1 1 75%; 
     h3 {
       margin-bottom: 15px;
       color:rgb(32, 35, 84);
@@ -78,11 +61,11 @@
       display: flex;
       flex-wrap: wrap;
       gap: 15px;
-      justify-content: flex-start; /* Aligns players to the start */
+      justify-content: flex-start; 
 
       app-show-player {
-        flex: 1 1 calc(15% - 15px); /* Adjusts the player card to be 3 in a row */
-        max-width: 200px; /* Ensures a maximum width */
+        flex: 1 1 calc(15% - 15px); 
+        max-width: 200px; 
         min-width: 100px;
       }
     }
@@ -95,13 +78,9 @@
   font-weight: normal;
   p {
     font-size: 1.2rem;
-    //font-weight: bold;
     color: #3f51b5;
   }
 
-//   .unknown-creator {
-//     color: #e73124;
-//   }
 }
 
 .no-players-message {
@@ -122,10 +101,8 @@
     font-size: 1rem;
   }
 
-
 }
 
-/* Loading states */
 .loading-message {
   color: #888;
   font-size: 1.4rem;

@@ -1,5 +1,3 @@
-
-
 .game-teams {
   padding: 15px;
   background-color: #cccccc5d;
@@ -18,9 +16,7 @@
       align-items: center;
       width: 100%;
       padding: 10px;
-      //background-color: #ffffff;
-      //border-radius: 5px;
-      //box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      
       
       .team-name {
         flex: 1;
@@ -31,9 +27,7 @@
       }
       
       .game-score {
-        // font-size: 1.6rem;
-        // font-weight: bold;
-        // color: #000;
+        
         flex: 0 0 auto;
         margin: 0 15px;
         font-size: 20px;
@@ -46,12 +40,7 @@
       margin-top: 10px;
       button {
         margin-right: 10px;
-        //background-color: #3f51b5;
         color: rgb(32, 35, 84);
-
-        // &:hover {
-        //   background-color: #303f9f;
-        // }
 
         &[mat-button] {
           padding: 10px 15px;
@@ -67,11 +56,11 @@
       width: 100%;
       
       app-show-team {
-        flex: 1 1 48%; /* Make each team take up 48% of the row */
+        flex: 1 1 48%; 
         margin-right: 4%;
         
         &:last-child {
-          margin-right: 0; /* No margin for the last team */
+          margin-right: 0; 
         }
       }
     }

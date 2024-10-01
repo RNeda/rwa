@@ -1,4 +1,4 @@
-<!--dreamteam from Input()-->
+<!--dreamteam from Input() - oni sa homepage-->
 <div class="dreamteam-container" *ngIf="dreamTeam;else loadFromStore">
   <div class="details-container">
     <h2>{{ dreamTeam.name || 'Unnamed DreamTeam' }}</h2>
@@ -13,7 +13,6 @@
       </ng-template>
     </div>
   </div>
-  <!-- *ngIf="dreamTeam.creator" <p *ngIf="!dreamTeam.creator">Creator information unavailable</p>-->
 
   <div class="players-container">
     <h3>Players</h3>
@@ -48,7 +47,6 @@
         <p *ngIf="loadedDreamTeam.creator">{{ loadedDreamTeam.creator.name || 'Unknown Creator' }}</p>
         <p *ngIf="!loadedDreamTeam.creator">Creator information unavailable</p>
       </div>
-      <!-- Buttons -->
       <div class="buttons-container">
         <button type="button" (click)="updateDT(loadedDreamTeam.id)" mat-raised-button >Update</button>
         <button type="button" (click)="goBackToProfile()" mat-raised-button >Return</button>

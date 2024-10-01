@@ -30,11 +30,7 @@ import { loadTeams } from '../store/team.actions';
 export class ProfileComponent implements OnInit{
 
   profileToDisplay: any;
-  //dreamTeams$: Observable<DreamTeam[]>=this.store.select(selectAllDreamTeams);
-
-  @Input()
-  isMe: boolean = false;
-
+  @Input() isMe: boolean = false;
   isAdmin:boolean=false;
   createTeamflag:boolean=false;
   createDtFlag:boolean=false;
@@ -46,15 +42,10 @@ export class ProfileComponent implements OnInit{
   showteamsbtntext:string=this.showteamsbtn[0];
   novi: DreamTeam[]=[];
   updatedDtId:number=0;
-  //deleteDT:boolean=false;
   fromprofile:boolean=true;
 
   
   constructor(
-    private userService: UserService,
-    private dreamteamService: DreamteamService,
-    private teamService:TeamService,
-    private sanitizer: DomSanitizer,
     private router: Router,
     private route:ActivatedRoute,
     public dialog:MatDialog,
@@ -65,19 +56,13 @@ export class ProfileComponent implements OnInit{
    
     this.store.select(selectUserData).subscribe((data) => {
     this.profileToDisplay = data;
-    //console.log([this.profileToDisplay.dreamteams])
     });
-    // this.store.dispatch(loadDreamTeams());
-    // dreamTeams$ = this.store.select(selectAllDreamTeams).subscribe((data)=>{
-    //   this.fulldts=data.filter(dt=>dt.creator.id===this.profileToDisplay.id);
-    //  // console.log("fulldts after filter", this.fulldts);
-    // })
     this.store.dispatch(loadDreamTeams());
     this.store.select(selectAllDreamTeams).subscribe(dreamTeams => {
-      this.fulldts = dreamTeams.filter(dt=>dt.creator.id===this.profileToDisplay.id);//dreamTeams || []; 
+      this.fulldts = dreamTeams.filter(dt=>dt.creator.id===this.profileToDisplay.id); 
       
-      console.log('DreamTeams from fulldts:', [this.fulldts]); 
-      //kupi id dreamteam-a koji je updateovan
+      //console.log('DreamTeams from fulldts:', [this.fulldts]); 
+      //kupi id dreamteam-a koji je update-ovan
       this.route.queryParams.subscribe(params => {
           if (params['dtId']) {
             this.updatedDtId = +params['dtId']; 
@@ -87,56 +72,43 @@ export class ProfileComponent implements OnInit{
                 this.fulldts = this.fulldts.map(dt => 
                   dt.id === this.updatedDtId ? updatedDreamTeam : dt
                 );
-                
-                //console.log("Updated DreamTeams list:", this.fulldts);
               }
             });
           }
         });
     });
-
-    //this.getFullDts();
-
     if(this.profileToDisplay.role==="admin"){
       this.isAdmin=true;
-    }
-
-    
+    } 
   }
  
 
-  //buttons
   deleteProfile() {
    this.store.dispatch(deleteUser({ id: this.profileToDisplay.id }));
    this.router.navigateByUrl('/sign-in');
   }
+
+  //dreamteam
   showDt(dreamTeamId: number):void{
     this.router.navigate(['show-dreamteam'],{queryParams:{dtId: dreamTeamId}});
   }
   updateDt(dreamTeamId:number){
     this.router.navigate(['update-dreamteam'], { queryParams: { dtId: dreamTeamId } });
   }
-
+  newDreamTeam(){
+    this.createDtFlag=true;
+  }
   deleteDreamteam(id:number){
-    //if(this.deleteDT){
     this.store.dispatch(deleteDreamteam({id:id}));
     this.store.dispatch(loadDreamTeams());
     this.store.select(selectAllDreamTeams).subscribe((data)=>{
       this.fulldts=data.filter(dt=>dt.creator.id===this.profileToDisplay.id);
-     // console.log("fulldts after filter", this.fulldts);
     })
-    //this.router.navigate(['/my-profile']);
-    // this.store.select(selectAllDreamTeams).subscribe((data)=>{
-    //   this.fulldts=[...data];
-    // })
-    //this.store.dispatch(login({email:this.profileToDisplay.email, password:this.profileToDisplay.password}));
-    //}
   }
 
+
+  //team
   showTeamsBtn(){
-    // this.teamService.getTeams().subscribe((teamss)=>{
-    //     this.allTeams=teamss;
-    //   })
     this.store.dispatch(loadTeams());
     this.store.select(selectAllTeams).subscribe((data)=>{
       this.allTeams=[...data];
@@ -155,15 +127,11 @@ export class ProfileComponent implements OnInit{
       }
     }
   }
-
-  newDreamTeam(){
-    this.createDtFlag=true;
-    //this.router.navigate(['/create-dreamteam'], { queryParams: { creatorId: this.profileToDisplay.id, creatoremail: this.profileToDisplay.email, creatorpass:this.profileToDisplay.password } });
-  }
-
   newTeam(){
     this.createTeamflag=true;
   }
+
+
   newGame(){
     this.router.navigate(['/create-game']);
   }
@@ -192,7 +160,6 @@ export class ProfileComponent implements OnInit{
           default:
             console.log('Unknown status');
         }
-        //this.deleteDT=true;
       } else {
         console.log('Delete cancelled');
       }
@@ -205,35 +172,20 @@ export class ProfileComponent implements OnInit{
     this.createTeamflag=!created;
     this.store.select(selectAllTeams).subscribe((data)=>{
       this.allTeams=[...data];
-    })
-    
+    }) 
   }
+
   handleDreamTeamCreated(created:boolean): void {
     console.log("from profile: "+created);
     this.createDtFlag=!created;
-    //this.store.dispatch(login({email:this.profileToDisplay.email, password:this.profileToDisplay.password}));
-    //treba dodati dt useru!!!!
-    // this.store.dispatch(loadUserDreamTeams());
-    // //ovo vraca prethodne
-    // this.store.select(selectUserDreamTeams).subscribe((data)=>{
-    //   this.fulldts=[...data];
-    //   console.log("user dts: ", this.fulldts);
-    //   // if(data){
-    //   //   this.fulldts=[...this.fulldts,data];
-    //   // }
-    // })
     this.store.dispatch(loadDreamTeams());
     this.store.select(selectAllDreamTeams).subscribe((data)=>{
       this.fulldts=data.filter(dt=>dt.creator.id===this.profileToDisplay.id);
-      //console.log("fulldts after filter", this.fulldts);
     })
-    
   }
+
   handleTeamDeleted(deleted:boolean){
     if(deleted===true){
-      // this.teamService.getTeams().subscribe((teamss)=>{
-      //   this.allTeams=teamss;
-      // })
       this.store.select(selectAllTeams).subscribe((data)=>{
         this.allTeams=[...data];
       })
@@ -253,17 +205,4 @@ export class ProfileComponent implements OnInit{
   handleCancelPlayerCreation(cncl:boolean):void{
     this.createPlayerflag=!cncl;
   }
-
-  
-  // getFullDts(){
-    
-  //   this.fulldts.forEach(dt => {
-  //     this.dreamteamService.getDreamTeam(dt.id).subscribe(novi2 => {
-  //       this.novi.push(novi2);  
-  //     });
-  //   });
-  //   console.log(this.novi);
-  // }
-
-
 }

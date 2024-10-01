@@ -6,20 +6,17 @@ import { loginsuccess } from "./user.actions";
 import { Player } from "../entities/player";
 
 export interface DreamTeamState {
-  players:Player[];  //create
-  loading: boolean;//create
+  players:Player[];  
+  loading: boolean;
   dreamTeam: DreamTeam | null;
   dreamTeams: DreamTeam[];
   availablePlayers: Player[];
   user:User|null;
-  //error: any;
 }
 
 export interface ProfileState {
   user:User |null;
   loading:boolean;
-  //dts:DreamTeam[];//new
-  //dreamTeams: DreamTeam[];
 }
 
 export const initialDreamTeamState: DreamTeamState = {
@@ -29,13 +26,11 @@ export const initialDreamTeamState: DreamTeamState = {
   dreamTeams: [],
   availablePlayers: [], 
   user:null
-  //error: null
 };
 
 const initialProfileState: ProfileState = {
   user:null,
   loading:false,
-  //dts: []//new
 };
 
 export const profileReducer = createReducer(
@@ -49,24 +44,15 @@ export const profileReducer = createReducer(
     loading: true,
     //error: null
   })),
-
-  // Handle loadUserDreamTeamsSuccess action
   on(DreamTeamActions.loadUserDreamTeamsSuccess, (state, { dreamTeams }) => ({
     ...state,
     dts: dreamTeams,
     loading: false,
-    
-    // user: {
-    //   ...state.user,
-    //   dreamteams: dreamTeams
-    // }
   })),
-
-  // Handle loadUserDreamTeamsFailure action
   on(DreamTeamActions.loadUserDreamTeamsFailure, (state, { error }) => ({
     ...state,
     loading: false,
-    error: error
+    //error: error
   }))
 );
 
@@ -116,7 +102,7 @@ export const dreamTeamReducer = createReducer(
        ...state, 
        loading: false, 
        dreamTeam ,
-       dreamTeams: [...state.dreamTeams, dreamTeam],//??
+       dreamTeams: [...state.dreamTeams, dreamTeam],
 
        user:state.user?{
         ...state.user,
@@ -141,14 +127,9 @@ export const dreamTeamReducer = createReducer(
       ...state,
       loading: true
     })),
-    // on(DreamTeamActions.updateDreamTeamSuccess, (state, { dreamTeam }) => ({
-    //   ...state,
-    //   dreamTeams: state.dreamTeams.map(dt => dt.id === dreamTeam.id ? dreamTeam : dt),
-    //   loading: false
-    // })),
     on(DreamTeamActions.updateDreamTeamSuccess, (state, { dreamTeam }) => ({
       ...state,
-      dreamTeams: state.dreamTeams.map(dt => dt.id === dreamTeam.id ? dreamTeam : dt) // Replace the updated DreamTeam
+      dreamTeams: state.dreamTeams.map(dt => dt.id === dreamTeam.id ? dreamTeam : dt) 
     })),
     on(DreamTeamActions.updateDreamTeamFailure, (state, { error }) => ({
       ...state,
@@ -176,8 +157,7 @@ export const dreamTeamReducer = createReducer(
     on(DreamTeamActions.removePlayerSuccess, (state, { dreamTeam }) => ({
       ...state,
       dreamTeam: dreamTeam,
-      dreamTeams: state.dreamTeams.map(dt => dt.id === dreamTeam.id ? dreamTeam : dt), // dodato
-
+      dreamTeams: state.dreamTeams.map(dt => dt.id === dreamTeam.id ? dreamTeam : dt), 
       loading: false,
         //error: null
     })),

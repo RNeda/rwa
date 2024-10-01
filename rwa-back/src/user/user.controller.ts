@@ -28,7 +28,7 @@ export class UserController {
     @Get(':email')
     getByEmail(@Param('email')email: string):Promise<User> {
         return this.userService.getByEmail(email);
-    }//radi kad je zakomentarisana getbyid jer ako nije override-uje je
+    }
 
     @Delete(':id')
     delete(@Param('id', ParseIntPipe)id: number):Promise<User> {
@@ -39,11 +39,6 @@ export class UserController {
     update(@Param('id', ParseIntPipe)id: number, @Body() user: UserDto):Promise<User> {
         return this.userService.update(id, user);
     }//radi
-
-    // @Put(':userId/dreamteams/:dreamTeamId')
-    // async addDreamTeam(@Param('userId', ParseIntPipe) userId: number, @Param('dreamTeamId', ParseIntPipe) dreamTeamId: number): Promise<User> {
-    //     return this.userService.addDreamTeam(userId, dreamTeamId);
-    // }
 
     @UseGuards(JwtAuthGuard)
     @Get('profile')

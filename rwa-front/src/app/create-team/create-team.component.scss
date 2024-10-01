@@ -14,7 +14,7 @@ h1 {
     label {
       font-size: 1.2rem;
       color: #333;
-      flex: 0 0 25%; /* Label takes 25% of the space */
+      flex: 0 0 25%; 
       text-align: right;
       padding-right: 15px;
     }
@@ -56,7 +56,7 @@ h1 {
       }
   
       &:hover {
-        background-color: rgba(63, 81, 181, 0.1); /* Light background on hover */
+        background-color: rgba(63, 81, 181, 0.1); 
       }
     }
   }
@@ -64,21 +64,11 @@ h1 {
   button {
     margin: 15px 5px 0 0;
     width: 48%;
-    //background-color: #3f51b5;
     color: rgb(32, 35, 84);
     padding: 10px;
     font-size: 1rem;
   
-    // &:hover {
-    //   background-color: #303f9f;
-    // }
-  
-    // &[aria-label="New team cancel"] {
-    //   background-color: #e73124;
-    //   &:hover {
-    //     background-color: #b71c1c;
-    //   }
-    // }
+    
   
     &.mat-raised-button {
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);

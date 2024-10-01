@@ -1,3 +1,3 @@
 export const jwtConstants = {
-    secret: 'secretKeyForMyPlatformforVolleyball',//ForDecisionMaking',
+    secret: 'secretKeyForMyPlatformforVolleyball',
   };

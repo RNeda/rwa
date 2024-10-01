@@ -18,7 +18,6 @@ import { GameOverDialogComponent } from '../game-over-dialog/game-over-dialog.co
 export class SimulacijaComponent implements OnInit, AfterViewInit{
 
   gameId: number=0;
-  //game$:Observable<Game|null>=this.store.select(SelectSingleGame);
   game:Game|null=null;
   currResT1:number=0;
   currResT2:number=0;
@@ -27,14 +26,15 @@ export class SimulacijaComponent implements OnInit, AfterViewInit{
   team1:string="";
   team2:string="";
   side:string[]=["levo", "desno"];
-  player:number[]=[1,2,3,4,5,6];//string[]=["one","two","three","four","five","six"];
-  pointContacts: number[] = [1, 2, 3, 4]; //0
+  player:number[]=[1,2,3,4,5,6];
+  pointContacts: number[] = [1, 2, 3, 4]; 
   currentSide: string = 'levo'; // Start side
   @ViewChildren('player') players!:QueryList<ElementRef>;
   desiredOrder:number[]=[3,6,5,4,1,2,10,7,8,9,12,11];
   stopSimulation$ = new Subject<void>();
+  prevPlayer:number=-1;
+  prevSide:string="";
 
-  //playersArray:ElementRef<any>[]=[];
   constructor(
     private store: Store<AppState>, 
     private route: ActivatedRoute, 
@@ -59,20 +59,16 @@ export class SimulacijaComponent implements OnInit, AfterViewInit{
     });
     this.currResT1=this.getRandomInt(0,24);
     this.currResT2=this.getRandomInt(0,24);
-    //console.log("players!: ", this.players!);
     this.startSimulation();
   }
 
   ngAfterViewInit() {
-    // Log the QueryList elements in the order they appear in the DOM
     const playersArray=this.players.toArray();
     this.desiredOrder.forEach(index=>{
       if(index-1<playersArray.length){
-        //console.log(`Player ${index}: `, playersArray[index - 1].nativeElement);
       }
     })
     this.players.toArray().forEach((player, index) => {
-      //console.log(`Player from plyaers ${index + 1}: `, player.nativeElement);
     });
   }
 
@@ -86,112 +82,76 @@ export class SimulacijaComponent implements OnInit, AfterViewInit{
   }
   
   startSimulation(){
-    // const pointContactsStream$ = of(this.pointContacts).pipe(
-    //   switchMap(()=>interval(4000)),
-    //   startWith(3),
-    //   map(() => this.pointContacts[Math.floor(Math.random() * this.pointContacts.length)]), //map(()=>this.getRandomInt(1,4)),
-    //   takeWhile(()=>this.currResT1<25 && this.currResT2<25), 
-    //   tap(async contactCount=>await this.handlePoint(contactCount))
-    // );
-    // pointContactsStream$.subscribe();
-    
-
     of(this.pointContacts).pipe(
-      concatMap(() => interval(5000).pipe(  // Waits for one point contact cycle to complete before the next
+      concatMap(() => interval(5000).pipe(  
         startWith(3),
-        map(() => this.pointContacts[Math.floor(Math.random() * this.pointContacts.length)]), // Pick random number from pointContacts array
-        tap(async contactCount => await this.handlePoint(contactCount)),  // Wait for handlePoint to finish
+        map(() => this.pointContacts[Math.floor(Math.random() * this.pointContacts.length)]), 
+        tap(async contactCount => await this.handlePoint(contactCount)),  
         takeUntil(this.stopSimulation$)
       )),
-      takeWhile(() => this.currResT1 < 25 && this.currResT2 < 25 && this.set1!==3 && this.set2!==3), // Stop when one team reaches 25
+      takeWhile(() => this.currResT1 < 25 && this.currResT2 < 25 && this.set1!==3 && this.set2!==3), 
       finalize(() => {
-        // This will be triggered when the game is over
         this.showGameOverPopup();
       })
     ).subscribe();
   }
 
   async handlePoint(contactCount:number){
-    console.log("contact count from side "+ this.currentSide + ": "+ contactCount);
-    //this.selectPlayers(contactCount) returns an array of players based on the contact count.
-   
+    //console.log("contact count from side "+ this.currentSide + ": "+ contactCount);
     const players = await this.selectPlayers(contactCount);
 
-    // Convert the array of players to an observable and use concatMap to process them one by one with a delay
     await from(players).pipe(
       concatMap(player => 
-        timer(1000).pipe( // Add a delay of 1 second (1000 milliseconds) between each player
+        timer(1000).pipe( 
           tap(() => this.highlightPlayer(player, this.currentSide))
         )
       )
-    ).toPromise();//subscribe();
+    ).toPromise();
   
-    if (/*contactCount === 0 ||*/ contactCount === 4) {
-      //timer(500);
+    if (contactCount === 4) {
       await this.awardPointToOtherSide();
       this.currentSide = this.currentSide === 'levo' ? 'levo' : 'desno';
-
     }
     else{
       this.currentSide = this.currentSide === 'levo' ? 'desno' : 'levo';
-
     }
-    //this.currentSide = this.currentSide === 'levo' ? 'desno' : 'levo';
-
-    
   }
 
-  async selectPlayers(contactCount: number):Promise<number[]>{//string[] {
+  async selectPlayers(contactCount: number):Promise<number[]>{
     let players:number[]=[];
     for(let i=0;i<contactCount;i++){
       let p=this.player[Math.floor(Math.random() * this.player.length)];
-      // if(players.some(pl=>pl===p)){
-      //   p=this.player[Math.floor(Math.random() * this.player.length)];
-      // }
+      
       while(players.includes(p)){
         p=this.player[Math.floor(Math.random() * this.player.length)];
       }
       players.push(p);
     }
-    console.log("players from select players: ",players);
+    //console.log("players from select players: ",players);
     return players;
-    // console.log("from select player: ", this.player.slice(0, contactCount));
-    // return this.player.slice(0, contactCount); // Select players for contact count
   }
 
-  prevPlayer:number=-1;
-  prevSide:string="";
-
   async highlightPlayer(player: number, side: string) {
-    
-    console.log(`Highlighting ${player} on side ${side}; prevPlayer: ${this.prevPlayer}, prevSide: ${this.prevSide}`);
-    
+    //console.log(`Highlighting ${player} on side ${side}; prevPlayer: ${this.prevPlayer}, prevSide: ${this.prevSide}`);
     if(this.prevPlayer!==-1){
       this.changePlayerColor(this.prevPlayer,this.prevSide,'yellow');
     }
     this.changePlayerColor(player,side,'red');
     this.prevPlayer=player;
     this.prevSide=side;
-    
-    
   }
 
   async awardPointToOtherSide() {
     if (this.currentSide === 'levo') {
       this.currResT2++;
-      //this.changePlayerColor(player, currSide,'yellow');
-      console.log("point to: " +this.currentSide + "new res : " +this.currResT2);
+      //console.log("point to: " +this.currentSide + "new res : " +this.currResT2);
     } else {
       this.currResT1++;
-      //this.changePlayerColor(player, currSide,'yellow');
-
-      console.log("point to: " +this.currentSide+ "new res : " +this.currResT1);
-
+      //console.log("point to: " +this.currentSide+ "new res : " +this.currResT1);
     }
 
     if (this.currResT1 >= 25 || this.currResT2 >= 25) {
-      //this.changePlayerColor(player, currSide,'yellow');
-      console.log('Game over!');
+      //console.log('Game over!');
       if(this.currResT1>=25){
         this.changeSetResult(this.set1+1,this.set2);
         this.set1+=1;
@@ -271,8 +231,8 @@ export class SimulacijaComponent implements OnInit, AfterViewInit{
     const dto:GameDto=new GameDto(res1,res2,[]);
     if(this.gameId){
       this.store.dispatch(updateGame({id:this.gameId, updates:dto}));
-      this.currResT1=0;//this.getRandomInt(10,20);
-      this.currResT2=0;//this.getRandomInt(10,20);
+      this.currResT1=0;
+      this.currResT2=0;
     }
   }
 
@@ -301,7 +261,7 @@ export class SimulacijaComponent implements OnInit, AfterViewInit{
       }
     });
     dialogRef.afterClosed().subscribe(() => {
-      this.router.navigate(['/home-page']); // Replace '/other-page' with the desired route
+      this.router.navigate(['/home-page']); 
     });
   }
 }
